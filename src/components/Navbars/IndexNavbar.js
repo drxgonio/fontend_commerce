@@ -18,6 +18,9 @@ import {
   Link
 
 } from "react-router-dom";
+import { Input, Icon } from 'antd';
+
+const { Search } = Input;
 
 
 function IndexNavbar(props) {
@@ -75,6 +78,10 @@ function IndexNavbar(props) {
             <span className="navbar-toggler-bar bar3" />
           </button>
         </div>
+        <NavbarBrand >
+               <Search placeholder="Tìm kiếm sản phẩm" onSearch={value => console.log(value)} enterButton   />
+  
+          </NavbarBrand>
         <Collapse
           className="justify-content-end"
           navbar
@@ -87,8 +94,7 @@ function IndexNavbar(props) {
               <NavLink
                 data-placement="bottom"
                 href="#"
-                target="_blank"
-                title="Follow us on Twitter"
+                title="Theo dõi đơn hàng"
               >
                 <i className="fa fa-twitter" />
                 <p className="d-lg-none">Twitter</p>
@@ -99,10 +105,10 @@ function IndexNavbar(props) {
                 data-placement="bottom"
                 href="#"
                 target="_blank"
-                title="Like us on Facebook"
+                title="Thông báo của tôi"
               >
-                <i className="fa fa-facebook-square" />
-                <p className="d-lg-none">Facebook</p>
+                <Icon type="notification" />
+                Thông báo
               </NavLink>
             </NavItem>
             <NavItem>
@@ -134,6 +140,12 @@ function IndexNavbar(props) {
               </NavItem>
             <NavItem></NavItem>
             <NavItem>
+                <NavLink >
+                <Icon type="shopping-cart" /> Giỏ hàng
+              </NavLink>
+              </NavItem>
+          
+            <NavItem>
                 <NavLink
                   onClick={props.onLogout}
                 >
@@ -155,6 +167,15 @@ function IndexNavbar(props) {
            ) : (
             <Nav navbar>
         
+            <NavItem>
+                  <NavLink
+                    data-placement="bottom"
+                    href="#"
+                    title="Follow us on Twitter"
+                  >
+                    <Icon type="notification" />
+                  </NavLink>
+                </NavItem>
             <NavItem>
               <NavLink
                 data-placement="bottom"
@@ -188,22 +209,17 @@ function IndexNavbar(props) {
                 <p className="d-lg-none">Instagram</p>
               </NavLink>
             </NavItem>
-            <NavItem>
-              <NavLink
-                data-placement="bottom"
-                href="#"
-                target="_blank"
-                title="Star on GitHub"
-              >
-                <i className="fa fa-github" />
-                <p className="d-lg-none">GitHub</p>
-              </NavLink>
-            </NavItem>         
+                   
             <NavItem>
                 <NavLink
                   href="/login"
                 >
-                  <i className="nc-icon nc-book-bookmark" /> Login
+                  <i className="fa fa-github" /> Login
+              </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink >
+                <Icon type="shopping-cart" /> Giỏ hàng
               </NavLink>
               </NavItem>
             <NavItem>

@@ -11,6 +11,7 @@ import { callbackify } from 'util';
 import Admin from './admin/Admin';
 import ProfilePage from 'components/Profile/ProfilePage';
 import PrivateRoute from 'API/common/PrivateRoute';
+import Cart from 'components/Cart/Cart';
 
 
 function Index() {
@@ -73,6 +74,7 @@ function Index() {
         </Route>*/}
         {/* <Route path="/profile-page" exact render={props => <ProfilePage authenticated={authenticated} currentUser={currentUser} {...props} />} /> */}
         <Route path="/profile-page" exact render={props => <ProfilePage  {...props} />} />
+        <Route path="/mycart" exact render={props => <Cart  {...props} />} />
       </BrowserRouter>
 
     </Context.Provider>

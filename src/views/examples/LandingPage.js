@@ -37,7 +37,6 @@ import {
 
 // core components
 import ExamplesNavbar from "components/Navbars/IndexNavbar";
-import LandingPageHeader from "components/Headers/LandingPageHeader.js";
 import DemoFooter from "components/Footers/DemoFooter.js";
 
 function LandingPage() {
@@ -51,7 +50,6 @@ function LandingPage() {
   return (
     <>
       <ExamplesNavbar />
-      <LandingPageHeader />
       <div className="main">
         <div className="section text-center">
           <Container>

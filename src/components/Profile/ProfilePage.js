@@ -29,12 +29,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper'
+import { Table, Divider, Tag } from 'antd';
 // core components
 import DemoFooter from "components/Footers/DemoFooter.js";
 import PageNarbar from "components/Profile/PageNarbar";
@@ -71,18 +66,81 @@ function ProfilePage(props) {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  //table quan ly don hang
-  function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-  }
-
-  const rows = [
-    createData(911123213, '21/05/1998', 'Combo 2 áo 3 lỗ nam Kisetsu - KIS211661 - Size L', '150.000 ₫', 'Giao hàng thành công'),
-    createData(911123213, '21/05/1998', 'Combo 2 áo 3 lỗ nam Kisetsu - KIS211661 - Size L', '150.000 ₫', 'Giao hàng thành công'),
-    createData(911123213, '21/05/1998', 'Combo 2 áo 3 lỗ nam Kisetsu - KIS211661 - Size L', '150.000 ₫', 'Giao hàng thành công'),
-    createData(911123213, '21/05/1998', 'Combo 2 áo 3 lỗ nam Kisetsu - KIS211661 - Size L', '150.000 ₫', 'Giao hàng thành công'),
-    createData(911123213, '21/05/1998', 'Combo 2 áo 3 lỗ nam Kisetsu - KIS211661 - Size L', '150.000 ₫', 'Giao hàng thành công'),
+   //set tab card
+   const columns = [
+    {
+      title: 'Name',
+      dataIndex: 'name',
+      key: 'name',
+      render: text => <a>{text}</a>,
+    },
+    {
+      title: 'Age',
+      dataIndex: 'age',
+      key: 'age',
+    },
+    {
+      title: 'Address',
+      dataIndex: 'address',
+      key: 'address',
+    },
+    {
+      title: 'Tags',
+      key: 'tags',
+      dataIndex: 'tags',
+      render: tags => (
+        <span>
+          {tags.map(tag => {
+            let color = tag.length > 5 ? 'geekblue' : 'green';
+            if (tag === 'loser') {
+              color = 'volcano';
+            }
+            return (
+              <Tag color={color} key={tag}>
+                {tag.toUpperCase()}
+              </Tag>
+            );
+          })}
+        </span>
+      ),
+    },
+    {
+      title: 'Action',
+      key: 'action',
+      render: (text, record) => (
+        <span>
+          <a>Invite {record.name}</a>
+          <Divider type="vertical" />
+          <a>Delete</a>
+        </span>
+      ),
+    },
   ];
+  const data = [
+    {
+      key: '1',
+      name: 'John Brown',
+      age: 32,
+      address: 'New York No. 1 Lake Park',
+      tags: ['nice', 'developer'],
+    },
+    {
+      key: '2',
+      name: 'Jim Green',
+      age: 42,
+      address: 'London No. 1 Lake Park',
+      tags: ['loser'],
+    },
+    {
+      key: '3',
+      name: 'Joe Black',
+      age: 32,
+      address: 'Sidney No. 1 Lake Park',
+      tags: ['cool', 'teacher'],
+    },
+  ];
+  
+
 
   return (
     <>
@@ -206,33 +264,8 @@ function ProfilePage(props) {
                   <TabPanel value={value} index={2}>
                     <Row><h3>Quản lý đơn hàng </h3></Row>
                     <Row>
-                      <Paper className={classes.root}>
-                        <Table className={classes.table} aria-label="simple table">
-                          <TableHead>
-                            <TableRow>
-                              <TableCell>Mã đơn hàng </TableCell>
-                              <TableCell>Ngày mua</TableCell>
-                              <TableCell>Sản phẩm</TableCell>
-                              <TableCell align="right">Tổng tiền</TableCell>
-                              <TableCell >Trạng thái đơn hàng</TableCell>
-                            </TableRow>
-                          </TableHead>
-                          <TableBody>
-                            {rows.map(row => (
-                              <TableRow key={row.name}>
-                                <TableCell component="th" scope="row">
-                                  {row.name}
-                                </TableCell>
-                                <TableCell align="right">{row.calories}</TableCell>
-                                <TableCell align="right">{row.fat}</TableCell>
-                                <TableCell align="right">{row.carbs}</TableCell>
-                                <TableCell align="right">{row.protein}</TableCell>
-                              </TableRow>
-                            ))}
-                          </TableBody>
-                        </Table>
-                      </Paper>
-                    </Row>
+                        <Table columns={columns} dataSource={data} />
+                     </Row>
 
                   </TabPanel>
                   <TabPanel value={value} index={3}>
