@@ -7,6 +7,10 @@ import IndexPage from './IndexPage.js/IndexPage';
 import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
 import { ACCESS_TOKEN } from 'API/URLMapping';
 import Login from './Auth/Login';
+import { callbackify } from 'util';
+import Admin from './admin/Admin';
+import ProfilePage from 'components/Profile/ProfilePage';
+import PrivateRoute from 'API/common/PrivateRoute';
 
 
 function Index() {
@@ -37,7 +41,7 @@ function Index() {
   }, []);
 
 
-
+  
   const handleLogout = () => {
     localStorage.removeItem(ACCESS_TOKEN);
     setAuthenticated(false);
@@ -49,14 +53,26 @@ function Index() {
     role
   }
 
+  function callbackSuccessfull(){
+    setAuthenticated(true);
+
+  }
+
 
   return (
 
     <Context.Provider value={authen}>
       <BrowserRouter>
 
-        <Route path="/index" exact render={props => <IndexPage authenticated={authenticated} onLogout={handleLogout} {...props} />} />
-        <Route path="/login" exact render={props => <Login {...props} />} />
+        <Route path="/" exact render={props => <IndexPage authenticated={authenticated} onLogout={handleLogout} {...props} />} />
+        <Route path="/login" exact render={props => <Login authenticated={authenticated} loginSuccess={callbackSuccessfull} {...props} />} />
+        <Route path="/admin" component={Admin} />
+        {/* <Route path="/profile-page" authenticated={authenticated} currentUser={currentUser}
+                component={ProfilePage}>        
+
+        </Route>*/}
+        {/* <Route path="/profile-page" exact render={props => <ProfilePage authenticated={authenticated} currentUser={currentUser} {...props} />} /> */}
+        <Route path="/profile-page" exact render={props => <ProfilePage  {...props} />} />
       </BrowserRouter>
 
     </Context.Provider>

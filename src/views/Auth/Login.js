@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
 import {
   Button,
@@ -15,38 +15,48 @@ import {
 import IndexNavbar from "components/Navbars/IndexNavbar";
 import Context from '../../Context/Context.js';
 import useForm from '../../Aform/useForm.js';
+import {withRouter} from "react-router-dom"
 import { submitLogin } from 'API/APIUtils';
 import { ACCESS_TOKEN } from 'API/URLMapping';
 
 function Login(props) {
   //get user
-  const authen = useContext(Context)
+
+  const  [check, setCheck] = useState(false);
+  
   document.documentElement.classList.remove("nav-open");
-  React.useEffect(() => {
+  useEffect(() => {
     document.body.classList.add("register-page");
     return function cleanup() {
       document.body.classList.remove("register-page");
     };
 
   });
+
+  useEffect(()=>{
+    if(props.authenticated){
+      props.history.push("/");
+    }
+  },[props.authenticated])
   const { values, handleChange, handleSubmit } = useForm(login);
   function login() {   
-    //console.log(values);
     submitLogin(values)
-    .then(response => {
-        console.log(response);
-        localStorage.setItem(ACCESS_TOKEN, response.accessToken);
+    .then(response => {   
+        localStorage.setItem(ACCESS_TOKEN, response.accessToken); 
+        props.loginSuccess();
+        props.history.push("/");
+        
     }).catch(error => {
        // Alert.error((error && error.message) || 'Oops! Something went wrong. Please try again!');
     });
   }
-  if (authen.authenticated) {
-    return (<Redirect
-      to="/index" />);
-  }
+
+
+ 
  
   return (
     <>
+    
       <IndexNavbar />
       <div
         className="section section-image section-login"
@@ -116,4 +126,4 @@ function Login(props) {
     </>
   );
 }
-export default Login;
+export default withRouter(Login);

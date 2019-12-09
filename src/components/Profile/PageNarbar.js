@@ -20,8 +20,8 @@ import {
 } from "react-router-dom";
 
 
-function IndexNavbar(props) {
-  const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
+function PageNarbar() {
+  const [navbarColor, setNavbarColor] = React.useState("");
   const [navbarCollapse, setNavbarCollapse] = React.useState(false);
 
   const toggleNavbarCollapse = () => {
@@ -31,17 +31,7 @@ function IndexNavbar(props) {
 
   React.useEffect(() => {
     const updateNavbarColor = () => {
-      if (
-        document.documentElement.scrollTop > 299 ||
-        document.body.scrollTop > 299
-      ) {
-        setNavbarColor("");
-      } else if (
-        document.documentElement.scrollTop < 300 ||
-        document.body.scrollTop < 300
-      ) {
-        setNavbarColor("navbar-transparent");
-      }
+      setNavbarColor("");
     };
 
     window.addEventListener("scroll", updateNavbarColor);
@@ -58,7 +48,7 @@ function IndexNavbar(props) {
         <div className="navbar-translate">
           <NavbarBrand
             data-placement="bottom"
-            href="/"
+            href="/index"
             title="Coded by Creative Tim"
           >
             Ecommerce
@@ -80,7 +70,6 @@ function IndexNavbar(props) {
           navbar
           isOpen={navbarCollapse}
         >
-            {props.authenticated ? (
           <Nav navbar>
         
             <NavItem>
@@ -128,19 +117,6 @@ function IndexNavbar(props) {
               </NavLink>
             </NavItem>         
             <NavItem>
-                <NavLink href="/profile-page">
-                  <i className="nc-icon nc-book-bookmark" /> User Info
-              </NavLink>
-              </NavItem>
-            <NavItem></NavItem>
-            <NavItem>
-                <NavLink
-                  onClick={props.onLogout}
-                >
-                  <i className="nc-icon nc-book-bookmark" /> Logout
-              </NavLink>
-              </NavItem>
-            <NavItem>
               <Button
                 className="btn-round"
                 color="danger"
@@ -152,78 +128,10 @@ function IndexNavbar(props) {
               </Button>
             </NavItem>                    
           </Nav>
-           ) : (
-            <Nav navbar>
-        
-            <NavItem>
-              <NavLink
-                data-placement="bottom"
-                href="#"
-                target="_blank"
-                title="Follow us on Twitter"
-              >
-                <i className="fa fa-twitter" />
-                <p className="d-lg-none">Twitter</p>
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink
-                data-placement="bottom"
-                href="#"
-                target="_blank"
-                title="Like us on Facebook"
-              >
-                <i className="fa fa-facebook-square" />
-                <p className="d-lg-none">Facebook</p>
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink
-                data-placement="bottom"
-                href="#"
-                target="_blank"
-                title="Follow us on Instagram"
-              >
-                <i className="fa fa-instagram" />
-                <p className="d-lg-none">Instagram</p>
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink
-                data-placement="bottom"
-                href="#"
-                target="_blank"
-                title="Star on GitHub"
-              >
-                <i className="fa fa-github" />
-                <p className="d-lg-none">GitHub</p>
-              </NavLink>
-            </NavItem>         
-            <NavItem>
-                <NavLink
-                  href="/login"
-                >
-                  <i className="nc-icon nc-book-bookmark" /> Login
-              </NavLink>
-              </NavItem>
-            <NavItem>
-              <Button
-                className="btn-round"
-                color="danger"
-                href="#pablo"
-                target="_blank"
-                disabled
-              >
-                Upgrade to Pro
-              </Button>
-            </NavItem>         
-          </Nav>
-           )}
-
         </Collapse>
       </Container>
     </Navbar>
   );
 }
 
-export default IndexNavbar;
+export default PageNarbar;
