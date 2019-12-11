@@ -61,6 +61,7 @@ function Cart(props) {
   useEffect(()=>{
     
     if(localStorage.getItem(ACCESS_TOKEN)!==null){
+  
       setLstCart(JSON.parse(localStorage.getItem('mycart')));  
     }
     else{

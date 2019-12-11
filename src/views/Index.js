@@ -15,6 +15,7 @@ import Cart from 'components/Cart/Cart';
 import ProductOfCategory from 'components/ProductOfCategory/ProductOfCategory';
 import ProductDetails from 'components/ProductDetails/ProductDetails';
 import Shipping from 'components/Shipping/Shipping';
+import Order from 'components/Order/Order';
 
 
 function Index() {
@@ -78,6 +79,7 @@ function Index() {
         <Route path="/mycart" exact render={props => <Cart authenticated={authenticated} onLogout={handleLogout}  {...props} />} />
         <Route path="/product-details/:name/:id" exact render={props => <ProductDetails authenticated={authenticated} onLogout={handleLogout} {...props} />} />
         <Route path="/shipping" exact render={props => <Shipping authenticated={authenticated} currentUser={currentUser} onLogout={handleLogout}  {...props} />} />
+        <Route path="/order" exact render={props => <Order authenticated={authenticated} currentUser={currentUser} onLogout={handleLogout}  {...props} />} />
       </BrowserRouter>
 
     </Context.Provider>
