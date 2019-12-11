@@ -1,23 +1,33 @@
 import React from 'react';
+import {Link} from 'react-router-dom'
 
-
-function ProductItem(){
+function ProductItem(props){
+    const[image,setImage]=React.useState("");
+    React.useEffect(()=>{
+        if(props.product!=null){
+            setImage(props.product.imagephoto);
+        }
+    },[props.product])
+    
+  
     return(
         <>
             <div className="position-relative text-center border ">
-                <a href="#">
-                <img src="https://salt.tikicdn.com/cache/280x280/ts/product/2c/a2/03/64747878884bbe1090a5f14b6dd768cc.jpg" 
+            <Link   to={{
+                                    pathname: `/product-details/${props.product&&props.product.name}/${props.product&&props.product.id}`
+                                  }}>
+                <img src={image}
                 alt="Áo Thun Thể Thao Nam" className="form-control" 
                 style={{width: '100%', height: '100%', opacity: 1}} />
-                </a>
-                <p className="title" style={{ height: '40px'}}>Áo thun thể thao nam.</p>
+                </Link >   
+    <p className="title" style={{ height: '40px'}}>{props.product&&props.product.name}</p>
                 <p className="h5 m-auto text-center font-weight-bold ">
-                    253.000 ₫
+                {props.product&&props.product.product_details.pricesale}
                     <span class="h6 text-justify"><small className="align-baseline"><mark>-48%</mark></small></span>
                    
                 </p>
                 <p className="h5 m-auto text-center ">
-                    <strike>451.000 ₫ </strike>        
+                    <strike>{props.product&&props.product.product_details.price} </strike>        
                 </p>
 
             </div>

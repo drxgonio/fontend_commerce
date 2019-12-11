@@ -1,5 +1,5 @@
 
-import React from "react";
+import React,{useState,useEffect} from "react";
 import { Menu, Icon } from 'antd';
 import SimpleImageSlider from "react-simple-image-slider";
 // reactstrap components
@@ -18,15 +18,21 @@ import {
     Row,
     Col
 } from "reactstrap";
+import {Link} from 'react-router-dom'
 const { SubMenu } = Menu;
+
 const handleClick = e => {
     console.log('click ', e);
 };
 
-function Narbar() {
+function Narbar(props) {
+ 
 
     return (
         <>
+      
+      
+    
             <div className="section section-navbars">
                 <Container id="menu-dropdown">
                     <div className="title">
@@ -35,7 +41,7 @@ function Narbar() {
                     <br />
                     <Row>
                         <Col md="3">
-                            <CategoryList></CategoryList>
+                            <CategoryList lstCategory={props.lstCategory}></CategoryList>
                         </Col>
                         <Col md="9">
                             <Row>
@@ -136,67 +142,33 @@ function Banner() {
     );
 }
 //category List
-function CategoryList() {
+function CategoryList(props) {
     return (
         <>
+        {console.log(props.lstCategory)}
             <Navbar className="bg-primary" expand="lg">             
                         <Menu
                             onClick={handleClick}
                             style={{ width: 256 }}
-                            defaultSelectedKeys={['1']}
-                            defaultOpenKeys={['sub1']}
-                            mode="inline"
+                          
                             className="font-weight-bold"
                         >
-                             <span>Danh mục</span>  
-                            <SubMenu
-                                key="sub1"
-                                title={
-                                    <span>
-                                        <Icon type="mail" />
-                                        <span>Thiết bị điện tử</span>
-                                    </span>
-                                }
-                            >
-                                <Menu.ItemGroup key="g1" title="Item 1">
-                                    <Menu.Item key="1">Option 1</Menu.Item>
-                                    <Menu.Item key="2">Option 2</Menu.Item>
-                                </Menu.ItemGroup>
-                                <Menu.ItemGroup key="g2" title="Item 2">
-                                    <Menu.Item key="3">Option 3</Menu.Item>
-                                    <Menu.Item key="4">Option 4</Menu.Item>
-                                </Menu.ItemGroup>
-                            </SubMenu>
-                            <SubMenu
-                                key="sub2"
-                                title={
-                                    <span>
-                                        <Icon type="appstore" />
-                                        <span>Máy tính và lap top</span>
-                                    </span>
-                                }
-                            >
-                                <Menu.Item key="5">Option 5</Menu.Item>
-                                <Menu.Item key="6">Option 6</Menu.Item>
-                                <SubMenu key="sub3" title="Submenu">
-                                    <Menu.Item key="7">Option 7</Menu.Item>
-                                    <Menu.Item key="8">Option 8</Menu.Item>
-                                </SubMenu>
-                            </SubMenu>
-                            <SubMenu
-                                key="sub4"
-                                title={
-                                    <span>
-                                        <Icon type="setting" />
-                                        <span>Đồng hồ</span>
-                                    </span>
-                                }
-                            >
-                                <Menu.Item key="9">Option 9</Menu.Item>
-                                <Menu.Item key="10">Option 10</Menu.Item>
-                                <Menu.Item key="11">Option 11</Menu.Item>
-                                <Menu.Item key="12">Option 12</Menu.Item>
-                            </SubMenu>
+                             <span>Danh mục</span> 
+                             {props.lstCategory.map(item =>(
+                                 <SubMenu
+                                
+                                 title={                                 
+                                 <Link   to={{
+                                    pathname: `/product-of-category/${item.name}/${item.id}`
+                                  }}>{item.name}</Link >                    
+                                 }
+                             >
+                                 
+                             </SubMenu>
+                             ))}
+                            
+                            
+                           
                         </Menu>
                   
             </Navbar>

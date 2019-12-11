@@ -1,5 +1,5 @@
 //login
-import React ,{ useContext } from 'react';
+import React ,{ useContext,useEffect } from 'react';
 import { useState } from 'react';
 import DemoFooter from "../../components/Footers/DemoFooter.js";
 import IndexHeader from "../../components/Headers/IndexHeader.js";
@@ -9,53 +9,72 @@ import KeyWord from "../body/KeyWord";
 import Narbar from "../body/Narbar";
 import ProductOfme from "../body/ProductOfme";
 import ProductUserWatch from "../body/ProductUserWatch";
-import Context from '../../Context/Context.js'
-import { ACCESS_TOKEN } from 'API/URLMapping.js';
-import SectionNavbars from 'views/index-sections/SectionNavbars.js';
-import SectionNavigation from 'views/index-sections/SectionNavigation.js';
-import SectionProgress from 'views/index-sections/SectionProgress.js';
-import SectionNotifications from 'views/index-sections/SectionNotifications.js';
 import SectionTypography from 'views/index-sections/SectionTypography.js';
-import SectionJavaScript from 'views/index-sections/SectionJavaScript.js';
-import SectionCarousel from 'views/index-sections/SectionCarousel.js';
-import SectionNucleoIcons from 'views/index-sections/SectionNucleoIcons.js';
-import SectionDark from 'views/index-sections/SectionDark.js';
-import SectionLogin from 'views/index-sections/SectionLogin.js';
-import SectionExamples from 'views/index-sections/SectionExamples.js';
-import SectionDownload from 'views/index-sections/SectionDownload.js';
-import LandingPage from 'views/examples/LandingPage.js';
 
+import axios from 'axios';
+import ProductList from 'views/body/ProductList.js';
+import SectionExamples from 'views/index-sections/SectionExamples.js';
+import SectionNavbars from 'views/index-sections/SectionNavbars.js';
+import SectionNotifications from 'views/index-sections/SectionNotifications.js';
+import SectionProgress from 'views/index-sections/SectionProgress.js';
+import SectionNavigation from 'views/index-sections/SectionNavigation.js';
 function IndexPage(props){
+  const [data, setData] = useState({lstCategory: [], lstProduct: [] });
+  const [page, setPage] = useState(1);
+  useEffect( () => {
+    const fetchData = async () => {
+        const lstCategory = await axios(
+          `http://localhost:8080/api/findAllCategory`
+        );
+        const lstProduct = await axios(
+          `http://localhost:8080/api/getallProduct?page=`+(page-1)+`&size=8`
+        );
+  
+        setData({ lstCategory: lstCategory.data, lstProduct: lstProduct.data });
+
+      };
+  
+    fetchData();
+  },[page]);
+  function checkPageable(number){
+    setPage(number);
+}
+
 
     return(
   
         <>
   
-       
+       {console.log(data.lstProduct)}
      <IndexNavbar authenticated={props.authenticated} onLogout={props.onLogout} />
         <IndexHeader />
       <div className="main">
-        <Narbar></Narbar>
+        <Narbar lstCategory={data.lstCategory} ></Narbar>
         <ProductUserWatch></ProductUserWatch>
+        <ProductList lstProduct={data.lstProduct} onPageable={checkPageable}></ProductList>
         <KeyWord></KeyWord>
         <ProductOfme></ProductOfme>
         <DemoFooter />   
       
-        {/* <SectionNavbars />
+        
         <SectionNavigation />
         <SectionProgress />
-        <SectionNotifications /> */}
+        <SectionNotifications />
          
          <SectionTypography />
+         <SectionExamples />
+         <SectionNavbars />
+         <SectionNotifications />
+       
+          {/* <SectionProgress />
+         <SectionNavigation /> */}
         {/* <SectionJavaScript />
         <SectionCarousel />
         <SectionNucleoIcons />
         <SectionDark />
         <SectionLogin />
-       <SectionExamples />
+      
         <SectionDownload />  */}
-        <LandingPage></LandingPage>
-
       </div>
       </>
       

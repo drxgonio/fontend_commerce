@@ -32,10 +32,10 @@ import Box from '@material-ui/core/Box';
 import { Table, Divider, Tag } from 'antd';
 // core components
 import DemoFooter from "components/Footers/DemoFooter.js";
-import PageNarbar from "components/Profile/PageNarbar";
 import TextField from '@material-ui/core/TextField';
 import { Radio, Checkbox } from 'antd';
 import { style } from "@material-ui/system";
+import NarbarGlobal from "components/Navbars/NarbarGlobal";
 
 
 function ProfilePage(props) {
@@ -62,7 +62,12 @@ function ProfilePage(props) {
   //set tab user
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
-
+  //check show
+  const[checked,setChecked]=React.useState(false);
+  //check gender
+  const [checkGender, setCheckGender] = React.useState(true);
+ 
+  ///
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -139,14 +144,19 @@ function ProfilePage(props) {
       tags: ['cool', 'teacher'],
     },
   ];
+  function onChange (e) {
+    console.log('checked = ', e.target.checked);
+ 
+      setChecked(e.target.checked);
+    
+  };
   
 
 
   return (
     <>
-      {console.log(props.currentUser)}
-      {console.log(user)}
-      <PageNarbar></PageNarbar>
+      {console.log(props.data)}
+      <NarbarGlobal authenticated={props.authenticated} onLogout={props.onLogout} />
       <div className="section section-navbars pt-100">
         <Container >
           <div className="title">
@@ -154,8 +164,6 @@ function ProfilePage(props) {
           </div>
           <br />
           <Row>
-
-
             <Col md="3">
               <Row>
                 <Container>
@@ -199,30 +207,20 @@ function ProfilePage(props) {
                     <Row><h3>Thông tin tài khoản </h3></Row>
                     <Row>
                       <Col md="4"> <Label>Họ tên</Label></Col>
-                      <Col md="8"> <Input placeholder="Nhập tên" value="Phan Van Tri" className="form-group" /></Col>
+                      <Col md="8"> <Input placeholder="Nhập tên" value={props.currentUser&&props.currentUser.name} className="form-group" /></Col>
                     </Row>
                     <Row>
                       <Col md="4"> <Label>Số điện thoại</Label></Col>
-                      <Col md="8"> <Input placeholder="Nhập Số điện thoại" value="Phan Van Tri" className="form-group" type="number" value="0385053517" disable /></Col>
+                      <Col md="8"> <Input placeholder="Nhập Số điện thoại" value={props.currentUser&&props.currentUser.phone} className="form-group" type="number" value="0385053517" disabled /></Col>
                     </Row>
                     <Row>
                       <Col md="4"> <Label>Email</Label></Col>
-                      <Col md="8"> <Input placeholder="Nhập Email" value="vantriphan2105@gmail.com" className="form-group" disable /></Col>
+                      <Col md="8"> <Input placeholder="Nhập Email" value={props.currentUser&&props.currentUser.email} className="form-group" disabled /></Col>
                     </Row>
                     <Row>
                       <Col md="4"> <Label>Ngày sinh</Label></Col>
-                      <Col md="8"> <form className={classes.container} noValidate>
-                        <TextField
-                          id="date"
-                          label=""
-                          type="date"
-                          defaultValue="2017-05-24"
-                          className={classes.textField}
-                          InputLabelProps={{
-                            shrink: true,
-                          }}
-                        />
-                      </form>
+                      <Col md="8"> 
+                      <Input  value={props.currentUser&&props.currentUser.date} className="form-group" disabled />
                       </Col>
                     </Row>
 
@@ -230,7 +228,7 @@ function ProfilePage(props) {
                       <Col md="4"> <Label>Giới tính</Label></Col>
                       <Col md="8">
                         <Radio.Group >
-                          <Radio value={1}>Nam</Radio>
+                          <Radio value={1} checked>Nam</Radio>
                           <Radio value={2}>Nữ</Radio>
 
                         </Radio.Group>
@@ -238,22 +236,33 @@ function ProfilePage(props) {
                     </Row>
                     <Row >
                       <Col md="4"> </Col>
-                      <Col md="8"> <Checkbox >Thay đổi mật khẩu</Checkbox></Col>
+                      <Col md="8"> <Checkbox  checked={checked} onChange={onChange}>Thay đổi mật khẩu</Checkbox></Col>
                     </Row>
-
-                    <Row>
+                    {checked?(  
+                      <Row>
+                        <Col md="12">
+                        <Row>
                       <Col md="4"> <Label>Mật khẩu cũ</Label></Col>
                       <Col md="4"> <Input placeholder="Nhập mật khẩu" className="form-group" type="password" /></Col>
                     </Row>
-                    <Row>
-                      <Col md="4"> <Label>Mật khẩu mới</Label></Col>
-                      <Col md="4"> <Input placeholder="Nhập mật khẩu mới" className="form-group" type="password" /></Col>
-                    </Row>
-                    <Row>
-                      <Col md="4"> <Label>Nhập lại</Label></Col>
-                      <Col md="4"> <Input placeholder="Nhập lại" className="form-group" type="password" /></Col>
-                      <Col md="4" > <Button className="btn-warning float-right">Cập nhập</Button> </Col>
-                    </Row>
+                     <Row>
+                     <Col md="4"> <Label>Mật khẩu mới</Label></Col>
+                     <Col md="4"> <Input placeholder="Nhập mật khẩu mới" className="form-group" type="password" /></Col>
+                   </Row>
+                   <Row>
+                     <Col md="4"> <Label>Nhập lại</Label></Col>
+                     <Col md="4"> <Input placeholder="Nhập lại" className="form-group" type="password" /></Col>
+                     <Col md="4" > <Button className="btn-warning float-right">Cập nhập</Button> </Col>
+                   </Row>
+                        </Col>
+                      </Row>
+                    ):( <Row>
+                       <Col md="4"> </Col>
+                       <Col md="4"> </Col>
+                       <Col md="4" > <Button className="btn-warning float-right">Cập nhập</Button> </Col>
+                    </Row>)}
+                   
+                   
 
 
 

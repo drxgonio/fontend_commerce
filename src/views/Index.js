@@ -12,6 +12,9 @@ import Admin from './admin/Admin';
 import ProfilePage from 'components/Profile/ProfilePage';
 import PrivateRoute from 'API/common/PrivateRoute';
 import Cart from 'components/Cart/Cart';
+import ProductOfCategory from 'components/ProductOfCategory/ProductOfCategory';
+import ProductDetails from 'components/ProductDetails/ProductDetails';
+import Shipping from 'components/Shipping/Shipping';
 
 
 function Index() {
@@ -68,13 +71,13 @@ function Index() {
         <Route path="/" exact render={props => <IndexPage authenticated={authenticated} onLogout={handleLogout} {...props} />} />
         <Route path="/login" exact render={props => <Login authenticated={authenticated} loginSuccess={callbackSuccessfull} {...props} />} />
         <Route path="/admin" component={Admin} />
-        {/* <Route path="/profile-page" authenticated={authenticated} currentUser={currentUser}
-                component={ProfilePage}>        
-
-        </Route>*/}
-        {/* <Route path="/profile-page" exact render={props => <ProfilePage authenticated={authenticated} currentUser={currentUser} {...props} />} /> */}
-        <Route path="/profile-page" exact render={props => <ProfilePage  {...props} />} />
-        <Route path="/mycart" exact render={props => <Cart  {...props} />} />
+     
+        <Route path="/profile-page" exact render={props => <ProfilePage authenticated={authenticated} currentUser={currentUser} onLogout={handleLogout} {...props} />} />
+        <Route path="/product-of-category/:name/:id" exact render={props => <ProductOfCategory authenticated={authenticated}  onLogout={handleLogout} {...props} {...props} />} />
+        {/* <Route path="/profile-page" exact render={props => <ProfilePage  {...props} />} /> */}
+        <Route path="/mycart" exact render={props => <Cart authenticated={authenticated} onLogout={handleLogout}  {...props} />} />
+        <Route path="/product-details/:name/:id" exact render={props => <ProductDetails authenticated={authenticated} onLogout={handleLogout} {...props} />} />
+        <Route path="/shipping" exact render={props => <Shipping authenticated={authenticated} currentUser={currentUser} onLogout={handleLogout}  {...props} />} />
       </BrowserRouter>
 
     </Context.Provider>

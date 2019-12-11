@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 
 // reactstrap components
 import {
-  Button,
 
   Container,
   Row,
@@ -11,14 +10,24 @@ import {
 } from "reactstrap";
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
+import { Progress, Button } from 'antd';
 
 // core components
 import DemoFooter from "components/Footers/DemoFooter.js";
-import PageNarbar from "components/Profile/PageNarbar";
-import { Table, Divider, Tag } from 'antd';
-import { Input } from 'antd';
+
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import { Input, Icon, Alert } from 'antd';
+import NarbarGlobal from "components/Navbars/NarbarGlobal";
+import Context from "Context/Context";
+import { ACCESS_TOKEN } from "API/URLMapping";
+import useForm from "Aform/useForm";
 
 const { Search } = Input;
+const ButtonGroup = Button.Group;
 
 
 function Cart(props) {
@@ -42,82 +51,117 @@ function Cart(props) {
       setUser(props.currentUser);
     }
   }, [props.currentUser])
-  //set tab card
-  const columns = [
-    {
-      title: 'Image',
-      dataIndex: 'name',
-      key: 'name',
-      render:  () => <img src="https://cf.shopee.vn/file/978b9e4cb61c611aaaf58664fae133c5_tn&quot" />
-    },
-    {
-      title: 'Sản phẩm',
-      dataIndex: 'age',
-      key: 'age',
-    },
-    {
-      title: 'Giá tiền',
-      dataIndex: 'address',
-      key: 'address',
-    },
-    {
-      title: 'Số lượng',
-      key: 'tags',
-      dataIndex: 'tags',
+
+
+  const value = React.useContext(Context);
+  const  [lstCart, setLstCart] = React.useState([]);
+  const [totalPrice,setTotalPrice]= React.useState(0);
+  const [check,setCheck]= React.useState(false);
+  const [count,setCount]= React.useState(1);
+  useEffect(()=>{
     
+    if(localStorage.getItem(ACCESS_TOKEN)!==null){
+      setLstCart(JSON.parse(localStorage.getItem('mycart')));  
     }
-    ,
-    {
-      title: 'Tùy chọn',
-      key: 'option',
-      dataIndex: 'option',
-    
+    else{
+      props.history.push("/login");
     }
-  ];
-  const data = [
-    {
-      key: '1',
-      name: <img src="https://cf.shopee.vn/file/978b9e4cb61c611aaaf58664fae133c5_tn&quot" style="width:'20px';height:'20px'"/>,
-      age: 32,
-      address: 'New York No. 1 Lake Park',
-      tags: '1',
-      option:'a'
-    },
-    {
-        key: '1',
-        name: <img src="https://cf.shopee.vn/file/978b9e4cb61c611aaaf58664fae133c5_tn&quot" style="width:'20px';height:'20px'"/>,
-        age: 32,
-        address: 'New York No. 1 Lake Park',
-        tags: '1',
-        option:'a'
-      }
-  ];
+      
+  },[localStorage.getItem('mycart')]);
+React.useEffect(()=>{
+ 
+  if(lstCart){
+    let i=0;
+    lstCart.map(item=>(
+      i=i+item.product_details.pricesale
+    ))
+    setTotalPrice(i);
+  }
+ 
+},[lstCart]);
+React.useEffect(()=>{
+
+  setCheck(false);
+},[check])
+
+const handleRemoveItem = name => {
+  let item=lstCart.filter(item => item.name !== name);
+   localStorage.removeItem('mycart');
+   localStorage.setItem('mycart', JSON.stringify(item));
+   setCheck(true);
+}
+function shipping(){
+  props.history.push("/shipping");
+}
+
   
 
   return (
     <>
-      {console.log(props.currentUser)}
-      {console.log(user)}
-      <PageNarbar></PageNarbar>
-      <div className="section section-navbars pt-100">
+  
+
+{  console.log(totalPrice)}
+
+
+        
+
+ 
+ <NarbarGlobal authenticated={props.authenticated} onLogout={props.onLogout} />
+   
+      <div className="section section-navbars ">
         <Container >
+        <br />
+          <Row>
+          <Progress percent={1} size="small" status="active" />
+          </Row>
           <div className="title">
             <h3>Giỏ hàng</h3>
           </div>
           <br />
+         
           <Row>
      
             <Col md="9" className="border">
-            <Table columns={columns} dataSource={data} />
+            <Table className="table" aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell>Image</TableCell>
+            <TableCell >Sản phẩm</TableCell>
+            <TableCell align="right">Giá tiền</TableCell>
+            <TableCell align="center">Số lượng</TableCell>
+            <TableCell align="right">Tùy chọn</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {lstCart.map(row => (
+            <TableRow key={row.name}>
+              <TableCell component="th" scope="row">
+              <img src={row.imagephoto} style={{width: 100}}/>
+                
+              </TableCell>
+              <TableCell >{row.name}</TableCell>
+              <TableCell align="right">{row.product_details.pricesale}</TableCell>
+              <TableCell align="right">
+              <ButtonGroup>
+          <Button  icon="minus" onClick={() => setCount(count - 1)}/> 
+          <Button className="border pl-1 pr-1" style={{width:30}}>{count}</Button>
+          <Button  icon="plus" onClick={() => setCount(count + 1)}/>
+        </ButtonGroup>
+              </TableCell>
+              <TableCell align="center"><Button type="block" onClick={() =>handleRemoveItem(row.name)}><Icon type="delete" theme="twoTone" /></Button></TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
             </Col>
             <Col md="3" className="border">
                 <Row className="p-3 border-bottom" >
                     <Col md="6">Tạm tính</Col>
-                    <Col md="6">253.000đ</Col>
+          <Col md="6">{totalPrice}đ</Col>
                 </Row>
                 <Row className="p-3">
                     <Col md="6">Thành tiền</Col>
-                    <Col md="6" className="text-danger">253.000đ</Col>
+          <Col md="6" className="text-danger">{totalPrice}đ</Col>
                 </Row>
                 <Row className="p-3">
                     <Col md="6"></Col>
@@ -125,7 +169,7 @@ function Cart(props) {
                 </Row>
                 <Row className="p-3 border-bottom">
                     <Col md="12" className="text-center">
-                    <Button className="btn btn-danger text-center">Tiến hành đặt hàng</Button>
+                    <Button type="danger" onClick={shipping}>Tiến hành đặt hàng</Button>
                     </Col>
                    
                 </Row>

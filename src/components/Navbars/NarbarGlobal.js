@@ -23,8 +23,8 @@ import { Input, Icon } from 'antd';
 const { Search } = Input;
 
 
-function IndexNavbar(props) {
-  const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
+function NarbarGlobal(props) {
+  const [navbarColor, setNavbarColor] = React.useState("");
   const [navbarCollapse, setNavbarCollapse] = React.useState(false);
 
   const toggleNavbarCollapse = () => {
@@ -32,31 +32,13 @@ function IndexNavbar(props) {
     document.documentElement.classList.toggle("nav-open");
   };
 
-  React.useEffect(() => {
-    const updateNavbarColor = () => {
-      if (
-        document.documentElement.scrollTop > 299 ||
-        document.body.scrollTop > 299
-      ) {
-        setNavbarColor("");
-      } else if (
-        document.documentElement.scrollTop < 300 ||
-        document.body.scrollTop < 300
-      ) {
-        setNavbarColor("navbar-transparent");
-      }
-    };
+  
 
-    window.addEventListener("scroll", updateNavbarColor);
-
-    return function cleanup() {
-      window.removeEventListener("scroll", updateNavbarColor);
-    };
-  });
 
   return (
 
-    <Navbar className={classnames("fixed-top", navbarColor)} expand="lg">
+    // <Navbar className={classnames("fixed-top", navbarColor)} expand="lg"> đe fixed-top la fix cung header
+    <Navbar className={classnames( navbarColor)} expand="lg">
       <Container>
         <div className="navbar-translate">
           <NavbarBrand
@@ -118,7 +100,7 @@ function IndexNavbar(props) {
                 <Icon type="user" />
               </NavLink>
               </NavItem>
-              
+            <NavItem></NavItem>
             <NavItem>
                 <NavLink href="/mycart" 
                 data-placement="bottom"
@@ -203,4 +185,4 @@ function IndexNavbar(props) {
   );
 }
 
-export default IndexNavbar;
+export default NarbarGlobal;
