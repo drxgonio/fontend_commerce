@@ -1,6 +1,6 @@
 
 import React, { useEffect } from "react";
-
+import {Link} from 'react-router-dom'
 // reactstrap components
 import {
 
@@ -58,7 +58,7 @@ function Cart(props) {
   const [totalPrice,setTotalPrice]= React.useState(0);
   const [check,setCheck]= React.useState(false);
   const [count,setCount]= React.useState(1);
-  
+
   useEffect(()=>{
     
     if(localStorage.getItem(ACCESS_TOKEN)!==null){
@@ -144,7 +144,9 @@ function shipping(){
               <img src={row.imagephoto} style={{width: 100}}/>
                 
               </TableCell>
-              <TableCell >{row.name}</TableCell>
+              <TableCell ><Link   to={{
+                                    pathname: `/product-details/${row.name}/${row.id}`
+                                  }}>{row.name}</Link></TableCell>
               <TableCell align="right">{row.product_details.pricesale}</TableCell>
               <TableCell align="right">
               <ButtonGroup>

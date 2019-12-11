@@ -36,6 +36,7 @@ import TextField from '@material-ui/core/TextField';
 import { Radio, Checkbox } from 'antd';
 import { style } from "@material-ui/system";
 import NarbarGlobal from "components/Navbars/NarbarGlobal";
+import { ACCESS_TOKEN } from "API/URLMapping";
 
 
 function ProfilePage(props) {
@@ -71,6 +72,17 @@ function ProfilePage(props) {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+   //check auth
+   useEffect(()=>{
+    
+    if(localStorage.getItem(ACCESS_TOKEN)!==null){
+     
+    }
+    else{
+      props.history.push("/login");
+    }
+      
+  },[localStorage.getItem(ACCESS_TOKEN)]);
    //set tab card
    const columns = [
     {

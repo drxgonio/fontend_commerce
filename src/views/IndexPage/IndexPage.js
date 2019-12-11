@@ -19,7 +19,7 @@ import SectionNotifications from 'views/index-sections/SectionNotifications.js';
 import SectionProgress from 'views/index-sections/SectionProgress.js';
 import SectionNavigation from 'views/index-sections/SectionNavigation.js';
 function IndexPage(props){
-  const [data, setData] = useState({lstCategory: [], lstProduct: [] });
+  const [data, setData] = useState({lstCategory: [], lstProduct: [] ,lstProductNew:[]});
   const [page, setPage] = useState(1);
   
   useEffect( () => {
@@ -30,8 +30,10 @@ function IndexPage(props){
         const lstProduct = await axios(
           `http://localhost:8080/api/getallProduct?page=`+(page-1)+`&size=8`
         );
+        const lstProductNew=await axios.get("http://localhost:8080/api/getproductnew");
   
-        setData({ lstCategory: lstCategory.data, lstProduct: lstProduct.data });
+        setData({ lstCategory: lstCategory.data, lstProduct: lstProduct.data, lstProductNew:lstProductNew.data });
+       
 
       };
   
@@ -46,26 +48,32 @@ function IndexPage(props){
   
         <>
   
-       {console.log(data.lstProduct)}
+       {console.log(data)}
      <IndexNavbar authenticated={props.authenticated} onLogout={props.onLogout} />
         <IndexHeader />
       <div className="main">
         <Narbar lstCategory={data.lstCategory} ></Narbar>
-        <ProductUserWatch></ProductUserWatch>
+        {props.authenticated ? (
+        <ProductUserWatch  authenticated={props.authenticated}></ProductUserWatch>
+        ):(console.log("No User"))}
+        <ProductOfme lstProductNew={data.lstProductNew}></ProductOfme>
+       
         <ProductList lstProduct={data.lstProduct} onPageable={checkPageable}></ProductList>
         <KeyWord></KeyWord>
-        <ProductOfme></ProductOfme>
+       
+        
+        
         <DemoFooter />   
       
         
-        <SectionNavigation />
+        {/* <SectionNavigation />
         <SectionProgress />
         <SectionNotifications />
          
          <SectionTypography />
          <SectionExamples />
          <SectionNavbars />
-         <SectionNotifications />
+         <SectionNotifications /> */}
        
           {/* <SectionProgress />
          <SectionNavigation /> */}

@@ -52,21 +52,17 @@ function ProductDetails(props) {
       //setUser(props.currentUser);
     }
   }, [props.currentUser])
-  function addCart() {
-    message.info('Đã thêm giỏ hàng thành công!');
-    var cart = [];
-    const oldcart = JSON.parse(localStorage.getItem('mycart'));
-    for (var i in oldcart) {
-      cart.push(oldcart[i]);
-    }
-    cart.push(product_detail);
-    localStorage.setItem('mycart', JSON.stringify(cart));
-   
-  }
+ 
   const addMyCart = name => {
     var cart = [];
+    let item=[];
     const oldcart = JSON.parse(localStorage.getItem('mycart'));
-     let item=oldcart.filter(item => item.name === name);
+    try{
+      item=oldcart.filter(item => item.name === name);
+    }
+    catch(err){
+
+    }
      if(item.length>0){
        console.log(item.length)
       message.error('Đã tồn tại sản phẩm trong giỏ hàng!');
@@ -81,11 +77,6 @@ function ProductDetails(props) {
      }
       
   }
-
-
-
-
-
   return (
     <>
 
@@ -104,7 +95,10 @@ function ProductDetails(props) {
 
             </Col>
             <Col md="4" className="border pr-1">
-              <Row><img src={product_detail && product_detail.imagephoto} style={{ width: '100%', height: '100%' }}></img></Row>
+              <Row>
+                <img src={product_detail && product_detail.imagephoto} style={{ width: '100%', height: '100%' }}>
+                  </img>
+                  </Row>
 
               <Row className="text-center"><span className=" m-auto text-center">Rê chuột để phóng to màn hình</span></Row>
             </Col>

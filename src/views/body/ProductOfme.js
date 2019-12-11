@@ -16,33 +16,31 @@ import {
 import ProductItem from "./ProductItem";
 
 
-function ProductOfme() {
+function ProductOfme(props) {
+
 
     return (
         <>
             <div className="section section-navbars">
                 <Container id="menu-dropdown">
                     <div className="title">
-                   <h3>Sản phẩm giành cho bạn <i className="nc-icon nc-diamond" /> </h3>
+                   <h3>Sản phẩm mới <i className="nc-icon nc-diamond" /> </h3>
                     </div>
                     <br />
                     <Row>
 
                     </Row>
-                    <Row>
-                        <Col md="3">
-                            <ProductItem></ProductItem>
-                        </Col>
-                        <Col md="3">
-                            <ProductItem></ProductItem>
-                        </Col>
-                        <Col md="3">
-                            <ProductItem></ProductItem>
-                        </Col>
-                        <Col md="3">
-                            <ProductItem></ProductItem>
-                        </Col>
-                    </Row>
+                   
+                            <Row>
+                            {props.lstProductNew&&props.lstProductNew.map(item=>(
+                                    <Col md="3">
+                                        <ProductItem product={item}></ProductItem>
+                                    </Col>
+                           
+                             ))}
+                        </Row>
+                   
+                    
                     <Row>
                         <Col className="text-center pt-3">
                             <Button class="btn btn-default text-info">Xem thêm</Button>

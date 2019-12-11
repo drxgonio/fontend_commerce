@@ -3,7 +3,7 @@ import { getCurrentUser } from 'API/APIUtils';
 
 import React, { useEffect, useState } from "react";
 import Context from 'Context/Context';
-import IndexPage from './IndexPage.js/IndexPage';
+import IndexPage from './IndexPage/IndexPage';
 import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
 import { ACCESS_TOKEN } from 'API/URLMapping';
 import Login from './Auth/Login';
@@ -18,7 +18,7 @@ import Shipping from 'components/Shipping/Shipping';
 import Order from 'components/Order/Order';
 
 
-function Index() {
+function Index(props) {
   document.documentElement.classList.remove("nav-open");
   React.useEffect(() => {
     document.body.classList.add("index");

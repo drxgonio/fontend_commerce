@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Menu, Icon, Button } from 'antd';
 import SimpleImageSlider from "react-simple-image-slider";
 // reactstrap components
@@ -13,30 +13,50 @@ import {
     Col
 } from "reactstrap";
 import ProductItem from './ProductItem';
-function ProductUserWatch(){
+import { ACCESS_TOKEN } from 'API/URLMapping';
+import Axios from 'axios';
+import { API_BASE_URL } from 'API/URLMapping';
+function ProductUserWatch(props){
+    const[lstproduct,setLstProduct] =React.useState([]);
+
+    useEffect( ()=>{
+        if(props.authenticated){
+            if (localStorage.getItem(ACCESS_TOKEN)) {
+                  const headers = {
+                      'Content-Type': 'application/json',
+                         'Authorization': 'Bearer '+localStorage.getItem(ACCESS_TOKEN)
+                   }
+            Axios.get('http://localhost:8080/user/getproductwatch',{
+                headers: headers
+            })
+            .then(res => {
+                setLstProduct(res.data);
+            
+            })
+            .catch(error => console.log(error));
+        }
+    }
+     
+      
+    },[])
    return(<>
     <div className="section section-navbars">
             <Container id="menu-dropdown">
                 <div className="title">
-                    <h3>Sản phẩm bạn đã xem <i className="nc-icon nc-cloud-download-93" /></h3> 
+                    <h3>Sản phẩm xem gần đây</h3> 
                 </div>
                 <br />
                 <Row>
                     
                 </Row>
                 <Row className="d-flex">
-                    <Col md="3">
-                        <ProductItem></ProductItem>
-                    </Col>
-                    <Col md="3">
-                         <ProductItem></ProductItem>   
-                    </Col>
-                    <Col md="3">
-                        <ProductItem></ProductItem>
-                    </Col>
-                    <Col md="3"> 
-                         <ProductItem></ProductItem>
-                       </Col>
+                    {lstproduct&&lstproduct.map(item=>(
+                        <Col md="3">
+                        <ProductItem  product={item}></ProductItem>
+                        </Col>
+                    ))}
+                   
+                    
                 </Row>
                 <Row>
                 <Col className="text-center pt-3">
