@@ -21,6 +21,7 @@ import SectionNavigation from 'views/index-sections/SectionNavigation.js';
 function IndexPage(props){
   const [data, setData] = useState({lstCategory: [], lstProduct: [] });
   const [page, setPage] = useState(1);
+  
   useEffect( () => {
     const fetchData = async () => {
         const lstCategory = await axios(

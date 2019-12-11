@@ -58,11 +58,15 @@ function Cart(props) {
   const [totalPrice,setTotalPrice]= React.useState(0);
   const [check,setCheck]= React.useState(false);
   const [count,setCount]= React.useState(1);
+  
   useEffect(()=>{
     
     if(localStorage.getItem(ACCESS_TOKEN)!==null){
-  
-      setLstCart(JSON.parse(localStorage.getItem('mycart')));  
+      try{
+         setLstCart(JSON.parse(localStorage.getItem('mycart')));  
+      }catch(err){
+
+      }
     }
     else{
       props.history.push("/login");
@@ -134,7 +138,7 @@ function shipping(){
           </TableRow>
         </TableHead>
         <TableBody>
-          {lstCart.map(row => (
+          {lstCart&&lstCart.map(row => (
             <TableRow key={row.name}>
               <TableCell component="th" scope="row">
               <img src={row.imagephoto} style={{width: 100}}/>

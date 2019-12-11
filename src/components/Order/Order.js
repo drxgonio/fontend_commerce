@@ -24,6 +24,7 @@ import { API_BASE_URL } from "API/URLMapping";
 function Order(props) {
     const [activeTab, setActiveTab] = React.useState("1");
 
+    const [data, setData] = React.useState([]);
 
     const [user, setUser] = React.useState([]);
     const [checked, setChecked] = React.useState(false);
@@ -93,8 +94,33 @@ function Order(props) {
         }
 
     }, [lstCart]);
-    function finalOrder() {
+    useEffect( ()=>{
+        console.log(data);
+     
+           if(data.length>0){
+                        async function saveOrder(){
+                            if (localStorage.getItem(ACCESS_TOKEN)) {
+                                const headers = {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': 'Bearer '+localStorage.getItem(ACCESS_TOKEN)
+                                }
+                                const response=await  Axios.post(API_BASE_URL+"/order/addOrder", data, {
+                                    headers: headers
+                                });
+                                console.log(response.data);
+                                
+                            }
+                            else{
+                                message.error("Không có sản phẩm nào được chọn!")
+                            }
+                    }
+                    saveOrder();
+           }
+    },[data])
+     function finalOrder() {
+        setData(lstCart);
         message.info("Bạn đã đặt hàng thành công!!!")
+        localStorage.removeItem('mycart');
         props.history.push("/");
     }
 
@@ -134,7 +160,7 @@ function Order(props) {
                         </Col>
                     </Row>
                     <Row className="font-weight-bold">Danh sách sản phẩm</Row>
-                    {lstCart.map(item => (
+                    {lstCart&&lstCart.map(item => (
                         <Row className="border-bottom">
                             <Col md="4">
                                 <label className=" p-1">Sản phẩm: {item && item.name}</label>
