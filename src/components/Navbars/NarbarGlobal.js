@@ -13,6 +13,7 @@ import {
   Nav,
   Container
 } from "reactstrap";
+import { withRouter } from "react-router-dom"
 import {
 
   Link
@@ -32,7 +33,9 @@ function NarbarGlobal(props) {
     document.documentElement.classList.toggle("nav-open");
   };
 
-  
+  function searchProduct(value) {
+    props.history.push("/search/keyword/"+value);
+  }
 
 
   return (
@@ -61,7 +64,7 @@ function NarbarGlobal(props) {
           </button>
         </div>
         <NavbarBrand >
-               <Search placeholder="Tìm kiếm sản phẩm" onSearch={value => console.log(value)} enterButton   />
+        {/* <Search placeholder="Tìm kiếm sản phẩm" onSearch={value => searchProduct(value)} enterButton /> */}
   
           </NavbarBrand>
         <Collapse
@@ -185,4 +188,4 @@ function NarbarGlobal(props) {
   );
 }
 
-export default NarbarGlobal;
+export default withRouter(NarbarGlobal);

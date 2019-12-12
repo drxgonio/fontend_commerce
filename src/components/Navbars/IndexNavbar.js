@@ -13,9 +13,11 @@ import {
   Nav,
   Container
 } from "reactstrap";
+import { withRouter } from "react-router-dom"
+
 import {
 
-  Link
+  Link, Redirect
 
 } from "react-router-dom";
 import { Input, Icon } from 'antd';
@@ -54,6 +56,15 @@ function IndexNavbar(props) {
     };
   });
 
+
+  const [value, setvalue] = React.useState("");
+
+
+  function searchProduct(value) {
+    props.history.push("/search/keyword/"+value);
+  }
+
+
   return (
 
     <Navbar className={classnames("fixed-top", navbarColor)} expand="lg">
@@ -62,7 +73,7 @@ function IndexNavbar(props) {
           <NavbarBrand
             data-placement="bottom"
             href="/"
-            title="Coded by Creative Tim"
+            title="Coded by Phan Van Tri"
           >
             Ecommerce
           </NavbarBrand>
@@ -79,123 +90,122 @@ function IndexNavbar(props) {
           </button>
         </div>
         <NavbarBrand >
-               <Search placeholder="Tìm kiếm sản phẩm" onSearch={value => console.log(value)} enterButton   />
-  
-          </NavbarBrand>
+          <Search placeholder="Tìm kiếm sản phẩm" onSearch={value => searchProduct(value)} enterButton />
+        </NavbarBrand>
         <Collapse
           className="justify-content-end"
           navbar
           isOpen={navbarCollapse}
         >
-            {props.authenticated ? (
-          <Nav navbar>
-        
-            <NavItem>
-              <NavLink
-                data-placement="bottom"
-                href="#"
-                title="Theo dõi đơn hàng"
-              >
-                <Icon type="rollback" />
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink
-                data-placement="bottom"
-                href="#"
-                target="_blank"
-                title="Thông báo của tôi"
-              >
-                <Icon type="notification" />
-          
-              </NavLink>
-            </NavItem>
-                         
-            <NavItem>
-                <NavLink href="/profile-page" 
-                data-placement="bottom"
-                title="Thông tin User">
-                <Icon type="user" />
-              </NavLink>
-              </NavItem>
-              
-            <NavItem>
-                <NavLink href="/mycart" 
-                data-placement="bottom"
-                title="Giỏ hàng">
-                <Icon type="shopping-cart" /> 
-              </NavLink>
-              </NavItem>
-              
-          
-            <NavItem>
+          {props.authenticated ? (
+            <Nav navbar>
+
+              <NavItem>
                 <NavLink
-                data-placement="bottom"
-                href="#"
-                title="Đăng xuất"
+                  data-placement="bottom"
+                  href="#"
+                  title="Theo dõi đơn hàng"
+                >
+                  <Icon type="rollback" />
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  data-placement="bottom"
+                  href="#"
+                  target="_blank"
+                  title="Thông báo của tôi"
+                >
+                  <Icon type="notification" />
+
+                </NavLink>
+              </NavItem>
+
+              <NavItem>
+                <NavLink href="/profile-page"
+                  data-placement="bottom"
+                  title="Thông tin User">
+                  <Icon type="user" />
+                </NavLink>
+              </NavItem>
+
+              <NavItem>
+                <NavLink href="/mycart"
+                  data-placement="bottom"
+                  title="Giỏ hàng">
+                  <Icon type="shopping-cart" />
+                </NavLink>
+              </NavItem>
+
+
+              <NavItem>
+                <NavLink
+                  data-placement="bottom"
+                  href="#"
+                  title="Đăng xuất"
                   onClick={props.onLogout}
                 >
-                 <Icon type="key" />
-              </NavLink>
-              </NavItem>
-            <NavItem>
-              <Button
-                className="btn-round"
-                color="danger"
-                href="#pablo"
-                target="_blank"
-                disabled
-              >
-                Upgrade to Pro
-              </Button>
-            </NavItem>                    
-          </Nav>
-           ) : (
-            <Nav navbar>
-        
-        <NavItem>
-              <NavLink
-                data-placement="bottom"
-                href="#"
-                title="Theo dõi đơn hàng"
-              >
-                <Icon type="rollback" />
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink
-                data-placement="bottom"
-                href="#"
-                target="_blank"
-                title="Thông báo của tôi"
-              >
-                <Icon type="notification" />
-          
-              </NavLink>
-            </NavItem>
-                   
-            <NavItem>
-                <NavLink
-                data-placement="bottom"
-                href="#"
-                title="Đăng nhập"
-                  href="/login"
-                >
                   <Icon type="key" />
-              </NavLink>
+                </NavLink>
               </NavItem>
-            <NavItem>
-              <Button
-                className="btn-round"
-                color="danger"
-                href="#pablo"
-                target="_blank"
-                disabled
-              >
+              <NavItem>
+                <Button
+                  className="btn-round"
+                  color="danger"
+                  href="#pablo"
+                  target="_blank"
+                  disabled
+                >
+                  Upgrade to Pro
               </Button>
-            </NavItem>         
-          </Nav>
-           )}
+              </NavItem>
+            </Nav>
+          ) : (
+              <Nav navbar>
+
+                <NavItem>
+                  <NavLink
+                    data-placement="bottom"
+                    href="#"
+                    title="Theo dõi đơn hàng"
+                  >
+                    <Icon type="rollback" />
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink
+                    data-placement="bottom"
+                    href="#"
+                    target="_blank"
+                    title="Thông báo của tôi"
+                  >
+                    <Icon type="notification" />
+
+                  </NavLink>
+                </NavItem>
+
+                <NavItem>
+                  <NavLink
+                    data-placement="bottom"
+                    href="#"
+                    title="Đăng nhập"
+                    href="/login"
+                  >
+                    <Icon type="key" />
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <Button
+                    className="btn-round"
+                    color="danger"
+                    href="#pablo"
+                    target="_blank"
+                    disabled
+                  >
+                  </Button>
+                </NavItem>
+              </Nav>
+            )}
 
         </Collapse>
       </Container>
@@ -203,4 +213,4 @@ function IndexNavbar(props) {
   );
 }
 
-export default IndexNavbar;
+export default withRouter(IndexNavbar);

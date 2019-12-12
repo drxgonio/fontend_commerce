@@ -54,7 +54,8 @@ function ProductDetails(props) {
   }, [props.currentUser])
  
   const addMyCart = name => {
-    var cart = [];
+    if(props.authenticated){
+      var cart = [];
     let item=[];
     const oldcart = JSON.parse(localStorage.getItem('mycart'));
     try{
@@ -75,6 +76,10 @@ function ProductDetails(props) {
       cart.push(product_detail);
       localStorage.setItem('mycart', JSON.stringify(cart));
      }
+    }
+    else{
+      message.warning('Đăng nhập để đặt hàng!');
+    }
       
   }
   return (

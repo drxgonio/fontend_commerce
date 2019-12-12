@@ -11,7 +11,7 @@ import {
     Container,
     Row,
     Col,
-    Label, Input, Form, Button
+    Label, Input, Form
 } from "reactstrap";
 
 import { Progress, message } from 'antd';
@@ -19,7 +19,8 @@ import useForm from "Aform/useForm";
 import Axios from "axios";
 import { ACCESS_TOKEN } from "API/URLMapping";
 import { API_BASE_URL } from "API/URLMapping";
-
+import QRCode from 'qrcode.react';
+import { Modal, Button } from 'antd';
 
 function Order(props) {
     const [activeTab, setActiveTab] = React.useState("1");
@@ -30,6 +31,7 @@ function Order(props) {
     const [checked, setChecked] = React.useState(false);
     const [lstCart, setLstCart] = React.useState([]);
     const [totalPrice, setTotalPrice] = React.useState(0);
+    const [checkOrder,setCheckOrder]=React.useState(false);
     const toggle = tab => {
         if (activeTab !== tab) {
             setActiveTab(tab);
@@ -94,9 +96,9 @@ function Order(props) {
         }
 
     }, [lstCart]);
+    
     useEffect( ()=>{
-        console.log(data);
-     
+        try{
            if(data.length>0){
                         async function saveOrder(){
                             if (localStorage.getItem(ACCESS_TOKEN)) {
@@ -116,19 +118,53 @@ function Order(props) {
                     }
                     saveOrder();
            }
+        }catch(err){
+            setTotalPrice(0);
+        }
+          
     },[data])
      function finalOrder() {
         setData(lstCart);
         message.info("Bạn đã đặt hàng thành công!!!")
         localStorage.removeItem('mycart');
-        props.history.push("/");
+        setCheckOrder(true);
+        showModal();
+        
     }
+    useEffect(()=>{
+        setTotalPrice(0);
+    },[checkOrder])
 
 
+    const [visible, setvisible] = React.useState(false);
+  
 
-
+    function handleCancel() {
+        setvisible(false);
+    }
+    function handleOk() {
+        setvisible(false);
+    }
+    function showModal() {
+        setvisible(true);
+    }
     return (
         <>
+     
+        <Modal
+          title="Thông tin đơn hàng"
+          visible={visible}
+          onOk={handleOk}
+          onCancel={handleCancel}
+        >
+          <QRCode
+            id='qrcode'
+            value='http://localhost:3000/profile-page'
+            size={290}
+            level={'H'}
+            includeMargin={true}
+          />
+        </Modal>
 
 
             <NarbarGlobal authenticated={props.authenticated} onLogout={props.onLogout} />\
@@ -186,10 +222,10 @@ function Order(props) {
                         <Col md="4">
 
                         </Col>
-
-                        <Col md="4">
+                        {totalPrice>0&&( <Col md="4">
                             <Button className="btn btn-primary" onClick={finalOrder} >Đặt hàng</Button>
-                        </Col>
+                        </Col>)}
+                       
 
                     </Row>
 

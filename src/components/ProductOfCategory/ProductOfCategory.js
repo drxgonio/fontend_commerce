@@ -30,21 +30,18 @@ function ProductOfCategory(props) {
     const [page, setPage] = useState(1);
     useEffect(()=>{
         const fetchData= async ()=>{
-            const lst= await Axios.get(`http://localhost:8080/api/getProductOfCategory?idCategory=`+props.match.params.id+`&page=`+(page-1)+`&size=4`);
+            const lst= await Axios.get(`http://localhost:8080/api/getProductOfCategory?idCategory=`+props.match.params.id+`&page=`+(activePage-1)+`&size=4`);
             setListProduct(lst.data.content);
             setItemsCountPerPage(lst.data.size);
             setTotalItemsCount(lst.data.totalElements);
             
         }
         fetchData();
-    },[props.match.params.id,page])
+    },[props.match.params.id,activePage])
 
-    function fetchURL(page) {
-        // console.log(page);
-       //  props.onPageable(page);
-     }
+  
      function handlePageChange(pageNumber) {
-         setPage(pageNumber);
+         setActivePage(pageNumber);
      }
     
     return (

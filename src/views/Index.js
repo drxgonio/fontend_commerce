@@ -16,6 +16,7 @@ import ProductOfCategory from 'components/ProductOfCategory/ProductOfCategory';
 import ProductDetails from 'components/ProductDetails/ProductDetails';
 import Shipping from 'components/Shipping/Shipping';
 import Order from 'components/Order/Order';
+import Search from 'components/Search/Search';
 
 
 function Index(props) {
@@ -51,7 +52,7 @@ function Index(props) {
     localStorage.removeItem(ACCESS_TOKEN);
     setAuthenticated(false);
     setCurrentUser(null);
-
+  
   };
   const authen = {
     authenticated,
@@ -80,6 +81,7 @@ function Index(props) {
         <Route path="/product-details/:name/:id" exact render={props => <ProductDetails authenticated={authenticated} onLogout={handleLogout} {...props} />} />
         <Route path="/shipping" exact render={props => <Shipping authenticated={authenticated} currentUser={currentUser} onLogout={handleLogout}  {...props} />} />
         <Route path="/order" exact render={props => <Order authenticated={authenticated} currentUser={currentUser} onLogout={handleLogout}  {...props} />} />
+        <Route path="/search/keyword/:name"  render={props => <Search authenticated={authenticated}  onLogout={handleLogout}  {...props} />} />
       </BrowserRouter>
 
     </Context.Provider>
