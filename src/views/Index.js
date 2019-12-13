@@ -39,6 +39,7 @@ function Index(props) {
       .then(response => {
         setAuthenticated(true)
         setCurrentUser(response);
+        setRole(response.role)
       }).catch(error => {
 
         console.log(error);
@@ -69,10 +70,13 @@ function Index(props) {
 
     <Context.Provider value={authen}>
       <BrowserRouter>
-
+  
         <Route path="/" exact render={props => <IndexPage authenticated={authenticated} onLogout={handleLogout} {...props} />} />
         <Route path="/login" exact render={props => <Login authenticated={authenticated} loginSuccess={callbackSuccessfull} {...props} />} />
-        <Route path="/admin" component={Admin} />
+        {authen.authenticated&&authen.role==="ROLE_ADMIN"?(
+           <Route path="/admin" component={Admin} />
+        ):(console.log("No Access"))}
+       
      
         <Route path="/profile-page" exact render={props => <ProfilePage authenticated={authenticated} currentUser={currentUser} onLogout={handleLogout} {...props} />} />
         <Route path="/product-of-category/:name/:id" exact render={props => <ProductOfCategory authenticated={authenticated}  onLogout={handleLogout} {...props} {...props} />} />

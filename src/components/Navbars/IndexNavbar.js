@@ -21,11 +21,13 @@ import {
 
 } from "react-router-dom";
 import { Input, Icon } from 'antd';
+import Context from "Context/Context";
 
 const { Search } = Input;
 
 
 function IndexNavbar(props) {
+  const authen=React.useContext(Context);
   const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
   const [navbarCollapse, setNavbarCollapse] = React.useState(false);
 
@@ -68,6 +70,7 @@ function IndexNavbar(props) {
   return (
 
     <Navbar className={classnames("fixed-top", navbarColor)} expand="lg">
+      {console.log(authen.role)}
       <Container>
         <div className="navbar-translate">
           <NavbarBrand
@@ -136,7 +139,16 @@ function IndexNavbar(props) {
                   <Icon type="shopping-cart" />
                 </NavLink>
               </NavItem>
-
+              {authen.role==="ROLE_ADMIN"?(
+                <NavItem>
+                <NavLink href="/admin"
+                  data-placement="bottom"
+                  title="Admin">
+                  <Icon type="solution" />
+                </NavLink>
+              </NavItem>
+              ):(console.log("No access"))}
+              
 
               <NavItem>
                 <NavLink

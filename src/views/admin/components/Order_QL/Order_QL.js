@@ -15,6 +15,7 @@ import CardBody from "../../custom_design/Card/CardBody.js";
 import Axios from "axios";
 import Pagination from "react-js-pagination";
 import { Button, Icon } from "antd";
+import { ACCESS_TOKEN } from "API/URLMapping.js";
 const styles = {
   cardCategoryWhite: {
     "&,& a,& a:hover,& a:focus": {
@@ -47,16 +48,20 @@ const styles = {
 
 const useStyles = makeStyles(styles);
 
-export default function Product_QL() {
+export default function Order_QL() {
 
-  const [lstProduct,setLstProduct]= useState([]);
+  const [lstOrder,setLstOrder]= useState([]);
   const [itemsCountPerPage, setItemsCountPerPage] = useState(null);
   const [totalItemsCount, setTotalItemsCount] = useState(null);
   const [activePage, setActivePage] = useState(1);
   React.useEffect(()=>{
     async function loadCategory() {
-      const result=await Axios.get(`http://localhost:8080/api/getallProduct?page=`+(activePage-1)+`&size=4`);
-      setLstProduct(result.data.content);
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+localStorage.getItem(ACCESS_TOKEN)
+        }
+      const result=await Axios.get(`http://localhost:8080/order/admin/findallorder?page=`+(activePage-1)+`&size=4`,{headers:headers});
+      setLstOrder(result.data.content);
       setItemsCountPerPage(result.data.size);
       setTotalItemsCount(result.data.totalElements);
       
@@ -72,50 +77,54 @@ export default function Product_QL() {
   return (
     
     <GridContainer>
-      {console.log(lstProduct)}
+      {console.log(lstOrder)}
       <GridItem xs={12} sm={12} md={12}>
         <Card>
           <CardHeader color="primary">
-            <h4 className={classes.cardTitleWhite}>Quản lý sản phẩm</h4>
+            <h4 className={classes.cardTitleWhite}>Quản lý Đơn hàng</h4>
             <p className={classes.cardCategoryWhite}>
               Here is a subtitle for this table
             </p>
           </CardHeader>
           <CardBody>
-          <Button type="primary" className="p-2"><Icon type="plus" />Thêm sản phẩm</Button>
+          <Button type="primary" className="p-2"><Icon type="plus" />Thêm đơn hàng</Button>
           <Table className="table" aria-label="simple table">
                         <TableHead>
                           <TableRow>
-                            <TableCell>Mã Sản Phẩm</TableCell>
-                            <TableCell >Tên Sản Phẩm</TableCell>                         
-                            <TableCell align="center">Ngày Thêm</TableCell>
-                            <TableCell >Ngày Cập Nhập</TableCell>
-                            <TableCell >Giá Cả</TableCell>
+                            <TableCell>Mã Order</TableCell>
+                            <TableCell >Tên Order</TableCell>                         
+                            <TableCell align="center">Người đặt hàng</TableCell>
+                            <TableCell >Sản phẩm</TableCell>
+                            <TableCell >Tổng tiền</TableCell>
+                            <TableCell >Tình trạng</TableCell>
                             <TableCell >Tùy chọn</TableCell>
                           </TableRow>
                         </TableHead>
                         <TableBody>
-                          {lstProduct && lstProduct.map(item => (
+                          {lstOrder && lstOrder.map(item => (
                             <TableRow >
                               <TableCell component="th" scope="row">
                                 <a>{item.id}</a>
                               </TableCell>
-                               <TableCell component="th" scope="row">
+                                 <TableCell component="th" scope="row">
                                 <a>{item.name}</a>
                               </TableCell>
                              
                               <TableCell component="th" scope="row">
-                                <a>{item.dateAdd}</a>
+                                <a>{item.user.name}</a>
                               </TableCell>
+                              <TableCell >{item&&item.lstOrder.map(pr=>(
+  <a>{pr.product.name},</a>
+))}</TableCell>
                               <TableCell component="th" scope="row">
-                                <a>{item.dateUpdate}</a>
-                              </TableCell>
-                              <TableCell component="th" scope="row">
-                                <a>{item.product_details.price}</a>
-                              </TableCell> 
+                                <a>{item.totalprice}đ</a>
+                              </TableCell>  
+                              {item.status ? (<TableCell align="right"><a>Giao hàng thành công</a></TableCell>)
+
+: (<TableCell><a>Đang giao hàng</a></TableCell>)}
                               <TableCell component="th" scope="row">
                               <Button type="primary"><Icon type="edit" /></Button><Button type="danger"><Icon type="delete" /></Button>
-                              </TableCell>
+                              </TableCell> 
           
                             </TableRow>
                           ))}

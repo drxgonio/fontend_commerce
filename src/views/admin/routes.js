@@ -10,6 +10,9 @@ import Language from "@material-ui/icons/Language";
 import DashboardPage from "./components/Dashboard/Dashboard.js";
 import UserProfile from "../admin/components/UserProfile/UserProfile";
 import Product_QL from "./components/Product_QL/Product_QL.js";
+import Category_QL from "./components/Category_QL/Category_QL.js";
+import User_QL from "./components/User_QL/User_QL.js";
+import Order_QL from "./components/Order_QL/Order_QL.js";
 
 
 const dashboardRoutes = [
@@ -23,10 +26,10 @@ const dashboardRoutes = [
   },
   {
     path: "/user",
-    name: "User Profile",
+    name: "Quản lý người dùng",
     rtlName: "#",
     icon: Person,
-    component: UserProfile,
+    component: User_QL,
     layout: "/admin"
   },
   {
@@ -34,7 +37,7 @@ const dashboardRoutes = [
     name: "Quản lý Danh Mục",
     rtlName: "#",
     icon: "content_paste",
-    component: Product_QL,
+    component: Category_QL,
     layout: "/admin"
   },
   {
@@ -46,11 +49,11 @@ const dashboardRoutes = [
     layout: "/admin"
   },
   {
-    path: "/icons",
+    path: "/order",
     name: "Quản lý đơn hàng",
     rtlName: "#",
     icon: BubbleChart,
-    component: DashboardPage,
+    component: Order_QL,
     layout: "/admin"
   },
   {
@@ -68,14 +71,6 @@ const dashboardRoutes = [
     icon: Notifications,
     component: DashboardPage,
     layout: "/admin"
-  },
-  {
-    path: "/rtl-page",
-    name: "Đăng xuất",
-    rtlName: "#",
-    icon: Language,
-    component: DashboardPage,
-    layout: "/rtl"
   }
 ];
 

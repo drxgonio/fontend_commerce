@@ -20,11 +20,13 @@ import {
 
 } from "react-router-dom";
 import { Input, Icon } from 'antd';
+import Context from "Context/Context";
 
 const { Search } = Input;
 
 
 function NarbarGlobal(props) {
+  const authen=React.useContext(Context);
   const [navbarColor, setNavbarColor] = React.useState("");
   const [navbarCollapse, setNavbarCollapse] = React.useState(false);
 
@@ -111,7 +113,15 @@ function NarbarGlobal(props) {
                 <Icon type="shopping-cart" /> 
               </NavLink>
               </NavItem>
-              
+              {authen.role==="ROLE_ADMIN"?(
+                <NavItem>
+                <NavLink href="/admin"
+                  data-placement="bottom"
+                  title="Admin">
+                  <Icon type="solution" />
+                </NavLink>
+              </NavItem>
+              ):(console.log("No access"))}    
           
             <NavItem>
                 <NavLink

@@ -177,7 +177,7 @@ function ProfilePage(props) {
                     </Row>
                     <Row>
                       <Col md="4"> <Label>Số điện thoại</Label></Col>
-                      <Col md="8"> <Input placeholder="Nhập Số điện thoại" value={props.currentUser && props.currentUser.phone} className="form-group" type="number" value="0385053517" disabled /></Col>
+                      <Col md="8"> <Input placeholder="Nhập Số điện thoại" value={props.currentUser && props.currentUser.phone} className="form-group" type="number"  disabled /></Col>
                     </Row>
                     <Row>
                       <Col md="4"> <Label>Email</Label></Col>
