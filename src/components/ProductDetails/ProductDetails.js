@@ -25,6 +25,7 @@ const { Search } = Input;
 function ProductDetails(props) {
   const [activeTab, setActiveTab] = React.useState("1");
   const [product_detail, setProduct_detail] = React.useState(null);
+  const [img_photo, setImg_photo]=React.useState(null);
 
   const toggle = tab => {
     if (activeTab !== tab) {
@@ -35,6 +36,7 @@ function ProductDetails(props) {
     const feactData = async () => {
       const lst = await Axios.get(`http://localhost:8080/api/productdetail?id=` + props.match.params.id);
       setProduct_detail(lst.data)
+      setImg_photo(lst.data.imagephoto)
     }
     feactData();
 
@@ -82,8 +84,12 @@ function ProductDetails(props) {
     }
       
   }
+  function changeImage(value){
+    setImg_photo(value);
+  }
   return (
     <>
+    {console.log(img_photo)}
 
       <NarbarGlobal authenticated={props.authenticated} onLogout={props.onLogout} />
       <div className="section section-navbars pt-100">
@@ -94,14 +100,24 @@ function ProductDetails(props) {
           <br />
           <Row>
             <Col md="1">
-              <Row className="border"><img src={product_detail && product_detail.product_details.lstImage[0].name} style={{ width: 100, height: 100 }}></img></Row>
-              <Row className="border mt-3"><img src={product_detail && product_detail.product_details.lstImage[1].name} style={{ width: 100, height: 100 }}></img></Row>
-              <Row className="border mt-3"><img src={product_detail && product_detail.product_details.lstImage[2].name} style={{ width: 100, height: 100 }}></img></Row>
+              <Row className="border"><img src={product_detail && product_detail.product_details.lstImage[0].name} onClick={() => {
+              changeImage(product_detail.product_details.lstImage[0].name);
+            }} style={{ width: 100, height: 100 }}></img></Row>
+              <Row className="border mt-3"><img src={product_detail && product_detail.product_details.lstImage[1].name}
+              onClick={() => {
+                changeImage(product_detail.product_details.lstImage[1].name);
+              }}
+              style={{ width: 100, height: 100 }}></img></Row>
+              <Row className="border mt-3"><img src={product_detail && product_detail.product_details.lstImage[2].name}
+              onClick={() => {
+                changeImage(product_detail.product_details.lstImage[2].name);
+              }}
+              style={{ width: 100, height: 100 }}></img></Row>
 
             </Col>
             <Col md="4" className="border pr-1">
               <Row>
-                <img src={product_detail && product_detail.imagephoto} style={{ width: '100%', height: '100%' }}>
+                <img src={img_photo} style={{ width: '100%', height: '100%' }}>
                   </img>
                   </Row>
 

@@ -86,7 +86,8 @@ function Index(props) {
         <Route path="/shipping" exact render={props => <Shipping authenticated={authenticated} currentUser={currentUser} onLogout={handleLogout}  {...props} />} />
         <Route path="/order" exact render={props => <Order authenticated={authenticated} currentUser={currentUser} onLogout={handleLogout}  {...props} />} />
         <Route path="/search/keyword/:name"  render={props => <Search authenticated={authenticated}  onLogout={handleLogout}  {...props} />} />
-      </BrowserRouter>
+        {/* <Route path="/admin/add-user"  render={props => <AddUser authenticated={authenticated}  onLogout={handleLogout}  {...props} />} />
+   */}   </BrowserRouter> 
 
     </Context.Provider>
 

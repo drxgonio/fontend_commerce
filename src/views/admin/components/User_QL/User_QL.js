@@ -13,8 +13,16 @@ import Card from "../../custom_design/Card/Card.js";
 import CardHeader from "../../custom_design/Card/CardHeader.js";
 import CardBody from "../../custom_design/Card/CardBody.js";
 import Axios from "axios";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useRouteMatch,
+  useParams
+} from "react-router-dom";
 import Pagination from "react-js-pagination";
-import { Button, Icon } from "antd";
+import { Button, Icon, Modal } from "antd";
 import { ACCESS_TOKEN } from "API/URLMapping.js";
 const styles = {
   cardCategoryWhite: {
@@ -77,7 +85,6 @@ export default function User_QL() {
   return (
     
     <GridContainer>
-      {console.log(lstUser)}
       <GridItem xs={12} sm={12} md={12}>
         <Card>
           <CardHeader color="primary">
@@ -87,7 +94,9 @@ export default function User_QL() {
             </p>
           </CardHeader>
           <CardBody>
-          <Button type="primary" className="p-2"><Icon type="plus" />Thêm người dùng</Button>
+          <Link  className="p-2" to="/admin/add-user" > <Button type="primary">
+   <Icon type="plus" />Thêm người dùng</Button></Link>
+           
           <Table className="table" aria-label="simple table">
                         <TableHead>
                           <TableRow>
@@ -119,7 +128,7 @@ export default function User_QL() {
                                 <a>{item.phone}</a>
                               </TableCell> 
                               <TableCell component="th" scope="row">
-                              <Button type="primary"><Icon type="edit" /></Button><Button type="danger"><Icon type="delete" /></Button>
+                              <Link  className="p-2" to="/admin/edit-user" ><Button type="primary"><Icon type="edit" /></Button></Link><Button type="danger"><Icon type="delete" /></Button>
                               </TableCell> 
           
                             </TableRow>

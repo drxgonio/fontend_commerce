@@ -14,7 +14,14 @@ import CardHeader from "../../custom_design/Card/CardHeader.js";
 import CardBody from "../../custom_design/Card/CardBody.js";
 import Axios from "axios";
 import Pagination from "react-js-pagination";
-
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useRouteMatch,
+  useParams
+} from "react-router-dom";
 import { Icon, Button } from "antd";
 const styles = {
   cardCategoryWhite: {
@@ -83,7 +90,7 @@ export default function Category_QL() {
             </p>
           </CardHeader>
           <CardBody>
-          <Button type="primary" className="p-2"><Icon type="plus" />Thêm danh mục</Button>
+          <Link  className="p-2" to="/admin/add-category" > <Button type="primary" className="p-2"><Icon type="plus" />Thêm danh mục</Button></Link>
           <Table className="table" aria-label="simple table">
                         <TableHead>
                           <TableRow>
@@ -118,7 +125,7 @@ export default function Category_QL() {
                                 <a>{item.linkimage}</a>
                               </TableCell>
                               <TableCell component="th" scope="row">
-                              <Button type="primary"><Icon type="edit" /></Button><Button type="danger"><Icon type="delete" /></Button>
+                              <Link to="/admin/edit-category" ><Button type="primary"><Icon type="edit" /></Button></Link><Button type="danger"><Icon type="delete" /></Button>
                               </TableCell>
           
                             </TableRow>

@@ -12,6 +12,7 @@ import Sidebar from "views/admin/components/Sidebar/Sidebar.js";
 import FixedPlugin from "views/admin/components/FixedPlugin/FixedPlugin.js";
 
 import routes from "./routes";
+import routes_simple from "./routes_simple";
 import styles from "assets/jss/material-dashboard-react/layouts/adminStyle.js";
 
 import bgImage from "assets/img/sidebar-2.jpg";
@@ -94,7 +95,7 @@ export default function Admin({ ...rest }) {
   return (
     <div className={classes.wrapper}>
       <Sidebar
-        routes={routes}
+        routes={routes_simple}
         logoText={"Ecommerce"}
         logo={logo}
         image={image}

@@ -15,6 +15,14 @@ import CardBody from "../../custom_design/Card/CardBody.js";
 import Axios from "axios";
 import Pagination from "react-js-pagination";
 import { Button, Icon } from "antd";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useRouteMatch,
+  useParams
+} from "react-router-dom";
 const styles = {
   cardCategoryWhite: {
     "&,& a,& a:hover,& a:focus": {
@@ -82,7 +90,7 @@ export default function Product_QL() {
             </p>
           </CardHeader>
           <CardBody>
-          <Button type="primary" className="p-2"><Icon type="plus" />Thêm sản phẩm</Button>
+          <Link  className="p-2" to="/admin/add-product" > <Button type="primary" className="p-2"><Icon type="plus" />Thêm sản phẩm</Button></Link>
           <Table className="table" aria-label="simple table">
                         <TableHead>
                           <TableRow>
@@ -114,7 +122,7 @@ export default function Product_QL() {
                                 <a>{item.product_details.price}</a>
                               </TableCell> 
                               <TableCell component="th" scope="row">
-                              <Button type="primary"><Icon type="edit" /></Button><Button type="danger"><Icon type="delete" /></Button>
+                              <Link to="/admin/edit-product" ><Button type="primary"><Icon type="edit" /></Button></Link><Button type="danger"><Icon type="delete" /></Button>
                               </TableCell>
           
                             </TableRow>
