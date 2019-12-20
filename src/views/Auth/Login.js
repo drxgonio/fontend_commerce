@@ -17,7 +17,7 @@ import Context from '../../Context/Context.js';
 import useForm from '../../Aform/useForm.js';
 import {withRouter} from "react-router-dom"
 import { submitLogin } from 'API/APIUtils';
-import { ACCESS_TOKEN } from 'API/URLMapping';
+import { ACCESS_TOKEN, GOOGLE_AUTH_URL,FACEBOOK_AUTH_URL, GITHUB_AUTH_URL } from 'API/URLMapping';
 
 function Login(props) {
   //get user
@@ -69,6 +69,26 @@ function Login(props) {
             <Col className="mx-auto" lg="4" md="6">
               <Card className="card-register">
                 <h3 className="title mx-auto">Ecommerce</h3>
+                <div className="social-line text-center">
+                  <Button
+                    className="btn-neutral btn-just-icon mr-1"
+                    color="facebook"
+                    href={FACEBOOK_AUTH_URL}
+                    
+                  >
+                    <i className="fa fa-facebook-square" />
+                  </Button>
+                  <Button
+                    className="btn-neutral btn-just-icon mr-1"
+                    color="google"
+                    href={GOOGLE_AUTH_URL}
+                    
+                  >
+                    <i className="fa fa-google-plus" />
+                  </Button>
+                
+                </div>
+            
                 <Form className="register-form" onSubmit={handleSubmit}>
                   <label>Email</label>
                   <InputGroup className="form-group-no-border">

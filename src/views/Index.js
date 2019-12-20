@@ -7,6 +7,7 @@ import IndexPage from './IndexPage/IndexPage';
 import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
 import { ACCESS_TOKEN } from 'API/URLMapping';
 import Login from './Auth/Login';
+import Register from './Auth/Register';
 import { callbackify } from 'util';
 import Admin from './admin/Admin';
 import ProfilePage from 'components/Profile/ProfilePage';
@@ -17,7 +18,7 @@ import ProductDetails from 'components/ProductDetails/ProductDetails';
 import Shipping from 'components/Shipping/Shipping';
 import Order from 'components/Order/Order';
 import Search from 'components/Search/Search';
-
+import OAuth2RedirectHandler from 'API/oauth2/OAuth2RedirectHandler';
 
 function Index(props) {
   document.documentElement.classList.remove("nav-open");
@@ -30,13 +31,15 @@ function Index(props) {
   //login
 
   const [authenticated, setAuthenticated] = useState(false);
-  const [role, setRole] = useState("User");
+  const [role, setRole] = useState("ROLE_USER");
   const [currentUser, setCurrentUser] = useState(null);
   // Similar to componentDidMount and componentDidUpdate:
 
   useEffect(() => {
+    
     getCurrentUser()
       .then(response => {
+        console.log(response)
         setAuthenticated(true)
         setCurrentUser(response);
         setRole(response.role)
@@ -45,7 +48,7 @@ function Index(props) {
         console.log(error);
       });
 
-  }, []);
+  }, [authenticated]);
 
 
   
@@ -69,6 +72,7 @@ function Index(props) {
   return (
 
     <Context.Provider value={authen}>
+      {console.log(authen)}
       <BrowserRouter>
   
         <Route path="/" exact render={props => <IndexPage authenticated={authenticated} onLogout={handleLogout} {...props} />} />
@@ -76,8 +80,8 @@ function Index(props) {
         {authen.authenticated&&authen.role==="ROLE_ADMIN"?(
            <Route path="/admin" component={Admin} />
         ):(console.log("No Access"))}
-       
-     
+        <Route path="/oauth2/redirect" component={OAuth2RedirectHandler}></Route> 
+        <Route path="/register" exact render={props => <Register {...props} />} />
         <Route path="/profile-page" exact render={props => <ProfilePage authenticated={authenticated} currentUser={currentUser} onLogout={handleLogout} {...props} />} />
         <Route path="/product-of-category/:name/:id" exact render={props => <ProductOfCategory authenticated={authenticated}  onLogout={handleLogout} {...props} {...props} />} />
         {/* <Route path="/profile-page" exact render={props => <ProfilePage  {...props} />} /> */}

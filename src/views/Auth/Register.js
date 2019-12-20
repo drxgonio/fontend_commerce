@@ -3,11 +3,13 @@ import React from "react";
 
 // reactstrap components
 import { Button, Card, Form, Input, Container, Row, Col } from "reactstrap";
-
+import { Redirect } from 'react-router-dom'
 // core components
 import IndexNavbar from "components/Navbars/IndexNavbar";
-
-function Register() {
+import useForm from '../../Aform/useForm.js';
+import { signup } from 'API/APIUtils';
+import { message } from 'antd';
+function Register(props) {
   document.documentElement.classList.remove("nav-open");
   React.useEffect(() => {
     document.body.classList.add("register-page");
@@ -15,6 +17,20 @@ function Register() {
       document.body.classList.remove("register-page");
     };
   });
+  const { values, handleChange, handleSubmit } = useForm(login);
+  function login() {   
+    console.log(values);
+    signup(values)
+    .then(response => {
+      message.info('Tạo tài khoản thành công. Hãy đăng nhập!!!');
+        props.history.push("/login");
+    }).catch(error => {
+      message.error('Email đã tồn tại hoặc không hợp lệ!!!')
+    });
+        
+   
+  }
+
   return (
     <>
       <IndexNavbar />
@@ -30,39 +46,13 @@ function Register() {
             <Col className="ml-auto mr-auto" lg="4">
               <Card className="card-register ml-auto mr-auto">
                 <h3 className="title mx-auto">Ecommerce</h3>
-                <div className="social-line text-center">
-                  <Button
-                    className="btn-neutral btn-just-icon mr-1"
-                    color="facebook"
-                    href="#pablo"
-                    onClick={e => e.preventDefault()}
-                  >
-                    <i className="fa fa-facebook-square" />
-                  </Button>
-                  <Button
-                    className="btn-neutral btn-just-icon mr-1"
-                    color="google"
-                    href="#pablo"
-                    onClick={e => e.preventDefault()}
-                  >
-                    <i className="fa fa-google-plus" />
-                  </Button>
-                  <Button
-                    className="btn-neutral btn-just-icon"
-                    color="twitter"
-                    href="#pablo"
-                    onClick={e => e.preventDefault()}
-                  >
-                    <i className="fa fa-twitter" />
-                  </Button>
-                </div>
-                <Form className="register-form">
+                <Form className="register-form" onSubmit={handleSubmit}>
                   <label>Email</label>
-                  <Input placeholder="Email" type="text" />
+                  <Input placeholder="Email" name="email" type="text" onChange={handleChange} value={values.email}/>
+                  <label>Username</label>
+                  <Input placeholder="Name" name="name" type="text" onChange={handleChange} value={values.name}/>
                   <label>Password</label>
-                  <Input placeholder="Password" type="password" />
-                  <label>Confirm password</label>
-                  <Input placeholder="Password" type="password" />
+                  <Input placeholder="Password" name="password" type="password"  onChange={handleChange} value={values.confirmpassword}/>
                   <Button block className="btn-round" color="danger">
                     Register
                   </Button>
