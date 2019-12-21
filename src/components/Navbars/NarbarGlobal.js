@@ -1,5 +1,5 @@
 
-import React, { useEffect } from "react";
+import React from "react";
 // nodejs library that concatenates strings
 import classnames from "classnames";
 // reactstrap components
@@ -14,15 +14,9 @@ import {
   Container
 } from "reactstrap";
 import { withRouter } from "react-router-dom"
-import {
 
-  Link
-
-} from "react-router-dom";
-import { Input, Icon } from 'antd';
+import {  Icon } from 'antd';
 import Context from "Context/Context";
-
-const { Search } = Input;
 
 
 function NarbarGlobal(props) {
@@ -35,9 +29,7 @@ function NarbarGlobal(props) {
     document.documentElement.classList.toggle("nav-open");
   };
 
-  function searchProduct(value) {
-    props.history.push("/search/keyword/"+value);
-  }
+  
 
 
   return (
@@ -121,7 +113,7 @@ function NarbarGlobal(props) {
                   <Icon type="solution" />
                 </NavLink>
               </NavItem>
-              ):(console.log("No access"))}    
+              ):(<NavItem></NavItem>)}    
           
             <NavItem>
                 <NavLink
@@ -172,7 +164,6 @@ function NarbarGlobal(props) {
             <NavItem>
                 <NavLink
                 data-placement="bottom"
-                href="#"
                 title="Đăng nhập"
                   href="/login"
                 >

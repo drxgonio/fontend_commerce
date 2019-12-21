@@ -1,15 +1,8 @@
 
 import React, { useState, useEffect } from "react";
-import { Menu, Icon, Button } from 'antd';
-import SimpleImageSlider from "react-simple-image-slider";
 import Pagination from "react-js-pagination";
 // reactstrap components
 import {
-
-    Navbar,
-    NavItem,
-    NavLink,
-    Nav,
     Container,
     Row,
     Col
@@ -27,7 +20,7 @@ function ProductOfCategory(props) {
     const [itemsCountPerPage, setItemsCountPerPage] = useState(null);
     const [totalItemsCount, setTotalItemsCount] = useState(null);
     const [activePage, setActivePage] = useState(1);
-    const [page, setPage] = useState(1);
+
     useEffect(()=>{
         const fetchData= async ()=>{
             const lst= await Axios.get(`http://localhost:8080/api/getProductOfCategory?idCategory=`+props.match.params.id+`&page=`+(activePage-1)+`&size=4`);
@@ -46,9 +39,7 @@ function ProductOfCategory(props) {
     
     return (
         <>
-
-             {console.log(listProduct)}
-            
+          
            <IndexNavbar authenticated={props.authenticated} onLogout={props.onLogout}></IndexNavbar>  
            <IndexHeader></IndexHeader>  
             <div className="section section-navbars">

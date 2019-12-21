@@ -1,14 +1,9 @@
 
 import React from "react";
-import { Menu, Icon, Button } from 'antd';
-import SimpleImageSlider from "react-simple-image-slider";
+import { Button } from 'antd';
+
 // reactstrap components
 import {
-
-    Navbar,
-    NavItem,
-    NavLink,
-    Nav,
     Container,
     Row,
     Col

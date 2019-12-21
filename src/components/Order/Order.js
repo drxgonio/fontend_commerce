@@ -11,7 +11,7 @@ import {
     Container,
     Row,
     Col,
-    Label, Input, Form
+    
 } from "reactstrap";
 
 import { Progress, message } from 'antd';
@@ -23,20 +23,15 @@ import QRCode from 'qrcode.react';
 import { Modal, Button } from 'antd';
 
 function Order(props) {
-    const [activeTab, setActiveTab] = React.useState("1");
+   
 
     const [data, setData] = React.useState([]);
 
     const [user, setUser] = React.useState([]);
-    const [checked, setChecked] = React.useState(false);
     const [lstCart, setLstCart] = React.useState([]);
     const [totalPrice, setTotalPrice] = React.useState(0);
     const [checkOrder,setCheckOrder]=React.useState(false);
-    const toggle = tab => {
-        if (activeTab !== tab) {
-            setActiveTab(tab);
-        }
-    };
+    
     React.useEffect(() => {
         setUser(props.currentUser);
 
@@ -48,16 +43,9 @@ function Order(props) {
     }, [user]);
 
     document.documentElement.classList.remove("nav-open");
-    React.useEffect(() => {
-        document.body.classList.add("landing-page");
-        return function cleanup() {
-            document.body.classList.remove("landing-page");
-        };
-    });
-    function editProfile() {
-        setChecked(true);
-    }
-    const { values, handleChange, handleSubmit } = useForm(updateUser); // initialise the hook
+   
+    
+    const { values } = useForm(updateUser); // initialise the hook
     async function updateUser() {
         user.address = values.address;
         user.phone = values.phone;
@@ -108,9 +96,7 @@ function Order(props) {
                                 }
                                 const response=await  Axios.post(API_BASE_URL+"/order/addOrder", data, {
                                     headers: headers
-                                });
-                                console.log(response.data);
-                                
+                                });                             
                             }
                             else{
                                 message.error("Không có sản phẩm nào được chọn!")

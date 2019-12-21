@@ -16,12 +16,9 @@ import Axios from "axios";
 import Pagination from "react-js-pagination";
 import { Button, Icon } from "antd";
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
+ 
   Link,
-  useRouteMatch,
-  useParams
+  
 } from "react-router-dom";
 const styles = {
   cardCategoryWhite: {
@@ -106,20 +103,20 @@ export default function Product_QL() {
                           {lstProduct && lstProduct.map(item => (
                             <TableRow >
                               <TableCell component="th" scope="row">
-                                <a>{item.id}</a>
+                                {item.id}
                               </TableCell>
                                <TableCell component="th" scope="row">
-                                <a>{item.name}</a>
+                                {item.name}
                               </TableCell>
                              
                               <TableCell component="th" scope="row">
-                                <a>{item.dateAdd}</a>
+                                {item.dateAdd}
                               </TableCell>
                               <TableCell component="th" scope="row">
-                                <a>{item.dateUpdate}</a>
+                                {item.dateUpdate}
                               </TableCell>
                               <TableCell component="th" scope="row">
-                                <a>{item.product_details.price}</a>
+                                {item.product_details.price}
                               </TableCell> 
                               <TableCell component="th" scope="row">
                               <Link to="/admin/edit-product" ><Button type="primary"><Icon type="edit" /></Button></Link><Button type="danger"><Icon type="delete" /></Button>

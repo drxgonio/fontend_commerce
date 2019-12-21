@@ -1,5 +1,5 @@
 
-import React, { useEffect } from "react";
+import React from "react";
 // nodejs library that concatenates strings
 import classnames from "classnames";
 // reactstrap components
@@ -15,11 +15,7 @@ import {
 } from "reactstrap";
 import { withRouter } from "react-router-dom"
 
-import {
 
-  Link, Redirect
-
-} from "react-router-dom";
 import { Input, Icon } from 'antd';
 import Context from "Context/Context";
 
@@ -59,8 +55,6 @@ function IndexNavbar(props) {
   });
 
 
-  const [value, setvalue] = React.useState("");
-
 
   function searchProduct(value) {
     props.history.push("/search/keyword/"+value);
@@ -70,7 +64,6 @@ function IndexNavbar(props) {
   return (
 
     <Navbar className={classnames("fixed-top", navbarColor)} expand="lg">
-      {console.log(authen.role)}
       <Container>
         <div className="navbar-translate">
           <NavbarBrand
@@ -147,7 +140,7 @@ function IndexNavbar(props) {
                   <Icon type="solution" />
                 </NavLink>
               </NavItem>
-              ):(console.log("No access"))}
+              ):(<NavItem></NavItem>)}
               
 
               <NavItem>
@@ -199,7 +192,6 @@ function IndexNavbar(props) {
                 <NavItem>
                   <NavLink
                     data-placement="bottom"
-                    href="#"
                     title="Đăng nhập"
                     href="/login"
                   >

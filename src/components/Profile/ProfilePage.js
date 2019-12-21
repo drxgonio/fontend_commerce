@@ -3,25 +3,11 @@ import React, { useEffect } from "react";
 
 // reactstrap components
 import {
-  Button,
   Label,
-  FormGroup,
   Input,
-  NavItem,
-  NavLink,
-  Nav,
-  TabContent,
-  TabPane,
   Container,
   Row,
   Col,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  NavbarBrand,
-  UncontrolledCollapse,
-  Navbar,
-  UncontrolledDropdown
 } from "reactstrap";
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
@@ -29,7 +15,6 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import { Divider, Tag } from 'antd';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -37,9 +22,9 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 // core components
 import DemoFooter from "components/Footers/DemoFooter.js";
-import TextField from '@material-ui/core/TextField';
+
 import { Radio, Checkbox } from 'antd';
-import { style } from "@material-ui/system";
+
 import NarbarGlobal from "components/Navbars/NarbarGlobal";
 import { ACCESS_TOKEN } from "API/URLMapping";
 import { API_BASE_URL } from "API/URLMapping";
@@ -48,13 +33,9 @@ import useForm from 'react-hook-form';
 import { message } from 'antd';
 
 function ProfilePage(props) {
-  const [activeTab, setActiveTab] = React.useState("1");
+ 
   const [user, setUser] = React.useState(null);
-  const toggle = tab => {
-    if (activeTab !== tab) {
-      setActiveTab(tab);
-    }
-  };
+  
 
   document.documentElement.classList.remove("nav-open");
   React.useEffect(() => {
@@ -74,7 +55,6 @@ function ProfilePage(props) {
   //check show
   const [checked, setChecked] = React.useState(false);
   //check gender
-  const [checkGender, setCheckGender] = React.useState(true);
   const [lstOrderOfUser, setLstOrderOfUser] = React.useState([]);
 
   ///
@@ -96,7 +76,6 @@ function ProfilePage(props) {
   useEffect(() => {
     const fetchData = async () => {
 
-
       const headers = {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + localStorage.getItem(ACCESS_TOKEN)
@@ -111,8 +90,6 @@ function ProfilePage(props) {
   }, []);
 
   function onChange(e) {
-    console.log('checked = ', e.target.checked);
-
     setChecked(e.target.checked);
 
   };
@@ -287,17 +264,17 @@ function ProfilePage(props) {
                           {lstOrderOfUser && lstOrderOfUser.map(item => (
                             <TableRow >
                               <TableCell component="th" scope="row">
-                                <a>{item.id}</a>
+                                {item.id}
                               </TableCell>
-                              <TableCell ><a>{item.dateadd}</a></TableCell>
+                              <TableCell >{item.dateadd}</TableCell>
 <TableCell >{item&&item.lstOrder.map(pr=>(
   <a>{pr.product.name},</a>
 ))}</TableCell>
-                              <TableCell align="right"><a>{item.totalprice}đ</a></TableCell>
+                              <TableCell align="right">{item.totalprice}đ</TableCell>
 
-                              {item.status ? (<TableCell align="right"><a>Giao hàng thành công</a></TableCell>)
+                              {item.status ? (<TableCell align="right">Giao hàng thành công</TableCell>)
 
-                                : (<TableCell align="right"><a>Đang giao hàng</a></TableCell>)}
+                                : (<TableCell align="right">Đang giao hàng</TableCell>)}
                             </TableRow>
                           ))}
 

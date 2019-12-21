@@ -1,5 +1,5 @@
 
-import React, { useEffect } from "react";
+import React from "react";
 
 // reactstrap components
 import {
@@ -7,31 +7,27 @@ import {
   Row,
   Col
 } from "reactstrap";
-import PropTypes from 'prop-types';
+
 import { makeStyles } from '@material-ui/core/styles';
 import { message, Button } from 'antd';
 
 // core components
 
-import { Table, Divider, Tag } from 'antd';
-import { Input, Icon } from 'antd';
+
+import { Icon } from 'antd';
 import DemoFooter from "components/Footers/DemoFooter";
 import Axios from "axios";
-import IndexNavbar from "components/Navbars/IndexNavbar";
+
 import NarbarGlobal from "components/Navbars/NarbarGlobal";
 
-const { Search } = Input;
+
 
 function ProductDetails(props) {
-  const [activeTab, setActiveTab] = React.useState("1");
+ 
   const [product_detail, setProduct_detail] = React.useState(null);
   const [img_photo, setImg_photo]=React.useState(null);
 
-  const toggle = tab => {
-    if (activeTab !== tab) {
-      setActiveTab(tab);
-    }
-  };
+ 
   React.useEffect(async () => {
     const feactData = async () => {
       const lst = await Axios.get(`http://localhost:8080/api/productdetail?id=` + props.match.params.id);
@@ -67,7 +63,6 @@ function ProductDetails(props) {
 
     }
      if(item.length>0){
-       console.log(item.length)
       message.error('Đã tồn tại sản phẩm trong giỏ hàng!');
      }
      else{
@@ -89,7 +84,7 @@ function ProductDetails(props) {
   }
   return (
     <>
-    {console.log(img_photo)}
+ 
 
       <NarbarGlobal authenticated={props.authenticated} onLogout={props.onLogout} />
       <div className="section section-navbars pt-100">

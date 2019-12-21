@@ -104,24 +104,24 @@ export default function Order_QL() {
                           {lstOrder && lstOrder.map(item => (
                             <TableRow >
                               <TableCell component="th" scope="row">
-                                <a>{item.id}</a>
+                                {item.id}
                               </TableCell>
                                  <TableCell component="th" scope="row">
-                                <a>{item.name}</a>
+                                {item.name}
                               </TableCell>
                              
                               <TableCell component="th" scope="row">
-                                <a>{item.user.name}</a>
+                                {item.user.name}
                               </TableCell>
                               <TableCell >{item&&item.lstOrder.map(pr=>(
   <a>{pr.product.name},</a>
 ))}</TableCell>
                               <TableCell component="th" scope="row">
-                                <a>{item.totalprice}đ</a>
+                                {item.totalprice}đ
                               </TableCell>  
-                              {item.status ? (<TableCell align="right"><a>Giao hàng thành công</a></TableCell>)
+                              {item.status ? (<TableCell align="right">Giao hàng thành công</TableCell>)
 
-: (<TableCell><a>Đang giao hàng</a></TableCell>)}
+: (<TableCell>Đang giao hàng</TableCell>)}
                               <TableCell component="th" scope="row">
                               <Button type="primary"><Icon type="edit" /></Button><Button type="danger"><Icon type="delete" /></Button>
                               </TableCell> 

@@ -1,15 +1,8 @@
 
 import React, { useState, useEffect } from "react";
-import { Menu, Icon, Button } from 'antd';
-import SimpleImageSlider from "react-simple-image-slider";
 import Pagination from "react-js-pagination";
 // reactstrap components
 import {
-
-    Navbar,
-    NavItem,
-    NavLink,
-    Nav,
     Container,
     Row,
     Col
@@ -37,7 +30,6 @@ function ProductList(props) {
 
     }, [listProduct])
     function fetchURL(page) {
-       // console.log(page);
         props.onPageable(page);
     }
     function handlePageChange(pageNumber) {
@@ -47,9 +39,7 @@ function ProductList(props) {
     return (
         <>
 
-            {console.log(listProduct)}
-            {console.log(itemsCountPerPage)}
-            {console.log(totalItemsCount)}           
+              
             <div className="section section-navbars">
                 <Container id="menu-dropdown">
                     <div className="title">

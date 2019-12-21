@@ -1,5 +1,5 @@
 //login
-import React ,{ useContext,useEffect } from 'react';
+import React ,{useEffect } from 'react';
 import { useState } from 'react';
 import DemoFooter from "../../components/Footers/DemoFooter.js";
 import IndexHeader from "../../components/Headers/IndexHeader.js";
@@ -43,14 +43,13 @@ function IndexPage(props){
   
         <>
   
-       {console.log(data)}
      <IndexNavbar authenticated={props.authenticated} onLogout={props.onLogout} />
         <IndexHeader />
       <div className="main">
         <Narbar lstCategory={data.lstCategory} ></Narbar>
         {props.authenticated ? (
         <ProductUserWatch  authenticated={props.authenticated}></ProductUserWatch>
-        ):(console.log("No User"))}
+        ):(<a></a>)}
         <ProductOfme lstProductNew={data.lstProductNew}></ProductOfme>
        
         <ProductList lstProduct={data.lstProduct} onPageable={checkPageable}></ProductList>

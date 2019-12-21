@@ -15,12 +15,7 @@ import CardBody from "../../custom_design/Card/CardBody.js";
 import Axios from "axios";
 import Pagination from "react-js-pagination";
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useRouteMatch,
-  useParams
+  Link
 } from "react-router-dom";
 import { Icon, Button } from "antd";
 const styles = {
@@ -107,22 +102,22 @@ export default function Category_QL() {
                           {lstCategory && lstCategory.map(item => (
                             <TableRow >
                               <TableCell component="th" scope="row">
-                                <a>{item.id}</a>
+                               {item.id}
                               </TableCell>
                               <TableCell component="th" scope="row">
-                                <a>{item.name}</a>
+                                {item.name}
                               </TableCell>
                               <TableCell component="th" scope="row">
-                                <a>{item.dateAdd}</a>
+                                {item.dateAdd}
                               </TableCell>
                               <TableCell component="th" scope="row">
-                                <a>{item.dateUpdate}</a>
+                                {item.dateUpdate}
                               </TableCell>
                               <TableCell component="th" scope="row">
-                                <a>{item.note}</a>
+                                {item.note}
                               </TableCell>
                               <TableCell component="th" scope="row">
-                                <a>{item.linkimage}</a>
+                                {item.linkimage}
                               </TableCell>
                               <TableCell component="th" scope="row">
                               <Link to="/admin/edit-category" ><Button type="primary"><Icon type="edit" /></Button></Link><Button type="danger"><Icon type="delete" /></Button>

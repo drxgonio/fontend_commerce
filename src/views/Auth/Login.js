@@ -1,5 +1,5 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
+import React, { useEffect } from 'react';
+import {  Link} from "react-router-dom";
 import {
   Button,
   Card,
@@ -13,16 +13,13 @@ import {
   Col
 } from "reactstrap";
 import IndexNavbar from "components/Navbars/IndexNavbar";
-import Context from '../../Context/Context.js';
 import useForm from '../../Aform/useForm.js';
 import {withRouter} from "react-router-dom"
 import { submitLogin } from 'API/APIUtils';
-import { ACCESS_TOKEN, GOOGLE_AUTH_URL,FACEBOOK_AUTH_URL, GITHUB_AUTH_URL } from 'API/URLMapping';
+import { ACCESS_TOKEN, GOOGLE_AUTH_URL,FACEBOOK_AUTH_URL } from 'API/URLMapping';
 import { message } from 'antd';
 function Login(props) {
   //get user
-
-  const  [check, setCheck] = useState(false);
   
   document.documentElement.classList.remove("nav-open");
   useEffect(() => {
@@ -118,14 +115,14 @@ function Login(props) {
                   </Button>
                 </Form>
                 <div className="forgot">
-                  <Button
+                 <Link to="/forget-password"> <Button
                     className="btn-link"
                     color="danger"
-                    href="#pablo"
-                    onClick={e => e.preventDefault()}
+                              
                   >
                     Forgot password?
                   </Button>
+                  </Link>
                 </div>
               </Card>
               <div className="col text-center">

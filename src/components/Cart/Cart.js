@@ -8,8 +8,8 @@ import {
   Row,
   Col
 } from "reactstrap";
-import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
+
+
 import { Progress, Button } from 'antd';
 
 // core components
@@ -20,24 +20,20 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { Input, Icon, Alert } from 'antd';
+import { Input, Icon } from 'antd';
 import NarbarGlobal from "components/Navbars/NarbarGlobal";
-import Context from "Context/Context";
+
 import { ACCESS_TOKEN } from "API/URLMapping";
-import useForm from "Aform/useForm";
+
 
 const { Search } = Input;
 const ButtonGroup = Button.Group;
 
 
 function Cart(props) {
-  const [activeTab, setActiveTab] = React.useState("1");
+
   const [user, setUser] = React.useState(null);
-  const toggle = tab => {
-    if (activeTab !== tab) {
-      setActiveTab(tab);
-    }
-  };
+  
 
   document.documentElement.classList.remove("nav-open");
   React.useEffect(() => {
@@ -53,7 +49,7 @@ function Cart(props) {
   }, [props.currentUser])
 
 
-  const value = React.useContext(Context);
+
   const  [lstCart, setLstCart] = React.useState([]);
   const [totalPrice,setTotalPrice]= React.useState(0);
   const [check,setCheck]= React.useState(false);
@@ -103,14 +99,6 @@ function shipping(){
 
   return (
     <>
-  
-
-{  console.log(totalPrice)}
-
-
-        
-
- 
  <NarbarGlobal authenticated={props.authenticated} onLogout={props.onLogout} />
    
       <div className="section section-navbars ">
@@ -204,9 +192,4 @@ function shipping(){
   );
 }
 
-
-
-const useStyles = makeStyles(theme => ({
- 
-}));
 export default Cart;

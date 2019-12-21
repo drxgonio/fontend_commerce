@@ -1,9 +1,6 @@
 
 import React, { useEffect } from "react";
 
-
-import { makeStyles } from '@material-ui/core/styles';
-
 import DemoFooter from "components/Footers/DemoFooter";
 
 import NarbarGlobal from "components/Navbars/NarbarGlobal";
@@ -22,16 +19,10 @@ import { API_BASE_URL } from "API/URLMapping";
 
 
 function Shipping(props) {
-    const [activeTab, setActiveTab] = React.useState("1");
-
-
+    
     const [user, setUser] = React.useState([]);
     const [checked, setChecked] = React.useState(false);
-    const toggle = tab => {
-        if (activeTab !== tab) {
-            setActiveTab(tab);
-        }
-    };
+   
     React.useEffect(() => {
         setUser(props.currentUser);
 
@@ -84,10 +75,6 @@ function Shipping(props) {
       function redirectOrder(){
         props.history.push("/order");
       }
-    
-
-
-
 
 
     return (
@@ -175,7 +162,5 @@ function Shipping(props) {
 
 
 
-const useStyles = makeStyles(theme => ({
 
-}));
 export default Shipping;

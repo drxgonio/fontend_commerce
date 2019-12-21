@@ -3,7 +3,6 @@ import React from "react";
 
 // reactstrap components
 import { Button, Card, Form, Input, Container, Row, Col } from "reactstrap";
-import { Redirect } from 'react-router-dom'
 // core components
 import IndexNavbar from "components/Navbars/IndexNavbar";
 import useForm from '../../Aform/useForm.js';
@@ -19,7 +18,6 @@ function Register(props) {
   });
   const { values, handleChange, handleSubmit } = useForm(login);
   function login() {   
-    console.log(values);
     signup(values)
     .then(response => {
       message.info('Tạo tài khoản thành công. Hãy đăng nhập!!!');
@@ -56,17 +54,7 @@ function Register(props) {
                   <Button block className="btn-round" color="danger">
                     Register
                   </Button>
-                </Form>
-                <div className="forgot">
-                  <Button
-                    className="btn-link"
-                    color="danger"
-                    href="#pablo"
-                    onClick={e => e.preventDefault()}
-                  >
-                    Forgot password?
-                  </Button>
-                </div>
+                </Form>              
               </Card>
             </Col>
           </Row>

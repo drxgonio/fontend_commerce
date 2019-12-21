@@ -51,3 +51,10 @@ export function signup(signupRequest) {
         body: JSON.stringify(signupRequest)
     });
 }
+export function resetpassword(resetpass) {
+    return request({
+        url: API_BASE_URL + "/auth/resetpassword",
+        method: 'POST',
+        body: JSON.stringify(resetpass)
+    });
+}

@@ -1,24 +1,16 @@
 
-import React,{useState,useEffect} from "react";
-import { Menu, Icon } from 'antd';
+import React from "react";
+import { Menu } from 'antd';
 import SimpleImageSlider from "react-simple-image-slider";
 // reactstrap components
 import {
-    UncontrolledCollapse,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem,
-    UncontrolledDropdown,
     NavbarBrand,
     Navbar,
-    NavItem,
-    NavLink,
-    Nav,
     Container,
     Row,
     Col
 } from "reactstrap";
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 const { SubMenu } = Menu;
 
 const handleClick = e => {
@@ -26,13 +18,13 @@ const handleClick = e => {
 };
 
 function Narbar(props) {
- 
+
 
     return (
         <>
-      
-      
-    
+
+
+
             <div className="section section-navbars">
                 <Container id="menu-dropdown">
                     <div className="title">
@@ -49,7 +41,7 @@ function Narbar(props) {
                                     <Banner></Banner>
                                 </Col>
                                 <Col md="3">
-                                   
+
                                     <BannerSmaill></BannerSmaill>
                                 </Col>
                             </Row>
@@ -63,33 +55,32 @@ function Narbar(props) {
                                 <Col md="4">
                                     <BannerSmaill></BannerSmaill>
                                 </Col>
-                                
+
                             </Row>
-                            
+
                         </Col>
-                        
+
                     </Row>
                     <Row>
                         <Col md="3">
-                            <a href="#">
-                            <img src="https://salt.tikicdn.com/ts/banner/f7/05/78/7b9398ef12e05e0da013019bc260a418.png" alt="https://tiki.vn/chuong-trinh/me-san-khuyen-mai-online" className="LazyLoadImage__Wrapper-sc-8w66ab-0 eQFYij" style={{width:300}} />);
-                            </a>
+
+                            <img src="https://salt.tikicdn.com/ts/banner/f7/05/78/7b9398ef12e05e0da013019bc260a418.png" alt="https://tiki.vn/chuong-trinh/me-san-khuyen-mai-online" className="LazyLoadImage__Wrapper-sc-8w66ab-0 eQFYij" style={{ width: 300 }} />);
                         </Col>
                         <Col md="3">
-                        <a href="#">
-                            <img src="https://salt.tikicdn.com/ts/banner/f7/05/78/7b9398ef12e05e0da013019bc260a418.png" alt="https://tiki.vn/chuong-trinh/me-san-khuyen-mai-online" className="LazyLoadImage__Wrapper-sc-8w66ab-0 eQFYij" style={{width:300}} />);
-                            </a>    
+
+                            <img src="https://salt.tikicdn.com/ts/banner/f7/05/78/7b9398ef12e05e0da013019bc260a418.png" alt="https://tiki.vn/chuong-trinh/me-san-khuyen-mai-online" className="LazyLoadImage__Wrapper-sc-8w66ab-0 eQFYij" style={{ width: 300 }} />);
+
                             </Col>
                         <Col md="3">
-                        <a href="#">
-                            <img src="https://salt.tikicdn.com/ts/banner/f7/05/78/7b9398ef12e05e0da013019bc260a418.png" alt="https://tiki.vn/chuong-trinh/me-san-khuyen-mai-online" className="LazyLoadImage__Wrapper-sc-8w66ab-0 eQFYij" style={{width:300}} />);
-                            </a>
+
+                            <img src="https://salt.tikicdn.com/ts/banner/f7/05/78/7b9398ef12e05e0da013019bc260a418.png" alt="https://tiki.vn/chuong-trinh/me-san-khuyen-mai-online" className="LazyLoadImage__Wrapper-sc-8w66ab-0 eQFYij" style={{ width: 300 }} />);
+
                         </Col>
-                        <Col md="3"> 
-                        <a href="#">
-                            <img src="https://salt.tikicdn.com/ts/banner/f7/05/78/7b9398ef12e05e0da013019bc260a418.png" alt="https://tiki.vn/chuong-trinh/me-san-khuyen-mai-online" className="LazyLoadImage__Wrapper-sc-8w66ab-0 eQFYij" style={{width:300}} />);
-                            </a>
-                           </Col>
+                        <Col md="3">
+                           
+                                <img src="https://salt.tikicdn.com/ts/banner/f7/05/78/7b9398ef12e05e0da013019bc260a418.png" alt="https://tiki.vn/chuong-trinh/me-san-khuyen-mai-online" className="LazyLoadImage__Wrapper-sc-8w66ab-0 eQFYij" style={{ width: 300 }} />);
+                           
+                        </Col>
                     </Row>
                 </Container>
             </div>
@@ -101,18 +92,18 @@ function Narbar(props) {
 function BannerSmaill() {
     const images = [
         { url: "https://salt.tikicdn.com/cache/w206/ts/banner/09/e8/1c/3020ca1f22943775bea5505d381d0243.png" },
-      
+
     ];
     return (
         <>
             <Navbar className="bg-white" expand="lg">
                 <NavbarBrand href="#pablo" onClick={e => e.preventDefault()}>
-                <SimpleImageSlider
-                    width={300}
-                    height={300}
-                    images={images}
-                />
-                </NavbarBrand>    
+                    <SimpleImageSlider
+                        width={300}
+                        height={300}
+                        images={images}
+                    />
+                </NavbarBrand>
             </Navbar>
 
         </>
@@ -124,18 +115,18 @@ function Banner() {
         { url: "https://salt.tikicdn.com/cache/w584/ts/banner/ee/70/7c/07b406098b20ed338e56f727b26c5975.png" },
         { url: "https://salt.tikicdn.com/cache/w584/ts/banner/f2/c8/97/ec1883bd8ec9821f490876824e4c39c5.png" },
         { url: "https://salt.tikicdn.com/cache/w584/ts/banner/01/cd/db/b43d3958c85585dcc6d9c14585398d58.png" },
-       
+
     ];
     return (
         <>
             <Navbar className="bg-white" expand="lg">
                 <NavbarBrand href="#pablo" onClick={e => e.preventDefault()}>
-                <SimpleImageSlider
-                    width={600}
-                    height={300}
-                    images={images}
-                />
-                </NavbarBrand>                               
+                    <SimpleImageSlider
+                        width={600}
+                        height={300}
+                        images={images}
+                    />
+                </NavbarBrand>
             </Navbar>
 
         </>
@@ -145,32 +136,31 @@ function Banner() {
 function CategoryList(props) {
     return (
         <>
-        {console.log(props.lstCategory)}
-            <Navbar className="bg-primary" expand="lg">             
-                        <Menu
-                            onClick={handleClick}
-                            style={{ width: 256 }}
-                          
-                            className="font-weight-bold"
-                        >
-                             <span>Danh mục</span> 
-                             {props.lstCategory.map(item =>(
-                                 <SubMenu
-                                
-                                 title={                                 
-                                 <Link   to={{
+            <Navbar className="bg-primary" expand="lg">
+                <Menu
+                    onClick={handleClick}
+                    style={{ width: 256 }}
+
+                    className="font-weight-bold"
+                >
+                    <span>Danh mục</span>
+                    {props.lstCategory.map(item => (
+                        <SubMenu
+
+                            title={
+                                <Link to={{
                                     pathname: `/product-of-category/${item.name}/${item.id}`
-                                  }}>{item.name}</Link >                    
-                                 }
-                             >
-                                 
-                             </SubMenu>
-                             ))}
-                            
-                            
-                           
-                        </Menu>
-                  
+                                }}>{item.name}</Link >
+                            }
+                        >
+
+                        </SubMenu>
+                    ))}
+
+
+
+                </Menu>
+
             </Navbar>
 
         </>

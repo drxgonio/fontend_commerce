@@ -2,12 +2,6 @@ import React from 'react';
 // reactstrap components
 import {
     Button,
-    Label,
-    FormGroup,
-    Input,
-    InputGroupAddon,
-    InputGroupText,
-    InputGroup,
     Container,
     Row,
     Col

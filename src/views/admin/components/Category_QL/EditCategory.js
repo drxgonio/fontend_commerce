@@ -1,33 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // core components
 import GridItem from "../../custom_design/Grid/GridItem.js";
 import GridContainer from "../../custom_design/Grid/GridContainer.js";
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
+
+
 import Card from "../../custom_design/Card/Card.js";
 import CardHeader from "../../custom_design/Card/CardHeader.js";
 import CardBody from "../../custom_design/Card/CardBody.js";
-import Axios from "axios";
-import Pagination from "react-js-pagination";
 import {
-  Form,
   Input,
-  Tooltip,
-  Icon,
-  Cascader,
-  Select,
   Row,
   Col,
-  Checkbox,
   Button,
-  AutoComplete,
 } from 'antd';
-import { ACCESS_TOKEN } from "API/URLMapping.js";
+
 const styles = {
   cardCategoryWhite: {
     "&,& a,& a:hover,& a:focus": {
@@ -62,21 +50,15 @@ const useStyles = makeStyles(styles);
 
 export default function EditCategory() {
 
-  const [lstUser,setLstUser]= useState([]);
-  const [itemsCountPerPage, setItemsCountPerPage] = useState(null);
-  const [totalItemsCount, setTotalItemsCount] = useState(null);
-  const [activePage, setActivePage] = useState(1);
+ 
   
-  function handlePageChange(pageNumber) {
-    setActivePage(pageNumber);
 
-}
 
   const classes = useStyles();
   return (
     
     <GridContainer>
-      {console.log(lstUser)}
+ 
       <GridItem xs={12} sm={12} md={12}>
         <Card>
           <CardHeader color="primary">

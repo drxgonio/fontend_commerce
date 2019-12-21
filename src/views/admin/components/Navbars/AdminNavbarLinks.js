@@ -17,7 +17,7 @@ import Dashboard from "@material-ui/icons/Dashboard";
 import Search from "@material-ui/icons/Search";
 
 import styles from "assets/jss/material-dashboard-react/components/headerLinksStyle.js";
-import { Button, Input } from "antd";
+import { Button } from "antd";
 
 const useStyles = makeStyles(styles);
 

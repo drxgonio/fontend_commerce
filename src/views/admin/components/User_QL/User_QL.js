@@ -14,15 +14,12 @@ import CardHeader from "../../custom_design/Card/CardHeader.js";
 import CardBody from "../../custom_design/Card/CardBody.js";
 import Axios from "axios";
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
+
   Link,
-  useRouteMatch,
-  useParams
+
 } from "react-router-dom";
 import Pagination from "react-js-pagination";
-import { Button, Icon, Modal } from "antd";
+import { Button, Icon } from "antd";
 import { ACCESS_TOKEN } from "API/URLMapping.js";
 const styles = {
   cardCategoryWhite: {
@@ -112,20 +109,20 @@ export default function User_QL() {
                           {lstUser && lstUser.map(item => (
                             <TableRow >
                               <TableCell component="th" scope="row">
-                                <a>{item.id}</a>
+                                {item.id}
                               </TableCell>
                                 <TableCell component="th" scope="row">
-                                <a>{item.name}</a>
+                                {item.name}
                               </TableCell>
                              
                               <TableCell component="th" scope="row">
-                                <a>{item.email}</a>
+                                {item.email}
                               </TableCell>
                               <TableCell component="th" scope="row">
-                                <a>{item.address}</a>
+                                {item.address}
                               </TableCell>
                               <TableCell component="th" scope="row">
-                                <a>{item.phone}</a>
+                                {item.phone}
                               </TableCell> 
                               <TableCell component="th" scope="row">
                               <Link  className="p-2" to="/admin/edit-user" ><Button type="primary"><Icon type="edit" /></Button></Link><Button type="danger"><Icon type="delete" /></Button>
@@ -149,8 +146,7 @@ export default function User_QL() {
                         />
           </CardBody>
         </Card>
-      </GridItem>
-      
+      </GridItem>    
     </GridContainer>
   );
 }

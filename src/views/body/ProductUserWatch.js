@@ -1,13 +1,8 @@
 import React, {useEffect} from 'react';
-import { Menu, Icon, Button } from 'antd';
-import SimpleImageSlider from "react-simple-image-slider";
+import {  Button } from 'antd';
 // reactstrap components
 import {
    
-    Navbar,
-    NavItem,
-    NavLink,
-    Nav,
     Container,
     Row,
     Col
@@ -15,7 +10,6 @@ import {
 import ProductItem from './ProductItem';
 import { ACCESS_TOKEN } from 'API/URLMapping';
 import Axios from 'axios';
-import { API_BASE_URL } from 'API/URLMapping';
 function ProductUserWatch(props){
     const[lstproduct,setLstProduct] =React.useState([]);
 
@@ -55,8 +49,7 @@ function ProductUserWatch(props){
                         <ProductItem  product={item}></ProductItem>
                         </Col>
                     ))}
-                   
-                    
+                                    
                 </Row>
                 <Row>
                 <Col className="text-center pt-3">

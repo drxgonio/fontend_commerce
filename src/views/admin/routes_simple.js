@@ -4,15 +4,11 @@ import LibraryBooks from "@material-ui/icons/LibraryBooks";
 import BubbleChart from "@material-ui/icons/BubbleChart";
 import LocationOn from "@material-ui/icons/LocationOn";
 import Notifications from "@material-ui/icons/Notifications";
-import Unarchive from "@material-ui/icons/Unarchive";
-import Language from "@material-ui/icons/Language";
 
 import DashboardPage from "./components/Dashboard/Dashboard.js";
-import UserProfile from "../admin/components/UserProfile/UserProfile";
 import Product_QL from "./components/Product_QL/Product_QL.js";
 import Category_QL from "./components/Category_QL/Category_QL.js";
 import User_QL from "./components/User_QL/User_QL.js";
-import AddUser from "./components/User_QL/AddUser.js";
 
 import Order_QL from "./components/Order_QL/Order_QL.js";
 import Map_Google from "./components/Map/Map_Google.js";
