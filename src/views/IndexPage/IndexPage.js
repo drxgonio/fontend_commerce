@@ -9,15 +9,10 @@ import KeyWord from "../body/KeyWord";
 import Narbar from "../body/Narbar";
 import ProductOfme from "../body/ProductOfme";
 import ProductUserWatch from "../body/ProductUserWatch";
-import SectionTypography from 'views/index-sections/SectionTypography.js';
 
 import axios from 'axios';
 import ProductList from 'views/body/ProductList.js';
-import SectionExamples from 'views/index-sections/SectionExamples.js';
-import SectionNavbars from 'views/index-sections/SectionNavbars.js';
-import SectionNotifications from 'views/index-sections/SectionNotifications.js';
-import SectionProgress from 'views/index-sections/SectionProgress.js';
-import SectionNavigation from 'views/index-sections/SectionNavigation.js';
+
 function IndexPage(props){
   const [data, setData] = useState({lstCategory: [], lstProduct: [] ,lstProductNew:[]});
   const [page, setPage] = useState(1);
@@ -66,24 +61,7 @@ function IndexPage(props){
         <DemoFooter />   
       
         
-        {/* <SectionNavigation />
-        <SectionProgress />
-        <SectionNotifications />
-         
-         <SectionTypography />
-         <SectionExamples />
-         <SectionNavbars />
-         <SectionNotifications /> */}
-       
-          {/* <SectionProgress />
-         <SectionNavigation /> */}
-        {/* <SectionJavaScript />
-        <SectionCarousel />
-        <SectionNucleoIcons />
-        <SectionDark />
-        <SectionLogin />
       
-        <SectionDownload />  */}
       </div>
       </>
       

@@ -44,7 +44,8 @@ import NarbarGlobal from "components/Navbars/NarbarGlobal";
 import { ACCESS_TOKEN } from "API/URLMapping";
 import { API_BASE_URL } from "API/URLMapping";
 import Axios from "axios";
-
+import useForm from 'react-hook-form';
+import { message } from 'antd';
 
 function ProfilePage(props) {
   const [activeTab, setActiveTab] = React.useState("1");
@@ -115,8 +116,27 @@ function ProfilePage(props) {
     setChecked(e.target.checked);
 
   };
-
-
+  // const { register, handleSubmit, watch, errors } = useForm();
+  const { register, handleSubmit, watch,errors } = useForm()
+  const onSubmit =async data => { 
+    if (localStorage.getItem(ACCESS_TOKEN)) {
+      const headers = {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem(ACCESS_TOKEN)
+      }
+      const response = await Axios.post(API_BASE_URL + "/user/changepassword", data, {
+          headers: headers
+      });
+      console.log(response.status)
+      if(response.status === 200){
+        message.info('Đổi mật khẩu thành công. Vui lòng đăng nhập lại!!!');
+        props.onLogout();
+      }
+      else{
+        message.error('Nhập sai mật khẩu. Vui lòng nhập lại.');
+      }
+  }
+  }
 
   return (
     <>
@@ -205,27 +225,41 @@ function ProfilePage(props) {
                       <Col md="8"> <Checkbox checked={checked} onChange={onChange}>Thay đổi mật khẩu</Checkbox></Col>
                     </Row>
                     {checked ? (
-                      <Row>
+                      <form onSubmit={handleSubmit(onSubmit)}>
                         <Col md="12">
                           <Row>
-                            <Col md="4"> <Label>Mật khẩu cũ</Label></Col>
-                            <Col md="4"> <Input placeholder="Nhập mật khẩu" className="form-group" type="password" /></Col>
+                            <Col md="4"> <Label>Mật khẩu cũ(*)</Label></Col>
+                            <Col md="4"> 
+                              <input placeholder="Nhập mật khẩu" className="form-control" type="password" name="password"  ref={register({ required: true, maxlength: 20 })}/>
+                              {errors.password && <span style={{color:"red"}}>Mật khẩu không được để trống</span>}
+                            </Col>
                           </Row>
                           <Row>
-                            <Col md="4"> <Label>Mật khẩu mới</Label></Col>
-                            <Col md="4"> <Input placeholder="Nhập mật khẩu mới" className="form-group" type="password" /></Col>
+                            <Col md="4"> <Label>Mật khẩu mới(*)</Label></Col>
+                            <Col md="4"> <input placeholder="Nhập mật khẩu mới" className="form-control" type="password" name="passwordnew" ref={register({ required: true, maxlength: 20 })}
+                          />{errors.passwordnew && <span style={{color:"red"}}>Hãy nhập mật khẩu mới</span>}
+                          </Col>
                           </Row>
                           <Row>
-                            <Col md="4"> <Label>Nhập lại</Label></Col>
-                            <Col md="4"> <Input placeholder="Nhập lại" className="form-group" type="password" /></Col>
-                            <Col md="4" > <Button className="btn-warning float-right">Cập nhập</Button> </Col>
+                            <Col md="4"> <Label>Nhập lại(*)</Label></Col>
+                            <Col md="4"> <input placeholder="Nhập lại" className="form-control p-1" type="password" name="passwordConfirm"
+                               ref={register({
+                                validate: (value) => {
+                                  return value === watch('passwordnew'); // value is from password2 and watch will return value from password1
+                                }
+                              })} />
+                              {errors.passwordConfirm && <span style={{color:"red"}}>Mật khẩu nhập lại chưa chính xác</span>}
+                              </Col>
+                            <Col md="4" > <input type="submit" className="btn btn-warning" value="Cập nhập"/> </Col>
                           </Row>
                         </Col>
-                      </Row>
-                    ) : (<Row>
+                      </form>
+                   
+                   
+                   ) : (<Row>
+                      {/* <Col md="4"> </Col>
                       <Col md="4"> </Col>
-                      <Col md="4"> </Col>
-                      <Col md="4" > <Button className="btn-warning float-right">Cập nhập</Button> </Col>
+                      <Col md="4" > <Button className="btn-warning float-right">Cập nhập</Button> </Col> */}
                     </Row>)}
 
 

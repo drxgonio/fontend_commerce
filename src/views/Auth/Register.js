@@ -48,11 +48,11 @@ function Register(props) {
                 <h3 className="title mx-auto">Ecommerce</h3>
                 <Form className="register-form" onSubmit={handleSubmit}>
                   <label>Email</label>
-                  <Input placeholder="Email" name="email" type="text" onChange={handleChange} value={values.email}/>
+                  <Input placeholder="Email" name="email" type="text" onChange={handleChange} value={values.email} required/>
                   <label>Username</label>
-                  <Input placeholder="Name" name="name" type="text" onChange={handleChange} value={values.name}/>
+                  <Input placeholder="Name" name="name" type="text" onChange={handleChange} value={values.name} required/>
                   <label>Password</label>
-                  <Input placeholder="Password" name="password" type="password"  onChange={handleChange} value={values.confirmpassword}/>
+                  <Input placeholder="Password" name="password" type="password"  onChange={handleChange} value={values.confirmpassword} required/>
                   <Button block className="btn-round" color="danger">
                     Register
                   </Button>

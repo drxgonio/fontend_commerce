@@ -18,7 +18,7 @@ import useForm from '../../Aform/useForm.js';
 import {withRouter} from "react-router-dom"
 import { submitLogin } from 'API/APIUtils';
 import { ACCESS_TOKEN, GOOGLE_AUTH_URL,FACEBOOK_AUTH_URL, GITHUB_AUTH_URL } from 'API/URLMapping';
-
+import { message } from 'antd';
 function Login(props) {
   //get user
 
@@ -47,7 +47,7 @@ function Login(props) {
         props.history.push("/");
         
     }).catch(error => {
-       // Alert.error((error && error.message) || 'Oops! Something went wrong. Please try again!');
+      message.error('Thông tin đăng nhập không đúng');
     });
   }
 
