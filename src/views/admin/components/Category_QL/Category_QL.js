@@ -14,6 +14,8 @@ import CardHeader from "../../custom_design/Card/CardHeader.js";
 import CardBody from "../../custom_design/Card/CardBody.js";
 import Axios from "axios";
 import Pagination from "react-js-pagination";
+import { message } from 'antd';
+import { ACCESS_TOKEN,API_BASE_URL } from "API/URLMapping.js";
 import {
   Link
 } from "react-router-dom";
@@ -48,6 +50,7 @@ const styles = {
   }
 };
 
+
 const useStyles = makeStyles(styles);
 
 export default function Category_QL() {
@@ -56,6 +59,7 @@ export default function Category_QL() {
   const [itemsCountPerPage, setItemsCountPerPage] = useState(null);
   const [totalItemsCount, setTotalItemsCount] = useState(null);
   const [activePage, setActivePage] = useState(1);
+  const [check, setCheck] = useState(true);
   React.useEffect(()=>{
     async function loadCategory() {
       const result=await Axios.get(`http://localhost:8080/api/category?page=`+(activePage-1)+`&size=4`);
@@ -65,17 +69,35 @@ export default function Category_QL() {
       
     }
     loadCategory();
-  },[activePage]);
+  },[activePage,check]);
   function handlePageChange(pageNumber) {
     setActivePage(pageNumber);
 
+}
+const removeCategory = item => {
+  async function deleteCategory(){
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer '+localStorage.getItem(ACCESS_TOKEN)
+  }
+    const response = await Axios.get(API_BASE_URL + "/api/deleteCategory/"+item.id,{headers:headers});
+    console.log(response);
+      if(response.status === 200){
+        message.info('Đã xóa thành công!!!'); 
+        setCheck(!check); 
+      }
+      else{
+        message.error('Đã có lỗi xảy ra!');
+      }
+  }
+  deleteCategory();
+ 
 }
 
   const classes = useStyles();
   return (
     
     <GridContainer>
-      {console.log(lstCategory)}
       <GridItem xs={12} sm={12} md={12}>
         <Card>
           <CardHeader color="primary">
@@ -120,13 +142,11 @@ export default function Category_QL() {
                                 {item.linkimage}
                               </TableCell>
                               <TableCell component="th" scope="row">
-                              <Link to="/admin/edit-category" ><Button type="primary"><Icon type="edit" /></Button></Link><Button type="danger"><Icon type="delete" /></Button>
+                              <Link to="/admin/edit-category" ><Button type="primary"><Icon type="edit" /></Button></Link><Button type="danger" onClick={()=>removeCategory(item)}><Icon type="delete" /></Button>
                               </TableCell>
           
                             </TableRow>
                           ))}
-
-
                         </TableBody>
                       </Table>
             <Pagination

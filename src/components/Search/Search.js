@@ -22,7 +22,6 @@ function Search(props){
     
 
     useEffect(()=>{
-        console.log(keyword);
         async function searchProduct(){
                 const result= await Axios.get(`http://localhost:8080/api/search?keyword=`+keyword+`&page=`+(activePage-1)+`&size=4`);
                 setListProduct(result.data.content);

@@ -8,7 +8,6 @@ import {
   Col
 } from "reactstrap";
 
-import { makeStyles } from '@material-ui/core/styles';
 import { message, Button } from 'antd';
 
 // core components
@@ -156,15 +155,10 @@ function ProductDetails(props) {
           </Row>
         </Container>
       </div>
-
       <DemoFooter />
     </>
   );
 }
 
 
-
-const useStyles = makeStyles(theme => ({
-
-}));
 export default ProductDetails;

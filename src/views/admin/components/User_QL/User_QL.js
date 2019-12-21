@@ -20,7 +20,8 @@ import {
 } from "react-router-dom";
 import Pagination from "react-js-pagination";
 import { Button, Icon } from "antd";
-import { ACCESS_TOKEN } from "API/URLMapping.js";
+import { message } from 'antd';
+import { ACCESS_TOKEN,API_BASE_URL } from "API/URLMapping.js";
 const styles = {
   cardCategoryWhite: {
     "&,& a,& a:hover,& a:focus": {
@@ -59,6 +60,7 @@ export default function User_QL() {
   const [itemsCountPerPage, setItemsCountPerPage] = useState(null);
   const [totalItemsCount, setTotalItemsCount] = useState(null);
   const [activePage, setActivePage] = useState(1);
+  const [check, setCheck] = useState(true);//update lai component when delete
   React.useEffect(()=>{
     async function loadCategory() {
         const headers = {
@@ -72,10 +74,29 @@ export default function User_QL() {
       
     }
     loadCategory();
-  },[activePage]);
+  },[activePage,check]);
   function handlePageChange(pageNumber) {
     setActivePage(pageNumber);
 
+}
+const removeUser = item => {
+  async function deletePUser(){
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer '+localStorage.getItem(ACCESS_TOKEN)
+  }
+    const response = await Axios.get(API_BASE_URL + "/user/deleteUser/"+item.id,{headers:headers});
+    console.log(response);
+      if(response.status === 200){
+        message.info('Đã xóa thành công!!!'); 
+        setCheck(!check); 
+      }
+      else{
+        message.error('Đã có lỗi xảy ra!');
+      }
+  }
+  deletePUser();
+ 
 }
 
   const classes = useStyles();
@@ -125,7 +146,7 @@ export default function User_QL() {
                                 {item.phone}
                               </TableCell> 
                               <TableCell component="th" scope="row">
-                              <Link  className="p-2" to="/admin/edit-user" ><Button type="primary"><Icon type="edit" /></Button></Link><Button type="danger"><Icon type="delete" /></Button>
+                              <Link  className="p-2" to="/admin/edit-user" ><Button type="primary"><Icon type="edit" /></Button></Link><Button type="danger" onClick={()=>removeUser(item)}><Icon type="delete" /></Button>
                               </TableCell> 
           
                             </TableRow>

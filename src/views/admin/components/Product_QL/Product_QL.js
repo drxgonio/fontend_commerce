@@ -14,6 +14,8 @@ import CardHeader from "../../custom_design/Card/CardHeader.js";
 import CardBody from "../../custom_design/Card/CardBody.js";
 import Axios from "axios";
 import Pagination from "react-js-pagination";
+import { message } from 'antd';
+import { ACCESS_TOKEN,API_BASE_URL } from "API/URLMapping.js";
 import { Button, Icon } from "antd";
 import {
  
@@ -58,6 +60,7 @@ export default function Product_QL() {
   const [itemsCountPerPage, setItemsCountPerPage] = useState(null);
   const [totalItemsCount, setTotalItemsCount] = useState(null);
   const [activePage, setActivePage] = useState(1);
+  const [check, setCheck] = useState(true);//update lai component when delete
   React.useEffect(()=>{
     async function loadCategory() {
       const result=await Axios.get(`http://localhost:8080/api/getallProduct?page=`+(activePage-1)+`&size=4`);
@@ -67,17 +70,35 @@ export default function Product_QL() {
       
     }
     loadCategory();
-  },[activePage]);
+  },[activePage,check]);
   function handlePageChange(pageNumber) {
     setActivePage(pageNumber);
 
+}
+const removeProduct = item => {
+  async function deleteProduct(){
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer '+localStorage.getItem(ACCESS_TOKEN)
+  }
+    const response = await Axios.get(API_BASE_URL + "/api/deleteProduct/"+item.id,{headers:headers});
+    console.log(response);
+      if(response.status === 200){
+        message.info('Đã xóa thành công!!!'); 
+        setCheck(!check); 
+      }
+      else{
+        message.error('Đã có lỗi xảy ra!');
+      }
+  }
+  deleteProduct();
+ 
 }
 
   const classes = useStyles();
   return (
     
     <GridContainer>
-      {console.log(lstProduct)}
       <GridItem xs={12} sm={12} md={12}>
         <Card>
           <CardHeader color="primary">
@@ -119,7 +140,7 @@ export default function Product_QL() {
                                 {item.product_details.price}
                               </TableCell> 
                               <TableCell component="th" scope="row">
-                              <Link to="/admin/edit-product" ><Button type="primary"><Icon type="edit" /></Button></Link><Button type="danger"><Icon type="delete" /></Button>
+                              <Link to="/admin/edit-product" ><Button type="primary"><Icon type="edit" /></Button></Link><Button type="danger" onClick={()=>removeProduct(item)}><Icon type="delete" /></Button>
                               </TableCell>
           
                             </TableRow>

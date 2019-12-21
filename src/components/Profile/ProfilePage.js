@@ -104,7 +104,6 @@ function ProfilePage(props) {
       const response = await Axios.post(API_BASE_URL + "/user/changepassword", data, {
           headers: headers
       });
-      console.log(response.status)
       if(response.status === 200){
         message.info('Đổi mật khẩu thành công. Vui lòng đăng nhập lại!!!');
         props.onLogout();
@@ -117,7 +116,6 @@ function ProfilePage(props) {
 
   return (
     <>
-      {console.log(lstOrderOfUser)}
       <NarbarGlobal authenticated={props.authenticated} onLogout={props.onLogout} />
       <div className="section section-navbars pt-100">
         <Container >
