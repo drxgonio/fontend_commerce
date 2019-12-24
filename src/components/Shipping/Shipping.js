@@ -11,18 +11,18 @@ import {
     Label, Input, Form, Button
 } from "reactstrap";
 
-import { Progress } from 'antd';
 import useForm from "Aform/useForm";
 import Axios from "axios";
 import { ACCESS_TOKEN } from "API/URLMapping";
 import { API_BASE_URL } from "API/URLMapping";
-
+import { Steps } from 'antd';
+const { Step } = Steps;
 
 function Shipping(props) {
-    
+
     const [user, setUser] = React.useState([]);
     const [checked, setChecked] = React.useState(false);
-   
+
     React.useEffect(() => {
         setUser(props.currentUser);
 
@@ -44,55 +44,64 @@ function Shipping(props) {
         setChecked(true);
     }
     const { values, handleChange, handleSubmit } = useForm(updateUser); // initialise the hook
-    async function  updateUser() {
-        user.address=values.address;
-        user.phone=values.phone;
+    async function updateUser() {
+        user.address = values.address;
+        user.phone = values.phone;
         if (localStorage.getItem(ACCESS_TOKEN)) {
             const headers = {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer '+localStorage.getItem(ACCESS_TOKEN)
-              }
-             const response=await  Axios.post(API_BASE_URL+"/user/updateUser", user, {
+                'Authorization': 'Bearer ' + localStorage.getItem(ACCESS_TOKEN)
+            }
+            const response = await Axios.post(API_BASE_URL + "/user/updateUser", user, {
                 headers: headers
-              });
-              setUser(response.data)
-              
+            });
+            setUser(response.data)
+
         }
-        
-        
+
+
     }
     //check auth
-    useEffect(()=>{
-    
-        if(localStorage.getItem(ACCESS_TOKEN)!==null){
-         
+    useEffect(() => {
+
+        if (localStorage.getItem(ACCESS_TOKEN) !== null) {
+
         }
-        else{
-          props.history.push("/login");
+        else {
+            props.history.push("/login");
         }
-          
-      },[localStorage.getItem('mycart')]);
-      function redirectOrder(){
+
+    }, [localStorage.getItem('mycart')]);
+    function redirectOrder() {
         props.history.push("/order");
-      }
+    }
 
 
     return (
         <>
 
 
-            <NarbarGlobal authenticated={props.authenticated} onLogout={props.onLogout} />\
-            <Row>
-                        <Progress percent={50} size="small" status="active" />
-                    </Row>
+            <NarbarGlobal authenticated={props.authenticated} onLogout={props.onLogout} />
+            <Row className="p-3 border">  
+                <Col md={1}></Col>
+                <Col md={11}>
+                <Steps size="small" current={1}>
+                    <Step title="Đăng nhập" />
+                    <Step title="Địa chỉ giao hàng" />
+                    <Step title="Thanh toán & Đặt mua" />
+                </Steps>
+                </Col>
+                
+               
+            </Row>
             <div className="section section-navbars pt-100" style={{
-        backgroundColor: '#f4f4f4'
-        
-      }}>
+                backgroundColor: '#f4f4f4'
+
+            }}>
                 <Container >
 
                     <br />
-                   
+
                     <Row>
 
                     </Row>
@@ -121,7 +130,7 @@ function Shipping(props) {
                             <Col md="12" >
                                 <Row>
                                     <Col md="4" align="right"> <Label>Họ tên</Label></Col>
-                                    <Col md="6" > <Input placeholder="Nhập tên" value={props.currentUser && props.currentUser.name} className="form-group"  disabled/></Col>
+                                    <Col md="6" > <Input placeholder="Nhập tên" value={props.currentUser && props.currentUser.name} className="form-group" disabled /></Col>
                                 </Row>
                                 <Row>
                                     <Col md="4" align="right"> <Label>Số điện thoại</Label></Col>

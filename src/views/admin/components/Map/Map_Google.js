@@ -4,23 +4,7 @@ import GridContainer from "../../custom_design/Grid/GridContainer.js";
 import Card from "../../custom_design/Card/Card.js";
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps";
 import * as parkData from "Aform/skateboard-parks.json";
-//   const MapWithAMarker = withScriptjs(withGoogleMap(props =>
-//     <GoogleMap
-//       defaultZoom={8}
-//       defaultCenter={{ lat: 10.823099, lng: 106.629662 }}
-//     >
-//        {parkData.features.map(park => (
-//         <Marker
-//           key={park.properties.PARK_ID}
-//           position={{
-//             lat: park.geometry.coordinates[0],
-//             lng: park.geometry.coordinates[1]
-//           }}
-         
-//         />
-//       ))}
-//     </GoogleMap>
-//   ));
+
 function Map() {
     const [selectedPark, setSelectedPark] = React.useState(null);
   

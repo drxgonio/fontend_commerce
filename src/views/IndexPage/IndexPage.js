@@ -16,6 +16,7 @@ import ProductList from 'views/body/ProductList.js';
 function IndexPage(props){
   const [data, setData] = useState({lstCategory: [], lstProduct: [] ,lstProductNew:[]});
   const [page, setPage] = useState(1);
+  const [size, setSize] = useState(4);
   
   useEffect( () => {
     const fetchData = async () => {
@@ -25,7 +26,7 @@ function IndexPage(props){
         const lstProduct = await axios(
           `http://localhost:8080/api/getallProduct?page=`+(page-1)+`&size=8`
         );
-        const lstProductNew=await axios.get("http://localhost:8080/api/getproductnew");
+        const lstProductNew=await axios.get(`http://localhost:8080/api/getproductnew?page=0&size=`+size);
   
         setData({ lstCategory: lstCategory.data, lstProduct: lstProduct.data, lstProductNew:lstProductNew.data });
        
@@ -33,10 +34,13 @@ function IndexPage(props){
       };
   
     fetchData();
-  },[page]);
+  },[page,size]);
   function checkPageable(number){
     setPage(number);
-}
+  }
+  function checkSize(number){
+    setSize(number);
+  }
 
 
     return(
@@ -45,12 +49,13 @@ function IndexPage(props){
   
      <IndexNavbar authenticated={props.authenticated} onLogout={props.onLogout} />
         <IndexHeader />
-      <div className="main">
+      <div className="main ">
+     
         <Narbar lstCategory={data.lstCategory} ></Narbar>
-        {props.authenticated ? (
+        {/* {props.authenticated ? (
         <ProductUserWatch  authenticated={props.authenticated}></ProductUserWatch>
-        ):(<a></a>)}
-        <ProductOfme lstProductNew={data.lstProductNew}></ProductOfme>
+        ):(<a></a>)} */}
+        <ProductOfme lstProductNew={data.lstProductNew} onCheckSize={checkSize} size={size}></ProductOfme>
        
         <ProductList lstProduct={data.lstProduct} onPageable={checkPageable}></ProductList>
         <KeyWord></KeyWord>

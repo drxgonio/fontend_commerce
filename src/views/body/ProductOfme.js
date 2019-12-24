@@ -12,14 +12,17 @@ import ProductItem from "./ProductItem";
 
 
 function ProductOfme(props) {
-
-
+    const [size,setSize]=React.useState(props.size);
+    React.useEffect(()=>{
+        props.onCheckSize(size);
+    },[size]);
+   
     return (
         <>
             <div className="section section-navbars">
                 <Container id="menu-dropdown">
                     <div className="title">
-                   <h3>Sản phẩm mới <i className="nc-icon nc-diamond" /> </h3>
+                   <h3>Sản phẩm mới </h3>
                     </div>
                     <br />
                     <Row>
@@ -27,7 +30,7 @@ function ProductOfme(props) {
                     </Row>
                    
                             <Row>
-                            {props.lstProductNew&&props.lstProductNew.map(item=>(
+                            {props.lstProductNew.content&&props.lstProductNew.content.map(item=>(
                                     <Col md="3">
                                         <ProductItem product={item}></ProductItem>
                                     </Col>
@@ -38,7 +41,7 @@ function ProductOfme(props) {
                     
                     <Row>
                         <Col className="text-center pt-3">
-                            <Button class="btn btn-default text-info">Xem thêm</Button>
+                            <Button class="btn btn-default text-info" onClick={() => setSize(size + 4)}>Xem thêm</Button>
                         </Col>
                     </Row>
                 </Container>

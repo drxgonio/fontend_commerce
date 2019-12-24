@@ -20,6 +20,7 @@ import ProductDetails from 'components/ProductDetails/ProductDetails';
 import Shipping from 'components/Shipping/Shipping';
 import Order from 'components/Order/Order';
 import Search from 'components/Search/Search';
+import MapAddress from 'components/MapAddress/MapAddress.js';
 import OAuth2RedirectHandler from 'API/oauth2/OAuth2RedirectHandler';
 
 function Index(props) {
@@ -47,7 +48,7 @@ function Index(props) {
         setRole(response.role)
       }).catch(error => {
 
-        message.info(error);
+        
       });
 
   }, [authenticated]);
@@ -79,11 +80,13 @@ function Index(props) {
         <Route path="/" exact render={props => <IndexPage authenticated={authenticated} onLogout={handleLogout} {...props} />} />
         <Route path="/login" exact render={props => <Login authenticated={authenticated} loginSuccess={callbackSuccessfull} {...props} />} />
         <Route path="/forget-password" exact render={props => <ForgetPassword authenticated={authenticated} {...props} />} />
+        <Route path="/map" exact render={props => <MapAddress authenticated={authenticated} currentUser={currentUser} onLogout={handleLogout}  {...props} />} />
         {authen.authenticated&&authen.role==="ROLE_ADMIN"?(
         <Route path="/admin" component={Admin} />
+        
         ):(<Route/>)}
         <Route path="/oauth2/redirect" component={OAuth2RedirectHandler}></Route> 
-        <Route path="/register" exact render={props => <Register {...props} />} />
+        <Route path="/register" exact render={props => <Register authenticated={authenticated} {...props} />} />
         <Route path="/profile-page" exact render={props => <ProfilePage authenticated={authenticated} currentUser={currentUser} onLogout={handleLogout} {...props} />} />
         <Route path="/product-of-category/:name/:id" exact render={props => <ProductOfCategory authenticated={authenticated}  onLogout={handleLogout} {...props} {...props} />} />
         {/* <Route path="/profile-page" exact render={props => <ProfilePage  {...props} />} /> */}

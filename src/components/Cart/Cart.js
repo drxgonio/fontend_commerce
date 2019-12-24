@@ -10,11 +10,9 @@ import {
 } from "reactstrap";
 
 
-import { Progress, Button } from 'antd';
-
+import { Steps, Button } from 'antd';
 // core components
 import DemoFooter from "components/Footers/DemoFooter.js";
-
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -27,6 +25,7 @@ import { ACCESS_TOKEN } from "API/URLMapping";
 
 
 const { Search } = Input;
+const { Step } = Steps;
 const ButtonGroup = Button.Group;
 
 
@@ -104,9 +103,6 @@ function shipping(){
       <div className="section section-navbars ">
         <Container >
         <br />
-          <Row>
-          <Progress percent={1} size="small" status="active" />
-          </Row>
           <div className="title">
             <h3>Giỏ hàng</h3>
           </div>

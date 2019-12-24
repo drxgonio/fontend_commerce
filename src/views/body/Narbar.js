@@ -150,8 +150,8 @@ function CategoryList(props) {
                             title={
                                 <Link to={{
                                     pathname: `/product-of-category/${item.name}/${item.id}`
-                                }}>{item.name}</Link >
-                            }
+                                }}> <b>{item.name}</b></Link >
+                            } className="border mt-3"
                         >
 
                         </SubMenu>

@@ -28,6 +28,11 @@ function Register(props) {
         
    
   }
+  React.useEffect(() => {
+    if (props.authenticated) {
+      props.history.push("/");
+    }
+  }, [props.authenticated])
 
   return (
     <>

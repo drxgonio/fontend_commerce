@@ -31,9 +31,12 @@ function ProductItem(props){
                 </p>
 
             </div>
+            
         </>
     );
 };
+
+
 
 
 

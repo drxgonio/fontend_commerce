@@ -11,13 +11,15 @@ import {
   NavItem,
   NavLink,
   Nav,
-  Container
+  Container,
+  Row
 } from "reactstrap";
 import { withRouter } from "react-router-dom"
 
 
-import { Input, Icon } from 'antd';
+import { Input, Icon,Badge  } from 'antd';
 import Context from "Context/Context";
+
 
 const { Search } = Input;
 
@@ -96,13 +98,15 @@ function IndexNavbar(props) {
           {props.authenticated ? (
             <Nav navbar>
 
-              <NavItem>
+<NavItem>
                 <NavLink
                   data-placement="bottom"
-                  href="#"
-                  title="Theo dõi đơn hàng"
+                  href="/map"
+                  title="Địa chỉ của hàng" className="pr-3 mr-3"
                 >
-                  <Icon type="rollback" />
+                  <Row className="pl-3 pb-2"><Icon type="home" /></Row>
+                  <Row ><small >Address</small></Row>
+
                 </NavLink>
               </NavItem>
               <NavItem>
@@ -110,71 +114,73 @@ function IndexNavbar(props) {
                   data-placement="bottom"
                   href="#"
                   target="_blank"
-                  title="Thông báo của tôi"
+                  title="Thông báo của tôi" className="pr-3 mr-3"
                 >
-                  <Icon type="notification" />
 
+                  <Row className="pl-4 pb-2"> <Icon type="notification" /></Row>
+                  <Row> <small >Notification</small></Row>
                 </NavLink>
               </NavItem>
 
               <NavItem>
                 <NavLink href="/profile-page"
                   data-placement="bottom"
-                  title="Thông tin User">
-                  <Icon type="user" />
+                  title=" User" className="pr-3 mr-3">
+
+                  <Row className="pl-1 pb-2">  <Icon type="user" /></Row>
+                  <Row> <small > User</small></Row>
                 </NavLink>
               </NavItem>
 
               <NavItem>
                 <NavLink href="/mycart"
                   data-placement="bottom"
-                  title="Giỏ hàng">
-                  <Icon type="shopping-cart" />
+                  title="Giỏ hàng" className="pr-3 mr-3">
+
+                  <Row className="pl-1 pb-2"> <Icon type="shopping-cart" /></Row>
+                  <Row> <small > Cart</small></Row>
                 </NavLink>
               </NavItem>
               {authen.role==="ROLE_ADMIN"?(
-                <NavItem>
-                <NavLink href="/admin"
-                  data-placement="bottom"
-                  title="Admin">
-                  <Icon type="solution" />
-                </NavLink>
-              </NavItem>
-              ):(<NavItem></NavItem>)}
-              
+               <NavItem>
+               <NavLink href="/admin"
+                 data-placement="bottom"
+                 title="Admin" className="pr-3 mr-3">
 
+                 <Row className="pl-1 pb-2"> <Icon type="solution" /></Row>
+                 <Row> <small > ADMIN</small></Row>
+               </NavLink>
+             </NavItem>
+           ) : (<NavItem></NavItem>)}
+
+           <NavItem>
+             <NavLink
+               data-placement="bottom"
+               href="#"
+               title="Đăng xuất"
+               onClick={props.onLogout}
+             >
+
+               <Row className="pl-2 pb-2"> <Icon type="key" /></Row>
+               <Row> <small > Logout</small></Row>
+             </NavLink>
+           </NavItem>
               <NavItem>
-                <NavLink
-                  data-placement="bottom"
-                  href="#"
-                  title="Đăng xuất"
-                  onClick={props.onLogout}
-                >
-                  <Icon type="key" />
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <Button
-                  className="btn-round"
-                  color="danger"
-                  href="#pablo"
-                  target="_blank"
-                  disabled
-                >
-                  Upgrade to Pro
-              </Button>
+               
               </NavItem>
             </Nav>
           ) : (
               <Nav navbar>
 
-                <NavItem>
+<NavItem>
                   <NavLink
                     data-placement="bottom"
-                    href="#"
-                    title="Theo dõi đơn hàng"
+                    href="/map"
+                    title="Địa chỉ của hàng" className="pr-3 mr-3"
                   >
-                    <Icon type="rollback" />
+                    <Row className="pl-3 pb-2"><Icon type="home" /></Row>
+                    <Row ><small >Address</small></Row>
+
                   </NavLink>
                 </NavItem>
                 <NavItem>
@@ -183,9 +189,11 @@ function IndexNavbar(props) {
                     href="#"
                     target="_blank"
                     title="Thông báo của tôi"
+                    className="pr-3 mr-3"
                   >
-                    <Icon type="notification" />
 
+                    <Row className="pl-3 pb-2"> <Icon type="notification" /></Row>
+                    <Row> <small >Notification</small></Row>
                   </NavLink>
                 </NavItem>
 
@@ -194,20 +202,14 @@ function IndexNavbar(props) {
                     data-placement="bottom"
                     title="Đăng nhập"
                     href="/login"
+                   
                   >
-                    <Icon type="key" />
+
+                    <Row className="pl-2 pb-2 ">  <Icon type="key" /></Row>
+                    <Row> <small >Login</small></Row>
                   </NavLink>
                 </NavItem>
-                <NavItem>
-                  <Button
-                    className="btn-round"
-                    color="danger"
-                    href="#pablo"
-                    target="_blank"
-                    disabled
-                  >
-                  </Button>
-                </NavItem>
+                
               </Nav>
             )}
 

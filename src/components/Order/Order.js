@@ -14,14 +14,15 @@ import {
     
 } from "reactstrap";
 
-import { Progress, message } from 'antd';
+import { message } from 'antd';
 import useForm from "Aform/useForm";
 import Axios from "axios";
 import { ACCESS_TOKEN } from "API/URLMapping";
 import { API_BASE_URL } from "API/URLMapping";
 import QRCode from 'qrcode.react';
 import { Modal, Button } from 'antd';
-
+import { Steps } from 'antd';
+const { Step } = Steps;
 function Order(props) {
    
 
@@ -153,9 +154,20 @@ function Order(props) {
         </Modal>
 
 
-            <NarbarGlobal authenticated={props.authenticated} onLogout={props.onLogout} />\
-            <Row>
-                <Progress percent={100} size="small" status="active" />
+            <NarbarGlobal authenticated={props.authenticated} onLogout={props.onLogout} />
+            <Row className="p-3 border">  
+                <Col md={1}>
+                   
+                </Col>
+                <Col md={10}>
+                <Steps size="small" current={2}>
+                    <Step title="Đăng nhập" />
+                    <Step title="Địa chỉ giao hàng" />
+                    <Step title="Thanh toán & Đặt mua" />
+                </Steps>
+                </Col>
+                
+               
             </Row>
             <div className="section section-navbars pt-100" style={{
                 backgroundColor: '#f4f4f4'
@@ -209,7 +221,7 @@ function Order(props) {
 
                         </Col>
                         {totalPrice>0&&( <Col md="4">
-                            <Button className="btn btn-primary" onClick={finalOrder} >Đặt hàng</Button>
+                            <Button type="primary" onClick={finalOrder} >Đặt hàng</Button>
                         </Col>)}
                        
 
