@@ -13,6 +13,7 @@ import { message } from 'antd'
 
 import Admin from './admin/Admin';
 import ProfilePage from 'components/Profile/ProfilePage';
+import ImageUpload from 'components/ImageUpload/ImageUpload';
 
 import Cart from 'components/Cart/Cart';
 import ProductOfCategory from 'components/ProductOfCategory/ProductOfCategory';
@@ -79,10 +80,13 @@ function Index(props) {
   
         <Route path="/" exact render={props => <IndexPage authenticated={authenticated} onLogout={handleLogout} {...props} />} />
         <Route path="/login" exact render={props => <Login authenticated={authenticated} loginSuccess={callbackSuccessfull} {...props} />} />
+        <Route path="/upload" exact render={props => <ImageUpload authenticated={authenticated} {...props} />} />
+      
         <Route path="/forget-password" exact render={props => <ForgetPassword authenticated={authenticated} {...props} />} />
         <Route path="/map" exact render={props => <MapAddress authenticated={authenticated} currentUser={currentUser} onLogout={handleLogout}  {...props} />} />
         {authen.authenticated&&authen.role==="ROLE_ADMIN"?(
         <Route path="/admin" component={Admin} />
+       
         
         ):(<Route/>)}
         <Route path="/oauth2/redirect" component={OAuth2RedirectHandler}></Route> 

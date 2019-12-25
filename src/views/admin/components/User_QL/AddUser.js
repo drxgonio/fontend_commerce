@@ -19,6 +19,7 @@ import {
   Col,
   Button,
 } from 'antd';
+import ImageUpload from 'components/ImageUpload/ImageUpload';
 
 const styles = {
   cardCategoryWhite: {
@@ -61,15 +62,19 @@ const Select = React.forwardRef(({ label, register }, ref) => (
   </>
 ))
 
+
 function AddUser(props) {
 
-  const { register, handleSubmit, watch, errors } = useForm()
+  const { register, handleSubmit, watch, errors } = useForm();
+  const [url,setUrl]=React.useState('');
   const onSubmit = async data => {
     if (localStorage.getItem(ACCESS_TOKEN)) {
       const headers = {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + localStorage.getItem(ACCESS_TOKEN)
       }
+      data.linkimage=url;
+  
       const response = await Axios.post(API_BASE_URL + "/user/adduser", data, {
         headers: headers
       });
@@ -82,7 +87,10 @@ function AddUser(props) {
       }
     }
   }
-
+function ChangeURL(url){
+  setUrl(url);
+  console.log(url);
+}
 
   const classes = useStyles();
   return (
@@ -106,6 +114,13 @@ function AddUser(props) {
                     ref={register({ required: true, maxlength: 20 })} name="name" />
                   {errors.name && <span style={{ color: "red" }}>Tên người dùng không được để trống</span>}
                 </Col>
+                <Col md={2}>
+                  
+                </Col>
+                <Col md={6}>
+                  <ImageUpload ChangeURL={ChangeURL}></ImageUpload>
+                </Col>
+               
               </Row>
               <Row className="p-3">
                 <Col md={4}>

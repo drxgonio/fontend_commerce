@@ -132,7 +132,7 @@ function ProfilePage(props) {
                       <img
                         alt="..."
                         className="img-circle img-no-padding img-responsive"
-                        src={require("assets/img/faces/joe-gardner-2.jpg")} style={{ width: 50, height: 50, opacity: 1 }}
+                        src={props.currentUser && props.currentUser.imageUrl} style={{ width: 50, height: 50, opacity: 1 }}
                       />
                     </div>
                     <div className="name">
