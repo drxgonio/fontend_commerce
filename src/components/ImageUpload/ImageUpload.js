@@ -69,11 +69,11 @@ function ImageUpload(props) {
 
   return (
  
-          <div>
-                    <input type="file" onChange={handleChange}/>
-                    <button onClick={handleUpload} className="btn btn-primary">Upload</button>
-                    <img src={url || 'http://via.placeholder.com/400x300'} alt="Uploaded images" height="50" width="50"/>                
-                    </div>
+          <Row>
+              <Col md={6}> <input type="file" onChange={handleChange} required/></Col>
+              <Col md={4}><button onClick={handleUpload} className="btn btn-primary">Upload</button></Col>      
+                 <img src={url || 'http://via.placeholder.com/400x300'} alt="Uploaded images" height="100" width="100" className="pl-3"/>                
+        </Row>
   );
 }
 export default withRouter(ImageUpload);
