@@ -16,18 +16,37 @@ import Axios from "axios";
 import { ACCESS_TOKEN } from "API/URLMapping";
 import { API_BASE_URL } from "API/URLMapping";
 import { Steps } from 'antd';
+import { message } from 'antd';
 const { Step } = Steps;
 
 function Shipping(props) {
 
     const [user, setUser] = React.useState([]);
     const [checked, setChecked] = React.useState(false);
+    const [flag, setFlag] = React.useState(false);
+
 
     React.useEffect(() => {
         setUser(props.currentUser);
 
 
     }, [props.currentUser]);
+    // React.useEffect( () => {
+    //     if (localStorage.getItem(ACCESS_TOKEN)) {
+    //       const headers = {
+    //         'Content-Type': 'application/json',
+    //         'Authorization': 'Bearer ' + localStorage.getItem(ACCESS_TOKEN)
+    //       }
+    //       const feactData = async () => {
+    //         const lst = await Axios.get(`http://localhost:8080/admin/user/findbyid?id=` + props.currentUser.id,{headers:headers});
+    //         setUser(lst.data);
+
+    //       }
+    //       feactData();
+    //     }
+
+
+    //   }, [flag]);
     React.useEffect(() => {
         props.history.push("/shipping");
 
@@ -55,7 +74,15 @@ function Shipping(props) {
             const response = await Axios.post(API_BASE_URL + "/user/updateUser", user, {
                 headers: headers
             });
-            setUser(response.data)
+            setUser(response.data);
+            if (response.status === 200) {
+                setFlag(!flag);
+                message.info('Cập nhập Thông tin thành công.');
+
+            }
+            else {
+                message.error('Đã có lỗi xảy ra.');
+            }
 
         }
 
@@ -82,17 +109,17 @@ function Shipping(props) {
 
 
             <NarbarGlobal authenticated={props.authenticated} onLogout={props.onLogout} />
-            <Row className="p-3 border">  
+            <Row className="p-3 border">
                 <Col md={1}></Col>
                 <Col md={11}>
-                <Steps size="small" current={1}>
-                    <Step title="Đăng nhập" />
-                    <Step title="Địa chỉ giao hàng" />
-                    <Step title="Thanh toán & Đặt mua" />
-                </Steps>
+                    <Steps size="small" current={1}>
+                        <Step title="Đăng nhập" />
+                        <Step title="Địa chỉ giao hàng" />
+                        <Step title="Thanh toán & Đặt mua" />
+                    </Steps>
                 </Col>
-                
-               
+
+
             </Row>
             <div className="section section-navbars pt-100" style={{
                 backgroundColor: '#f4f4f4'
@@ -117,8 +144,9 @@ function Shipping(props) {
                                 <label className=" p-1"> Điện thoại: {user && user.phone}</label>
                             </Row>
                             <Row>
-                                <Col md="4" className="m-1 p-1"><Button className="btn-round"
-                                    color="danger" onClick={redirectOrder}>Giao đến địa chỉ này</Button></Col>
+                                {user && user.address !== "" ? (<Col md="4" className="m-1 p-1"><Button className="btn-round"
+                                    color="danger" onClick={redirectOrder}>Giao đến địa chỉ này</Button></Col>) : (<p class="text-danger">Vui lòng cập nhập thông tin giao hàng</p>)}
+
                                 <Col md="4" className="btn-round m-1 p-1"><Button onClick={editProfile}>Sửa</Button></Col>
                             </Row>
 

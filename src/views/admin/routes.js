@@ -89,7 +89,7 @@ const dashboardRoutes = [
     layout: "/admin"
   },
   {
-    path: "/edit-user",
+    path: "/edit-user/:id",
     name: "Edit_User",
     rtlName: "#",
     icon: "",
@@ -124,7 +124,7 @@ const dashboardRoutes = [
   }
   ,
   {
-    path: "/edit-product",
+    path: "/edit-product/:id",
     name: "Edit Product",
     rtlName: "#",
     icon: "",

@@ -8,7 +8,9 @@ import GridContainer from "../../custom_design/Grid/GridContainer.js";
 import Card from "../../custom_design/Card/Card.js";
 import CardHeader from "../../custom_design/Card/CardHeader.js";
 import CardBody from "../../custom_design/Card/CardBody.js";
-
+import { ACCESS_TOKEN } from "API/URLMapping";
+import { API_BASE_URL } from "API/URLMapping";
+import Axios from "axios";
 import {
   Input,
   Row,
@@ -16,7 +18,9 @@ import {
   Button,
   
 } from 'antd';
-
+import { withRouter } from "react-router-dom"
+import useForm from 'react-hook-form';
+import { message } from 'antd';
 const styles = {
   cardCategoryWhite: {
     "&,& a,& a:hover,& a:focus": {
@@ -48,15 +52,66 @@ const styles = {
 };
 
 const useStyles = makeStyles(styles);
+const Select = React.forwardRef(({ label, register }, ref) => (
+  <>
+    <select name={label} ref={ref} class="form-control">
+      <option value="ROLE_USER">User</option>
+      <option value="ROLE_ADMIN">Admin</option>
+    </select>
+  </>
+))
+function EditUser(props) {
 
-export default function EditUser() {
+  const[id,setId]=React.useState(null);
+  const[name,setName]=React.useState(null);
+  const[email,setEmail]=React.useState(null);
+  const[phone,setPhone]=React.useState(null);
+  const[address,setAddress]=React.useState(null);
 
+  React.useEffect( () => {
+    if (localStorage.getItem(ACCESS_TOKEN)) {
+      const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem(ACCESS_TOKEN)
+      }
+      const feactData = async () => {
+        const lst = await Axios.get(`http://localhost:8080/admin/user/findbyid?id=` + props.match.params.id,{headers:headers});
+        setName(lst.data.name);
+        setEmail(lst.data.email);
+        setPhone(lst.data.phone);
+        setAddress(lst.data.address);
+        setId(lst.data.id);
+      }
+      feactData();
+    }
+    
 
-
+  }, []);
+  const { register, handleSubmit, watch, errors } = useForm();
+  const onSubmit = async data => {
+    if (localStorage.getItem(ACCESS_TOKEN)) {
+      const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem(ACCESS_TOKEN)
+      }
   
-
+      const response = await Axios.post("http://localhost:8080/admin/user/updateUser", data, {
+        headers: headers
+      });
+      if (response.status === 200) {
+        message.info('Cập nhập User thành công.');
+        props.history.push("/admin/user")
+      }
+      else {
+        message.error('Đã có lỗi xảy ra.');
+      }
+     
+    }
+  }
+ 
   const classes = useStyles();
   return (
+    
     
     <GridContainer>
       <GridItem xs={12} sm={12} md={12}>
@@ -66,71 +121,79 @@ export default function EditUser() {
         
           </CardHeader>
           <CardBody>
+          <form onSubmit={handleSubmit(onSubmit)}>
+          
           <Row className="p-3">
-              <Col md={4}>
-                <label>Tên người dùng</label> 
-              </Col>
-              <Col md={4}>
-                <Input placeholder="Basic usage" />
-              </Col>
-            </Row>
-            <Row className="p-3">
-              <Col md={4}>
-                <label>Email</label> 
-              </Col>
-              <Col md={6}>
-                <Input placeholder="Basic usage" />
-              </Col>
-            </Row>
-            <Row className="p-3">
-              <Col md={4}>
-                <label>Số điện thoại</label> 
-              </Col>
-              <Col md={6}>
-                <Input placeholder="Basic usage" />
-              </Col>
-            </Row>
-            <Row className="p-3">
-              <Col md={4}>
-                <label>Đại chỉ</label> 
-              </Col>
-              <Col md={8}>
-                <Input placeholder="Basic usage" />
-              </Col>
-            </Row>
-            <Row className="p-3">
-              <Col md={4}>
-                <label>Mật khẩu</label> 
-              </Col>
-              <Col md={4}>
-                <Input placeholder="Basic usage" />
-              </Col>
-              <Col md={2}></Col>
-              <Col md={4}>
-                <label>Xác nhận mật khẩu</label> 
-              </Col>
-              <Col md={4}>
-                <Input placeholder="Basic usage" />
-              </Col>
-             
-            </Row>
-            <Row className="p-3">
-              <Col md={4}>
-                <label>Quyền</label> 
-              </Col>
-              <Col md={3}>
-                <Input placeholder="Basic usage" />
-              </Col>
-            </Row>
-            <Row className="p-3">
-              <Col md={16}>
+                <Col md={4}>
+                  <label>Mã người dùng</label>
+                </Col>
+                <Col md={4}>
+                  <input className="form-control"  value={id}
+                    ref={register} name="id"  disabled = {true}/>
+                
+                </Col>
+              
                
-              </Col>
-              <Col md={4}>
-              <Button type="primary">Cập nhập</Button>
-  
-              </Col>
-            </Row>
+              </Row>
+          <Row className="p-3">
+                <Col md={4}>
+                  <label>Tên người dùng</label>
+                </Col>
+                <Col md={4}>
+                  <input className="form-control" placeholder="Nhập tên người dùng" value={name}
+                    ref={register({ required: true, maxlength: 20 })} name="name"  onChange={e => setName(e.target.value)}/>
+                  {errors.name && <span style={{ color: "red" }}>Tên người dùng không được để trống</span>}
+                </Col>
+              
+               
+              </Row>
+              <Row className="p-3">
+                <Col md={4}>
+                  <label>Email</label>
+                </Col>
+                <Col md={6}>
+                  <input className="form-control" placeholder="Nhập Email" ref={register({ required: true })} name="email" value={email} onChange={e => setEmail(e.target.value)} disabled={true}/>
+                  {errors.email && <span style={{ color: "red" }}>Email không được để trống</span>}
+
+                </Col>
+              </Row>
+              <Row className="p-3">
+                <Col md={4}>
+                  <label>Số điện thoại</label>
+                </Col>
+                <Col md={6}>
+                  <input className="form-control" placeholder="Nhập số điện thoại" type="number" ref={register({ required: true })} name="phone" value={phone} onChange={e => setPhone(e.target.value)}/>
+                  {errors.phone && <span style={{ color: "red" }}>Số điện thoại không được để trống</span>}
+                </Col>
+              </Row>
+              <Row className="p-3">
+                <Col md={4}>
+                  <label>Đại chỉ</label>
+                </Col>
+                <Col md={8}>
+                  <input className="form-control" placeholder="Nhập địa chỉ" ref={register({ required: true })} name="address" value={address} onChange={e => setAddress(e.target.value)} />
+                  {errors.address && <span style={{ color: "red" }}>Địa chỉ không được để trống</span>}
+                </Col>
+              </Row>
+              <Row className="p-3">
+                <Col md={4}>
+                  <label>Quyền</label>
+                </Col>
+                <Col md={3}>
+                  <Select label="role" ref={register} />
+
+                </Col>
+              </Row>
+              <Row className="p-3">
+                <Col md={16}>
+
+                </Col>
+                <Col md={4}>
+                  <input type="submit" className="btn btn-warning" value="Cập nhập" />
+
+                </Col>
+              </Row>
+              </form>
 
           </CardBody>
         </Card>
@@ -139,3 +202,4 @@ export default function EditUser() {
     </GridContainer>
   );
 }
+export default  withRouter(EditUser);

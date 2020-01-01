@@ -15,7 +15,8 @@ import CardBody from "../../custom_design/Card/CardBody.js";
 import Axios from "axios";
 import Pagination from "react-js-pagination";
 import { Button, Icon } from "antd";
-import { ACCESS_TOKEN } from "API/URLMapping.js";
+import { message } from 'antd';
+import { ACCESS_TOKEN,API_BASE_URL } from "API/URLMapping.js";
 const styles = {
   cardCategoryWhite: {
     "&,& a,& a:hover,& a:focus": {
@@ -54,8 +55,9 @@ export default function Order_QL() {
   const [itemsCountPerPage, setItemsCountPerPage] = useState(null);
   const [totalItemsCount, setTotalItemsCount] = useState(null);
   const [activePage, setActivePage] = useState(1);
+  const [check, setCheck] = useState(true);
   React.useEffect(()=>{
-    async function loadCategory() {
+    async function loadOrder() {
         const headers = {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer '+localStorage.getItem(ACCESS_TOKEN)
@@ -66,12 +68,32 @@ export default function Order_QL() {
       setTotalItemsCount(result.data.totalElements);
       
     }
-    loadCategory();
-  },[activePage]);
+    loadOrder();
+  },[activePage,check]);
   function handlePageChange(pageNumber) {
     setActivePage(pageNumber);
 
-}
+
+  }
+  const removeOrder = item => {
+    async function deleteOrder(){
+      const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer '+localStorage.getItem(ACCESS_TOKEN)
+    }
+      const response = await Axios.get(API_BASE_URL + "/api/deleteOrder/"+item.id,{headers:headers});
+      console.log(response);
+        if(response.status === 200){
+          message.info('Đã xóa thành công!!!'); 
+          setCheck(!check); 
+        }
+        else{
+          message.error('Đã có lỗi xảy ra!');
+        }
+    }
+    deleteOrder();
+   
+  }
 
   const classes = useStyles();
   return (
@@ -81,12 +103,9 @@ export default function Order_QL() {
         <Card>
           <CardHeader color="primary">
             <h4 className={classes.cardTitleWhite}>Quản lý Đơn hàng</h4>
-            <p className={classes.cardCategoryWhite}>
-              Here is a subtitle for this table
-            </p>
+        
           </CardHeader>
           <CardBody>
-          <Button type="primary" className="p-2"><Icon type="plus" />Thêm đơn hàng</Button>
           <Table className="table" aria-label="simple table">
                         <TableHead>
                           <TableRow>
@@ -118,12 +137,24 @@ export default function Order_QL() {
                               <TableCell component="th" scope="row">
                                 {item.totalprice}đ
                               </TableCell>  
-                              {item.status ? (<TableCell align="right">Giao hàng thành công</TableCell>)
+                              {item.status ? (
+                              <TableCell align="right">Giao hàng thành công</TableCell>
+                              
+                              )
+                              
 
 : (<TableCell>Đang giao hàng</TableCell>)}
+  {item.status ? (
+                              
                               <TableCell component="th" scope="row">
-                              <Button type="primary"><Icon type="edit" /></Button><Button type="danger"><Icon type="delete" /></Button>
+                              <Button type="danger" onClick={()=>removeOrder(item)}><Icon type="delete" /></Button>
                               </TableCell> 
+                              
+                              )
+                              
+
+: (<a></a>)}
+                             
           
                             </TableRow>
                           ))}

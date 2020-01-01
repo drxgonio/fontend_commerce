@@ -24,8 +24,7 @@ function Map() {
     return (
       <GoogleMap
         defaultZoom={10}
-        defaultCenter={{ lat: 10.823099, lng: 106.629662 }}
-      >
+        defaultCenter={{ lat: 10.823099, lng: 106.629662 }}>
         {parkData.features.map(park => (
           <Marker
             key={park.properties.PARK_ID}
@@ -35,11 +34,8 @@ function Map() {
             }}
             onClick={() => {
               setSelectedPark(park);
-            }}
-        
-          />
+            }}/>
         ))}
-  
         {selectedPark && (
           <InfoWindow
             onCloseClick={() => {
@@ -48,8 +44,7 @@ function Map() {
             position={{
               lat: selectedPark.geometry.coordinates[0],
               lng: selectedPark.geometry.coordinates[1]
-            }}
-          >
+            }}>
             <div>
               <p>{selectedPark.properties.NAME}</p>
               {/* <p>{selectedPark.properties.DESCRIPTIO}</p> */}

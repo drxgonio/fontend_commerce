@@ -1,34 +1,32 @@
-import React from "react";
+import React,{useState} from "react";
 // react plugin for creating charts
 import ChartistGraph from "react-chartist";
 // @material-ui/core
 import { makeStyles } from "@material-ui/core/styles";
-import Icon from "@material-ui/core/Icon";
-// @material-ui/icons
-import Store from "@material-ui/icons/Store";
-import Warning from "@material-ui/icons/Warning";
-import DateRange from "@material-ui/icons/DateRange";
-import LocalOffer from "@material-ui/icons/LocalOffer";
-import Update from "@material-ui/icons/Update";
 import ArrowUpward from "@material-ui/icons/ArrowUpward";
 import AccessTime from "@material-ui/icons/AccessTime";
-import Accessibility from "@material-ui/icons/Accessibility";
 import BugReport from "@material-ui/icons/BugReport";
-import Code from "@material-ui/icons/Code";
-import Cloud from "@material-ui/icons/Cloud";
+
 // core components
 import GridItem from "../../custom_design/Grid/GridItem.js";
 import GridContainer from "../../custom_design/Grid/GridContainer.js";
-import Table from "../../custom_design/Table/Table.js";
+import Table from '@material-ui/core/Table';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableBody from '@material-ui/core/TableBody';
+import TableRow from '@material-ui/core/TableRow';
 import Tasks from "../../custom_design/Tasks/Tasks.js";
 import CustomTabs from "../../custom_design/CustomTabs/CustomTabs.js";
-import { bugs, website, server } from "views/admin/variables/general";
+import { bugs } from "views/admin/variables/general";
 import Card from "../../custom_design/Card/Card.js";
 import CardHeader from "../../custom_design/Card/CardHeader.js";
-import CardIcon from "../../custom_design/Card/CardIcon.js";
 import CardBody from "../../custom_design/Card/CardBody.js";
 import CardFooter from "../../custom_design/Card/CardFooter.js";
-import Danger from "../../custom_design/Typography/Danger.js";
+import Axios from "axios";
+import Pagination from "react-js-pagination";
+import { Button, Icon } from "antd";
+import { ACCESS_TOKEN,API_BASE_URL } from "API/URLMapping.js";
+import { message } from 'antd';
 import {
   dailySalesChart,
   emailsSubscriptionChart,
@@ -39,138 +37,116 @@ import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js"
 
 const useStyles = makeStyles(styles);
 export default function Dashboard() {
+  const [lstOrder,setLstOrder]= useState([]);
+  const [itemsCountPerPage, setItemsCountPerPage] = useState(null);
+  const [totalItemsCount, setTotalItemsCount] = useState(null);
+  const [activePage, setActivePage] = useState(1);
+  const [check, setCheck] = useState(true);
+  React.useEffect(()=>{
+    async function loadCategory() {
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+localStorage.getItem(ACCESS_TOKEN)
+        }
+      const result=await Axios.get(`http://localhost:8080/api/admin/findorderstatus?page=`+(activePage-1)+`&size=4`,{headers:headers});
+      setLstOrder(result.data.content);
+      setItemsCountPerPage(result.data.size);
+      setTotalItemsCount(result.data.totalElements);
+      
+    }
+    loadCategory();
+  },[activePage,check]);
+  function handlePageChange(pageNumber) {
+    setActivePage(pageNumber);
+
+}
+const successOrder = item => {
+  async function successfull(){
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer '+localStorage.getItem(ACCESS_TOKEN)
+  }
+    const response = await Axios.get(API_BASE_URL + "/api/successorder/"+item.id,{headers:headers});
+    console.log(response);
+      if(response.status === 200){
+        message.info('Đã giao thành công!!!'); 
+        setCheck(!check); 
+      }
+      else{
+        message.error('Đã có lỗi xảy ra!');
+      }
+  }
+  successfull();
+ 
+}
   const classes = useStyles();
   return (
     <div>
-    <GridContainer>
-      <GridItem xs={12} sm={6} md={3}>
+       <GridContainer>
+      
+      <GridItem xs={24} sm={24} md={24}>
         <Card>
-          <CardHeader color="warning" stats icon>
-            <CardIcon color="warning">
-              <Icon>content_copy</Icon>
-            </CardIcon>
-            <p className={classes.cardCategory}>Used Space</p>
-            <h3 className={classes.cardTitle}>
-              49/50 <small>GB</small>
-            </h3>
+          <CardHeader color="warning">
+            <h4 className={classes.cardTitleWhite}>Các đơn hàng đang giao</h4>
           </CardHeader>
-          <CardFooter stats>
-            <div className={classes.stats}>
-              <Danger>
-                <Warning />
-              </Danger>
-              <a href="#pablo" onClick={e => e.preventDefault()}>
-                Get more space
-              </a>
-            </div>
-          </CardFooter>
-        </Card>
-      </GridItem>
-      <GridItem xs={12} sm={6} md={3}>
-        <Card>
-          <CardHeader color="success" stats icon>
-            <CardIcon color="success">
-              <Store />
-            </CardIcon>
-            <p className={classes.cardCategory}>Revenue</p>
-            <h3 className={classes.cardTitle}>$34,245</h3>
-          </CardHeader>
-          <CardFooter stats>
-            <div className={classes.stats}>
-              <DateRange />
-              Last 24 Hours
-            </div>
-          </CardFooter>
-        </Card>
-      </GridItem>
-      <GridItem xs={12} sm={6} md={3}>
-        <Card>
-          <CardHeader color="danger" stats icon>
-            <CardIcon color="danger">
-              <Icon>info_outline</Icon>
-            </CardIcon>
-            <p className={classes.cardCategory}>Fixed Issues</p>
-            <h3 className={classes.cardTitle}>75</h3>
-          </CardHeader>
-          <CardFooter stats>
-            <div className={classes.stats}>
-              <LocalOffer />
-              Tracked from Github
-            </div>
-          </CardFooter>
-        </Card>
-      </GridItem>
-      <GridItem xs={12} sm={6} md={3}>
-        <Card>
-          <CardHeader color="info" stats icon>
-            <CardIcon color="info">
-              <Accessibility />
-            </CardIcon>
-            <p className={classes.cardCategory}>Followers</p>
-            <h3 className={classes.cardTitle}>+245</h3>
-          </CardHeader>
-          <CardFooter stats>
-            <div className={classes.stats}>
-              <Update />
-              Just Updated
-            </div>
-          </CardFooter>
+          <CardBody>
+          <Table className="table" aria-label="simple table">
+                        <TableHead>
+                          <TableRow>
+                            <TableCell>Mã Order</TableCell>
+                            <TableCell >Tên Order</TableCell>                         
+                            <TableCell align="center">Người đặt hàng</TableCell>
+                            <TableCell >Sản phẩm</TableCell>
+                            <TableCell >Tổng tiền</TableCell>                
+                            <TableCell >Đang giao hàng</TableCell>
+                          </TableRow>
+                        </TableHead>
+                        <TableBody>
+                          {lstOrder && lstOrder.map(item => (
+                            <TableRow >
+                              <TableCell component="th" scope="row">
+                                {item.id}
+                              </TableCell>
+                                 <TableCell component="th" scope="row">
+                                {item.name}
+                              </TableCell>
+                             
+                              <TableCell component="th" scope="row">
+                                {item.user.name}
+                              </TableCell>
+                              <TableCell >{item&&item.lstOrder.map(pr=>(
+  <a>{pr.product.name},</a>
+))}</TableCell>
+                              <TableCell component="th" scope="row">
+                                {item.totalprice}đ
+                              </TableCell>                       
+                              <TableCell component="th" scope="row">
+                             <Button type="danger" onClick={()=>successOrder(item)}><Icon type="swap" /></Button>
+                              </TableCell> 
+          
+                            </TableRow>
+                          ))}
+
+
+                        </TableBody>
+                      </Table>
+            <Pagination
+                            hideNavigation
+                            activePage={activePage}
+                            itemsCountPerPage={itemsCountPerPage}
+                            totalItemsCount={totalItemsCount}
+                            pageRangeDisplayed={10}
+                            itemClass='page-item'
+                            linkClass='btn btn-light'
+                            onChange={handlePageChange}
+                        />
+          </CardBody>
         </Card>
       </GridItem>
     </GridContainer>
-    <GridContainer>
-      <GridItem xs={12} sm={12} md={4}>
-        <Card chart>
-          <CardHeader color="success">
-            <ChartistGraph
-              className="ct-chart"
-              data={dailySalesChart.data}
-              type="Line"
-              options={dailySalesChart.options}
-              listener={dailySalesChart.animation}
-            />
-          </CardHeader>
-          <CardBody>
-            <h4 className={classes.cardTitle}>Daily Sales</h4>
-            <p className={classes.cardCategory}>
-              <span className={classes.successText}>
-                <ArrowUpward className={classes.upArrowCardCategory} /> 55%
-              </span>{" "}
-              increase in today sales.
-            </p>
-          </CardBody>
-          <CardFooter chart>
-            <div className={classes.stats}>
-              <AccessTime /> updated 4 minutes ago
-            </div>
-          </CardFooter>
-        </Card>
-      </GridItem>
-      <GridItem xs={12} sm={12} md={4}>
-        <Card chart>
-          <CardHeader color="warning">
-            <ChartistGraph
-              className="ct-chart"
-              data={emailsSubscriptionChart.data}
-              type="Bar"
-              options={emailsSubscriptionChart.options}
-              responsiveOptions={emailsSubscriptionChart.responsiveOptions}
-              listener={emailsSubscriptionChart.animation}
-            />
-          </CardHeader>
-          <CardBody>
-            <h4 className={classes.cardTitle}>Email Subscriptions</h4>
-            <p className={classes.cardCategory}>Last Campaign Performance</p>
-          </CardBody>
-          <CardFooter chart>
-            <div className={classes.stats}>
-              <AccessTime /> campaign sent 2 days ago
-            </div>
-          </CardFooter>
-        </Card>
-      </GridItem>
-      <GridItem xs={12} sm={12} md={4}>
-        <Card chart>
+
+      <GridContainer>
+      <Card chart>
           <CardHeader color="danger">
             <ChartistGraph
               className="ct-chart"
@@ -181,8 +157,8 @@ export default function Dashboard() {
             />
           </CardHeader>
           <CardBody>
-            <h4 className={classes.cardTitle}>Completed Tasks</h4>
-            <p className={classes.cardCategory}>Last Campaign Performance</p>
+            <h4 className={classes.cardTitle}>Doanh thu các ngày gần đây</h4>
+            
           </CardBody>
           <CardFooter chart>
             <div className={classes.stats}>
@@ -190,74 +166,9 @@ export default function Dashboard() {
             </div>
           </CardFooter>
         </Card>
-      </GridItem>
+    
     </GridContainer>
-    <GridContainer>
-      <GridItem xs={12} sm={12} md={6}>
-        <CustomTabs
-          title="Tasks:"
-          headerColor="primary"
-          tabs={[
-            {
-              tabName: "Bugs",
-              tabIcon: BugReport,
-              tabContent: (
-                <Tasks
-                  checkedIndexes={[0, 3]}
-                  tasksIndexes={[0, 1, 2, 3]}
-                  tasks={bugs}
-                />
-              )
-            },
-            {
-              tabName: "Website",
-              tabIcon: Code,
-              tabContent: (
-                <Tasks
-                  checkedIndexes={[0]}
-                  tasksIndexes={[0, 1]}
-                  tasks={website}
-                />
-              )
-            },
-            {
-              tabName: "Server",
-              tabIcon: Cloud,
-              tabContent: (
-                <Tasks
-                  checkedIndexes={[1]}
-                  tasksIndexes={[0, 1, 2]}
-                  tasks={server}
-                />
-              )
-            }
-          ]}
-        />
-      </GridItem>
-      <GridItem xs={12} sm={12} md={6}>
-        <Card>
-          <CardHeader color="warning">
-            <h4 className={classes.cardTitleWhite}>Employees Stats</h4>
-            <p className={classes.cardCategoryWhite}>
-              New employees on 15th September, 2016
-            </p>
-          </CardHeader>
-          <CardBody>
-            <Table
-              tableHeaderColor="warning"
-              tableHead={["ID", "Name", "Salary", "Country"]}
-              tableData={[
-                ["1", "Dakota Rice", "$36,738", "Niger"],
-                ["2", "Minerva Hooper", "$23,789", "Curaçao"],
-                ["3", "Sage Rodriguez", "$56,142", "Netherlands"],
-                ["4", "Philip Chaney", "$38,735", "Korea, South"]
-              ]}
-            />
-          </CardBody>
-        </Card>
-      </GridItem>
-    </GridContainer>
-  </div>
+     </div>
   
   );
 }

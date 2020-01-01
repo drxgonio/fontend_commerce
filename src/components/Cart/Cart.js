@@ -53,6 +53,7 @@ function Cart(props) {
   const [totalPrice,setTotalPrice]= React.useState(0);
   const [check,setCheck]= React.useState(false);
   const [count,setCount]= React.useState(1);
+  const [array,setArray]= React.useState([]);
 
   useEffect(()=>{
     
@@ -91,9 +92,27 @@ const handleRemoveItem = name => {
    setCheck(true);
 }
 function shipping(){
+  localStorage.setItem("sl", count);
   props.history.push("/shipping");
 }
+function countGiam(data){
+ 
+  if(count<2){
+    setCount(1);
+  }
+  else{ setCount(count-1);}
+ 
+  array.push(count);
+  console.log(array)
+  
+}
+function countTang(data){
+ 
+  setCount(count+1);
 
+  console.log(lstCart)
+ 
+}
   
 
   return (
@@ -134,9 +153,9 @@ function shipping(){
               <TableCell align="right">{row.product_details.pricesale}</TableCell>
               <TableCell align="right">
               <ButtonGroup>
-          <Button  icon="minus" onClick={() => setCount(count - 1)}/> 
-          <Button className="border pl-1 pr-1" style={{width:30}}>{count}</Button>
-          <Button  icon="plus" onClick={() => setCount(count + 1)}/>
+          <Button  icon="minus" onClick={() => countGiam(row)} disabled={true}/> 
+          <Button className="border pl-1 pr-1" style={{width:30}} >{count}</Button>
+          <Button  icon="plus" onClick={() => countTang(row)} disabled={true}/>
         </ButtonGroup>
               </TableCell>
               <TableCell align="center"><Button type="block" onClick={() =>handleRemoveItem(row.name)}><Icon type="delete" theme="twoTone" /></Button></TableCell>

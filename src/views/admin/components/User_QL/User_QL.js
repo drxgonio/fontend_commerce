@@ -107,9 +107,7 @@ const removeUser = item => {
         <Card>
           <CardHeader color="primary">
             <h4 className={classes.cardTitleWhite}>Quản lý Người dùng</h4>
-            <p className={classes.cardCategoryWhite}>
-              Here is a subtitle for this table
-            </p>
+          
           </CardHeader>
           <CardBody>
           <Link  className="p-2" to="/admin/add-user" > <Button type="primary">
@@ -146,7 +144,13 @@ const removeUser = item => {
                                 {item.phone}
                               </TableCell> 
                               <TableCell component="th" scope="row">
-                              <Link  className="p-2" to="/admin/edit-user" ><Button type="primary"><Icon type="edit" /></Button></Link><Button type="danger" onClick={()=>removeUser(item)}><Icon type="delete" /></Button>
+                              {item&&item.role==="ROLE_ADMIN"?(<a></a>):(<Button type="danger" onClick={()=>removeUser(item)}><Icon type="delete" /></Button>)}
+                        
+                                
+                              <Link  className="p-2" to={{
+                                    pathname: `/admin/edit-user/${item&&item.id}`
+                                  }}
+                               ><Button type="primary"><Icon type="edit" /></Button></Link>
                               </TableCell> 
           
                             </TableRow>

@@ -110,16 +110,7 @@ function IndexNavbar(props) {
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink
-                  data-placement="bottom"
-                  href="#"
-                  target="_blank"
-                  title="Thông báo của tôi" className="pr-3 mr-3"
-                >
-
-                  <Row className="pl-4 pb-2"> <Icon type="notification" /></Row>
-                  <Row> <small >Notification</small></Row>
-                </NavLink>
+               
               </NavItem>
 
               <NavItem>
@@ -184,17 +175,7 @@ function IndexNavbar(props) {
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink
-                    data-placement="bottom"
-                    href="#"
-                    target="_blank"
-                    title="Thông báo của tôi"
-                    className="pr-3 mr-3"
-                  >
-
-                    <Row className="pl-3 pb-2"> <Icon type="notification" /></Row>
-                    <Row> <small >Notification</small></Row>
-                  </NavLink>
+                  
                 </NavItem>
 
                 <NavItem>

@@ -13,7 +13,7 @@ function IndexHeader() {
         className="page-header section-dark"
         style={{
           backgroundImage:
-            "url(" + require("assets/img/picturez1.png") + ")"
+            "url(" + require("assets/img/banner.png") + ")"
         }}
       >
         <div className="filter" />

@@ -1,6 +1,9 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
-
+const well={
+    boxShadow: "0.5px 0.5px 0.5px 0.5px #9E9E9E",
+    borderRadius: "15px"
+    }
 function ProductItem(props){
     const[image,setImage]=React.useState("");
     React.useEffect(()=>{
@@ -12,13 +15,13 @@ function ProductItem(props){
   
     return(
         <>
-            <div className="position-relative text-center border ">
+            <div className="position-relative text-center border " style={well}>
             <Link   to={{
                                     pathname: `/product-details/${props.product&&props.product.name}/${props.product&&props.product.id}`
                                   }}>
                 <img src={image}
                 alt="Áo Thun Thể Thao Nam" className="form-control" 
-                style={{width: '100%', height: '100%', opacity: 1}} />
+                style={{width: '100%', height: '100%', opacity: 1, boxShadow: "1px 1px #9E9E9E"}} />
                 </Link >   
     <p className="title" style={{ height: '40px'}}>{props.product&&props.product.name}</p>
                 <p className="h5 m-auto text-center font-weight-bold ">

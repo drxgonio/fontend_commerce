@@ -102,9 +102,7 @@ const removeCategory = item => {
         <Card>
           <CardHeader color="primary">
             <h4 className={classes.cardTitleWhite}>Danh mục sản phẩm</h4>
-            <p className={classes.cardCategoryWhite}>
-              Here is a subtitle for this table
-            </p>
+           
           </CardHeader>
           <CardBody>
           <Link  className="p-2" to="/admin/add-category" > <Button type="primary" className="p-2"><Icon type="plus" />Thêm danh mục</Button></Link>

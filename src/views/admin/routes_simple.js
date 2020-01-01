@@ -62,15 +62,16 @@ const RouterSimple = [
     icon: LocationOn,
     component: Map_Google,
     layout: "/admin"
-  },
-  {
-    path: "/notifications",
-    name: "Notifications",
-    rtlName: "#",
-    icon: Notifications,
-    component: DashboardPage,
-    layout: "/admin"
   }
+  // ,
+  // {
+  //   path: "/notifications",
+  //   name: "Notifications",
+  //   rtlName: "#",
+  //   icon: Notifications,
+  //   component: DashboardPage,
+  //   layout: "/admin"
+  // }
 ];
 
 export default RouterSimple;

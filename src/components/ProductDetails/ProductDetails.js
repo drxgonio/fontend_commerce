@@ -20,6 +20,10 @@ import { Icon } from 'antd';
 import DemoFooter from "components/Footers/DemoFooter";
 import Axios from "axios";
 import NarbarGlobal from "components/Navbars/NarbarGlobal";
+const well={
+  boxShadow: "1px 1px 1px 1px #9E9E9E",
+  borderRadius: "15px"
+  }
 const { TextArea } = Input;
 const CommentList = ({ comments }) => (
  console.log(comments),
@@ -164,30 +168,30 @@ function ProductDetails(props) {
           <br />
           <Row>
             <Col md="1">
-              <Row className="border"><img src={product_detail && product_detail.product_details.lstImage[0].name} onClick={() => {
+              <Row  style={well}><img src={product_detail && product_detail.product_details.lstImage[0].name} onClick={() => {
                 changeImage(product_detail.product_details.lstImage[0].name);
               }} style={{ width: 100, height: 100 }}></img></Row>
-              <Row className="border mt-3"><img src={product_detail && product_detail.product_details.lstImage[1].name}
+              <Row className=" mt-3" style={well}><img src={product_detail && product_detail.product_details.lstImage[1].name}
                 onClick={() => {
                   changeImage(product_detail.product_details.lstImage[1].name);
                 }}
                 style={{ width: 100, height: 100 }}></img></Row>
-              <Row className="border mt-3"><img src={product_detail && product_detail.product_details.lstImage[2].name}
+              <Row className="border mt-3" style={well}><img src={product_detail && product_detail.product_details.lstImage[2].name}
                 onClick={() => {
                   changeImage(product_detail.product_details.lstImage[2].name);
                 }}
                 style={{ width: 100, height: 100 }}></img></Row>
 
             </Col>
-            <Col md="4" className="border pr-1">
-              <Row>
+            <Col md="4" className="border pr-1 ml-3" style={well}>
+              <Row >
                 <img src={img_photo} style={{ width: '100%', height: '100%' }}>
                 </img>
               </Row>
 
               <Row className="text-center"><span className=" m-auto text-center">Rê chuột để phóng to màn hình</span></Row>
             </Col>
-            <Col md="7" className="border">
+            <Col md="6" className="border ml-3">
               <Row><h4 className="pl-3">{product_detail && product_detail.name}</h4></Row>
               <Row className="border-bottom"><h6 className="pl-3">Đánh giá: <Icon type="star" theme="twoTone" /><Icon type="star" theme="twoTone" /><Icon type="star" theme="twoTone" /><Icon type="star" /><Icon type="star" /></h6></Row>
               <Row >

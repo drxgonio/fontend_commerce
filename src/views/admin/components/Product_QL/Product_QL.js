@@ -102,10 +102,7 @@ const removeProduct = item => {
       <GridItem xs={12} sm={12} md={12}>
         <Card>
           <CardHeader color="primary">
-            <h4 className={classes.cardTitleWhite}>Quản lý sản phẩm</h4>
-            <p className={classes.cardCategoryWhite}>
-              Here is a subtitle for this table
-            </p>
+            <h4 className={classes.cardTitleWhite}>Quản lý sản phẩm</h4>         
           </CardHeader>
           <CardBody>
           <Link  className="p-2" to="/admin/add-product" > <Button type="primary" className="p-2"><Icon type="plus" />Thêm sản phẩm</Button></Link>
@@ -116,7 +113,8 @@ const removeProduct = item => {
                             <TableCell >Tên Sản Phẩm</TableCell>                         
                             <TableCell align="center">Ngày Thêm</TableCell>
                             <TableCell >Ngày Cập Nhập</TableCell>
-                            <TableCell >Giá Cả</TableCell>
+                            <TableCell >Giá </TableCell>
+                            <TableCell >Giá Sale</TableCell>
                             <TableCell >Tùy chọn</TableCell>
                           </TableRow>
                         </TableHead>
@@ -140,7 +138,12 @@ const removeProduct = item => {
                                 {item.product_details.price}
                               </TableCell> 
                               <TableCell component="th" scope="row">
-                              <Link to="/admin/edit-product" ><Button type="primary"><Icon type="edit" /></Button></Link><Button type="danger" onClick={()=>removeProduct(item)}><Icon type="delete" /></Button>
+                                {item.product_details.pricesale}
+                              </TableCell>
+                              <TableCell component="th" scope="row">          
+                              <Link  className="p-2" to={{
+                                    pathname: `/admin/edit-product/${item&&item.id}`
+                                  }}><Button type="primary"><Icon type="edit" /></Button></Link><Button type="danger" onClick={()=>removeProduct(item)}><Icon type="delete" /></Button>
                               </TableCell>
           
                             </TableRow>
