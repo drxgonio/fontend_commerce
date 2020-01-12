@@ -111,7 +111,7 @@ export default function Order_QL() {
                           <TableRow>
                             <TableCell>Mã Order</TableCell>
                             <TableCell >Tên Order</TableCell>                         
-                            <TableCell align="center">Người đặt hàng</TableCell>
+                            <TableCell >Người đặt hàng</TableCell>
                             <TableCell >Sản phẩm</TableCell>
                             <TableCell >Tổng tiền</TableCell>
                             <TableCell >Tình trạng</TableCell>
@@ -138,7 +138,7 @@ export default function Order_QL() {
                                 {item.totalprice}đ
                               </TableCell>  
                               {item.status ? (
-                              <TableCell align="right">Giao hàng thành công</TableCell>
+                              <TableCell >Giao hàng thành công</TableCell>
                               
                               )
                               
