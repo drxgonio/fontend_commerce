@@ -23,7 +23,6 @@ import Order from 'components/Order/Order';
 import Search from 'components/Search/Search';
 import MapAddress from 'components/MapAddress/MapAddress.js';
 import OAuth2RedirectHandler from 'API/oauth2/OAuth2RedirectHandler';
-
 function Index(props) {
   document.documentElement.classList.remove("nav-open");
   React.useEffect(() => {

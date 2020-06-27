@@ -27,12 +27,7 @@ import Pagination from "react-js-pagination";
 import { Button, Icon } from "antd";
 import { ACCESS_TOKEN,API_BASE_URL } from "API/URLMapping.js";
 import { message } from 'antd';
-import {
-  dailySalesChart,
-  emailsSubscriptionChart,
-  completedTasksChart
-} from "../../variables/charts.js";
-
+import Barchart from './Barchart'
 import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
 
 const useStyles = makeStyles(styles);
@@ -85,6 +80,7 @@ const successOrder = item => {
        <GridContainer>
       
       <GridItem xs={24} sm={24} md={24}>
+        <Barchart></Barchart>
         <Card>
           <CardHeader color="warning">
             <h4 className={classes.cardTitleWhite}>Các đơn hàng đang giao</h4>
@@ -146,15 +142,31 @@ const successOrder = item => {
     </GridContainer>
 
       <GridContainer>
+      <GridItem xs={12} sm={12} md={4}>
+          <Card chart>
+            <CardHeader color="success">
+            
+            </CardHeader>
+            <CardBody>
+              <h4 className={classes.cardTitle}>Daily Sales</h4>
+              <p className={classes.cardCategory}>
+                <span className={classes.successText}>
+                  <ArrowUpward className={classes.upArrowCardCategory} /> 55%
+                </span>{" "}
+                increase in today sales.
+              </p>
+            </CardBody>
+            <CardFooter chart>
+              <div className={classes.stats}>
+                <AccessTime /> updated 4 minutes ago
+              </div>
+            </CardFooter>
+          </Card>
+        </GridItem>
       <Card chart>
+    
           <CardHeader color="danger">
-            <ChartistGraph
-              className="ct-chart"
-              data={completedTasksChart.data}
-              type="Line"
-              options={completedTasksChart.options}
-              listener={completedTasksChart.animation}
-            />
+           
           </CardHeader>
           <CardBody>
             <h4 className={classes.cardTitle}>Doanh thu các ngày gần đây</h4>
