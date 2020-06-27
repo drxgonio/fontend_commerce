@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import { Bar } from 'react-chartjs-2';
-export class Barchart extends Component {
+import { Doughnut } from 'react-chartjs-2';
+export class DoughnutChart extends Component {
     render() {
         return (
             <div>
@@ -13,23 +13,23 @@ export class Barchart extends Component {
         this.state = { Data: {} };
     }
     componentDidMount() {
-        axios.get(`http://localhost:8080/dashboard/countorderoneweek`)
+        axios.get(`http://localhost:8080/dashboard/countproducttop`)
             .then(res => {
                 console.log(res);
                 const ipl = res.data;
                 console.log(ipl);
-                let date = [];
+                let name = [];
                 let count = [];
                 ipl.forEach(record => {
-                    date.push(record.date);
+                    name.push(record.name);
                     count.push(record.count);
                 });
                 this.setState({
                     Data: {
-                        labels: date,
+                        labels: name,
                         datasets: [
                             {
-                                label: 'IPL Số lượng bán ra',
+                                label: 'IPL 2018/2019 Top Run Scorer',
                                 data: count,
                                 backgroundColor: [
                                     "#3cb371",
@@ -53,10 +53,10 @@ export class Barchart extends Component {
         return (
             <div>
 
-                <Bar  data={this.state.Data}
-                    options={{ maintainAspectRatio: false }} ></Bar >
+                <Doughnut  data={this.state.Data}
+                    options={{ maintainAspectRatio: false }} ></Doughnut >
             </div>
         )
     }
 }
-export default Barchart  
+export default DoughnutChart  

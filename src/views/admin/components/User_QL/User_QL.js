@@ -144,7 +144,7 @@ const removeUser = item => {
                                 {item.phone}
                               </TableCell> 
                               <TableCell component="th" scope="row">
-                              {item&&item.role==="ROLE_ADMIN"?(<a></a>):(<Button type="danger" onClick={()=>removeUser(item)}><Icon type="delete" /></Button>)}
+                              {item&&item.role==="ROLE_ADMIN"?(<Button type="danger" disabled><Icon type="delete" /></Button>):(<Button type="danger" onClick={()=>removeUser(item)}><Icon type="delete" /></Button>)}
                         
                                 
                               <Link  className="p-2" to={{

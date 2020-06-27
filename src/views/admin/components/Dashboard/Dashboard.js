@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 // react plugin for creating charts
 import ChartistGraph from "react-chartist";
 // @material-ui/core
@@ -15,172 +15,152 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
-import Tasks from "../../custom_design/Tasks/Tasks.js";
-import CustomTabs from "../../custom_design/CustomTabs/CustomTabs.js";
-import { bugs } from "views/admin/variables/general";
 import Card from "../../custom_design/Card/Card.js";
 import CardHeader from "../../custom_design/Card/CardHeader.js";
 import CardBody from "../../custom_design/Card/CardBody.js";
-import CardFooter from "../../custom_design/Card/CardFooter.js";
 import Axios from "axios";
 import Pagination from "react-js-pagination";
 import { Button, Icon } from "antd";
-import { ACCESS_TOKEN,API_BASE_URL } from "API/URLMapping.js";
+import { ACCESS_TOKEN, API_BASE_URL } from "API/URLMapping.js";
 import { message } from 'antd';
-import Barchart from './Barchart'
+import Barchart from './Barchart';
+import DoughnutChart from './DoughnutChart';
+import Linechart from './Linechart'
 import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
+import { Tabs } from 'antd';
+import { Row } from "reactstrap";
 
 const useStyles = makeStyles(styles);
 export default function Dashboard() {
-  const [lstOrder,setLstOrder]= useState([]);
+  const [lstOrder, setLstOrder] = useState([]);
   const [itemsCountPerPage, setItemsCountPerPage] = useState(null);
   const [totalItemsCount, setTotalItemsCount] = useState(null);
   const [activePage, setActivePage] = useState(1);
   const [check, setCheck] = useState(true);
-  React.useEffect(()=>{
+  const { TabPane } = Tabs;
+  React.useEffect(() => {
     async function loadCategory() {
-        const headers = {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer '+localStorage.getItem(ACCESS_TOKEN)
-        }
-      const result=await Axios.get(`http://localhost:8080/api/admin/findorderstatus?page=`+(activePage-1)+`&size=4`,{headers:headers});
+      const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem(ACCESS_TOKEN)
+      }
+      const result = await Axios.get(`http://localhost:8080/api/admin/findorderstatus?page=` + (activePage - 1) + `&size=4`, { headers: headers });
       setLstOrder(result.data.content);
       setItemsCountPerPage(result.data.size);
       setTotalItemsCount(result.data.totalElements);
-      
+
     }
     loadCategory();
-  },[activePage,check]);
+  }, [activePage, check]);
   function handlePageChange(pageNumber) {
     setActivePage(pageNumber);
 
-}
-const successOrder = item => {
-  async function successfull(){
-    const headers = {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer '+localStorage.getItem(ACCESS_TOKEN)
   }
-    const response = await Axios.get(API_BASE_URL + "/api/successorder/"+item.id,{headers:headers});
-    console.log(response);
-      if(response.status === 200){
-        message.info('Đã giao thành công!!!'); 
-        setCheck(!check); 
+  const successOrder = item => {
+    async function successfull() {
+      const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem(ACCESS_TOKEN)
       }
-      else{
+      const response = await Axios.get(API_BASE_URL + "/api/successorder/" + item.id, { headers: headers });
+      console.log(response);
+      if (response.status === 200) {
+        message.info('Đã giao thành công!!!');
+        setCheck(!check);
+      }
+      else {
         message.error('Đã có lỗi xảy ra!');
       }
+    }
+    successfull();
+
   }
-  successfull();
- 
-}
   const classes = useStyles();
+  function callback(key) {
+    console.log(key);
+  }
   return (
     <div>
-       <GridContainer>
-      
-      <GridItem xs={24} sm={24} md={24}>
+      <Tabs defaultActiveKey="1" onChange={callback}>
+        <TabPane tab="Doanh thu 7 ngày" key="1">
+        <br></br>
+        <Linechart></Linechart>
+        </TabPane>
+        <TabPane tab="Top 10 Sản phẩm" key="2">
+        <br></br>
+          <DoughnutChart></DoughnutChart>
+        </TabPane>
+        <TabPane tab="Số lượng sản phẩm bán ra" key="3">
+        <br></br>
         <Barchart></Barchart>
-        <Card>
-          <CardHeader color="warning">
-            <h4 className={classes.cardTitleWhite}>Các đơn hàng đang giao</h4>
-          </CardHeader>
-          <CardBody>
-          <Table className="table" aria-label="simple table">
-                        <TableHead>
-                          <TableRow>
-                            <TableCell>Mã Order</TableCell>
-                            <TableCell >Tên Order</TableCell>                         
-                            <TableCell align="center">Người đặt hàng</TableCell>
-                            <TableCell >Sản phẩm</TableCell>
-                            <TableCell >Tổng tiền</TableCell>                
-                            <TableCell >Đang giao hàng</TableCell>
-                          </TableRow>
-                        </TableHead>
-                        <TableBody>
-                          {lstOrder && lstOrder.map(item => (
-                            <TableRow >
-                              <TableCell component="th" scope="row">
-                                {item.id}
-                              </TableCell>
-                                 <TableCell component="th" scope="row">
-                                {item.name}
-                              </TableCell>
-                             
-                              <TableCell component="th" scope="row">
-                                {item.user.name}
-                              </TableCell>
-                              <TableCell >{item&&item.lstOrder.map(pr=>(
-  <a>{pr.product.name},</a>
-))}</TableCell>
-                              <TableCell component="th" scope="row">
-                                {item.totalprice}đ
-                              </TableCell>                       
-                              <TableCell component="th" scope="row">
-                             <Button type="danger" onClick={()=>successOrder(item)}><Icon type="swap" /></Button>
-                              </TableCell> 
-          
-                            </TableRow>
-                          ))}
-
-
-                        </TableBody>
-                      </Table>
-            <Pagination
-                            hideNavigation
-                            activePage={activePage}
-                            itemsCountPerPage={itemsCountPerPage}
-                            totalItemsCount={totalItemsCount}
-                            pageRangeDisplayed={10}
-                            itemClass='page-item'
-                            linkClass='btn btn-light'
-                            onChange={handlePageChange}
-                        />
-          </CardBody>
-        </Card>
-      </GridItem>
-    </GridContainer>
-
+        </TabPane>
+      </Tabs>
+      <br></br>
+      <br></br>
+      <br></br>
       <GridContainer>
-      <GridItem xs={12} sm={12} md={4}>
-          <Card chart>
-            <CardHeader color="success">
-            
+
+        <GridItem xs={24} sm={24} md={24}>
+          <Card>
+            <CardHeader color="warning">
+              <h4 className={classes.cardTitleWhite}>Các đơn hàng đang giao</h4>
             </CardHeader>
             <CardBody>
-              <h4 className={classes.cardTitle}>Daily Sales</h4>
-              <p className={classes.cardCategory}>
-                <span className={classes.successText}>
-                  <ArrowUpward className={classes.upArrowCardCategory} /> 55%
-                </span>{" "}
-                increase in today sales.
-              </p>
+              <Table className="table" aria-label="simple table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Mã Order</TableCell>
+                    <TableCell >Tên Order</TableCell>
+                    <TableCell align="center">Người đặt hàng</TableCell>
+                    <TableCell >Sản phẩm</TableCell>
+                    <TableCell >Tổng tiền</TableCell>
+                    <TableCell >Đang giao hàng</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {lstOrder && lstOrder.map(item => (
+                    <TableRow >
+                      <TableCell component="th" scope="row">
+                        {item.id}
+                      </TableCell>
+                      <TableCell component="th" scope="row">
+                        {item.name}
+                      </TableCell>
+
+                      <TableCell component="th" scope="row">
+                        {item.user.name}
+                      </TableCell>
+                      <TableCell >{item && item.lstOrder.map(pr => (
+                        <a>{pr.product.name},</a>
+                      ))}</TableCell>
+                      <TableCell component="th" scope="row">
+                        {item.totalprice}đ
+                              </TableCell>
+                      <TableCell component="th" scope="row">
+                        <Button type="danger" onClick={() => successOrder(item)}><Icon type="swap" /></Button>
+                      </TableCell>
+
+                    </TableRow>
+                  ))}
+
+
+                </TableBody>
+              </Table>
+              <Pagination
+                hideNavigation
+                activePage={activePage}
+                itemsCountPerPage={itemsCountPerPage}
+                totalItemsCount={totalItemsCount}
+                pageRangeDisplayed={10}
+                itemClass='page-item'
+                linkClass='btn btn-light'
+                onChange={handlePageChange}
+              />
             </CardBody>
-            <CardFooter chart>
-              <div className={classes.stats}>
-                <AccessTime /> updated 4 minutes ago
-              </div>
-            </CardFooter>
           </Card>
         </GridItem>
-      <Card chart>
-    
-          <CardHeader color="danger">
-           
-          </CardHeader>
-          <CardBody>
-            <h4 className={classes.cardTitle}>Doanh thu các ngày gần đây</h4>
-            
-          </CardBody>
-          <CardFooter chart>
-            <div className={classes.stats}>
-              <AccessTime /> campaign sent 2 days ago
-            </div>
-          </CardFooter>
-        </Card>
-    
-    </GridContainer>
-     </div>
-  
+      </GridContainer>
+    </div>
+
   );
 }

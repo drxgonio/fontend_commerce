@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import { Bar } from 'react-chartjs-2';
-export class Barchart extends Component {
+import { Line } from 'react-chartjs-2';
+export class Linechart extends Component {
     render() {
         return (
             <div>
@@ -13,7 +13,7 @@ export class Barchart extends Component {
         this.state = { Data: {} };
     }
     componentDidMount() {
-        axios.get(`http://localhost:8080/dashboard/countorderoneweek`)
+        axios.get(`http://localhost:8080/dashboard/summoneyoneweek`)
             .then(res => {
                 console.log(res);
                 const ipl = res.data;
@@ -29,7 +29,7 @@ export class Barchart extends Component {
                         labels: date,
                         datasets: [
                             {
-                                label: 'IPL Số lượng bán ra',
+                                label: 'IPL Doanh thu bán ra',
                                 data: count,
                                 backgroundColor: [
                                     "#3cb371",
@@ -53,10 +53,10 @@ export class Barchart extends Component {
         return (
             <div>
 
-                <Bar  data={this.state.Data}
-                    options={{ maintainAspectRatio: false }} ></Bar >
+                <Line  data={this.state.Data}
+                    options={{ maintainAspectRatio: false }} ></Line >
             </div>
         )
     }
 }
-export default Barchart  
+export default Linechart  
