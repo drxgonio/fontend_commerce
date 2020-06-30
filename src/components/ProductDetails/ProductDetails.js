@@ -20,13 +20,20 @@ import { Icon } from 'antd';
 import DemoFooter from "components/Footers/DemoFooter";
 import Axios from "axios";
 import NarbarGlobal from "components/Navbars/NarbarGlobal";
-const well={
+import {
+  FacebookIcon,
+  FacebookShareButton,
+  RedditShareCount,
+  RedditIcon
+
+} from "react-share";
+const well = {
   boxShadow: "1px 1px 1px 1px #9E9E9E",
   borderRadius: "15px"
-  }
+}
 const { TextArea } = Input;
 const CommentList = ({ comments }) => (
- console.log(comments),
+  console.log(comments),
   <List
     dataSource={comments}
     header={`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`}
@@ -37,7 +44,7 @@ const CommentList = ({ comments }) => (
 const Editor = ({ onChange, onSubmit, submitting, value }) => (
   <div>
     <Form.Item>
-      <TextArea rows={4} onChange={onChange} value={value}  style={{width:"800px"}}/>
+      <TextArea rows={4} onChange={onChange} value={value} style={{ width: "800px" }} />
     </Form.Item>
     <Form.Item>
       <Button htmlType="submit" loading={submitting} onClick={onSubmit} type="primary">
@@ -63,11 +70,11 @@ function ProductDetails(props) {
     }
 
     setSubmitting(true);
-  
-    setTimeout( async () => {
+
+    setTimeout(async () => {
 
       setSubmitting(false);
-      setValue('');  
+      setValue('');
       if (localStorage.getItem(ACCESS_TOKEN)) {
         const headers = {
           'Content-Type': 'application/json',
@@ -75,21 +82,21 @@ function ProductDetails(props) {
         }
         const response = await Axios.post(API_BASE_URL + "/v1/addcomment", {
           content: value,
-          idProduct:props.match.params.id
-        
-      }, {
+          idProduct: props.match.params.id
+
+        }, {
           headers: headers
         });
-        if(response.status===200){
+        if (response.status === 200) {
           setCheck(!check);
         }
-       
+
       }
-      else{
+      else {
         //props.history.push("/login");
         message.error('Bạn chưa đăng nhập tài khoản');
       }
-    },1);
+    }, 1);
   };
 
   function handleChange(e) {
@@ -99,10 +106,10 @@ function ProductDetails(props) {
   };
 
 
-  React.useEffect( () => {
+  React.useEffect(() => {
     const feactData = async () => {
       const lst = await Axios.get(`http://localhost:8080/api/productdetail?id=` + props.match.params.id);
-      const lstComm= await Axios.get(`http://localhost:8080/v1/getCommentByProduct?id=` + props.match.params.id);
+      const lstComm = await Axios.get(`http://localhost:8080/v1/getCommentByProduct?id=` + props.match.params.id);
       setLstComment(lstComm.data);
       setProduct_detail(lst.data)
       setImg_photo(lst.data.imagephoto)
@@ -168,7 +175,7 @@ function ProductDetails(props) {
           <br />
           <Row>
             <Col md="1">
-              <Row  style={well}><img src={product_detail && product_detail.product_details.lstImage[0].name} onClick={() => {
+              <Row style={well}><img src={product_detail && product_detail.product_details.lstImage[0].name} onClick={() => {
                 changeImage(product_detail.product_details.lstImage[0].name);
               }} style={{ width: 100, height: 100 }}></img></Row>
               <Row className=" mt-3" style={well}><img src={product_detail && product_detail.product_details.lstImage[1].name}
@@ -220,7 +227,12 @@ function ProductDetails(props) {
               </Row>
 
               <Row className="pt-1">
-                <Col md="8"></Col>
+                <Col md="8">
+                  <FacebookShareButton url="https://localhost:8080" quote={"Sản phẩm"} className="share">
+                    <FacebookIcon size={32} round={true} />
+                  </FacebookShareButton>
+
+                </Col>
                 <Col md="4"><Button type="danger" onClick={() => addMyCart(product_detail.name)}>Chọn mua</Button> </Col>
               </Row>
             </Col>
@@ -230,14 +242,14 @@ function ProductDetails(props) {
           <br />
           <br />
           <Row >
-            <label><b>HỎI, ĐÁP VỀ SẢN PHẨM</b></label> 
+            <label><b>HỎI, ĐÁP VỀ SẢN PHẨM</b></label>
           </Row>
           <Row>
             <div>
-             
-              {lstComment  && <CommentList comments={lstComment} />}
+
+              {lstComment && <CommentList comments={lstComment} />}
               <Comment
-                
+
                 content={
                   <Editor
                     onChange={handleChange}
