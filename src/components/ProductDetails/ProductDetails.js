@@ -227,7 +227,7 @@ function ProductDetails(props) {
               </Row>
 
               <Row className="pt-1">
-                <Col md="8">
+                <Col md="8"><b>Chia sẻ: </b>
                   <FacebookShareButton url={window.location.href} quote={"Sản phẩm"} className="share">
                     <FacebookIcon size={32} round={true} />
                   </FacebookShareButton>
