@@ -67,7 +67,7 @@ export default function User_QL() {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer '+localStorage.getItem(ACCESS_TOKEN)
         }
-      const result=await Axios.get(`http://localhost:8080/user/findalluser?page=`+(activePage-1)+`&size=4`,{headers:headers});
+      const result=await Axios.get(API_BASE_URL+`/user/findalluser?page=`+(activePage-1)+`&size=4`,{headers:headers});
       setLstUser(result.data.content);
       setItemsCountPerPage(result.data.size);
       setTotalItemsCount(result.data.totalElements);

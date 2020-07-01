@@ -13,6 +13,7 @@ import {
 } from "reactstrap";
 import Pagination from "react-js-pagination";
 import ProductItem from 'views/body/ProductItem';
+import {API_BASE_URL} from 'API/URLMapping'
 function Search(props){
     const[keyword,setKeyword]= useState(props.match.params.name);
     const [listProduct, setListProduct] = useState([]);
@@ -23,7 +24,7 @@ function Search(props){
 
     useEffect(()=>{
         async function searchProduct(){
-                const result= await Axios.get(`http://localhost:8080/api/search?keyword=`+keyword+`&page=`+(activePage-1)+`&size=4`);
+                const result= await Axios.get(API_BASE_URL+`/api/search?keyword=`+keyword+`&page=`+(activePage-1)+`&size=4`);
                 setListProduct(result.data.content);
                 setItemsCountPerPage(result.data.size);
                 setTotalItemsCount(result.data.totalElements);

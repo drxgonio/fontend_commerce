@@ -81,7 +81,7 @@ export default function AddProduct(props) {
   React.useEffect(() => {
     const fetchData = async () => {
       const lstC = await axios(
-        `http://localhost:8080/api/findAllCategory`
+        API_BASE_URL+`/api/findAllCategory`
       );
       setLstCategory(lstC.data);
 

@@ -12,6 +12,7 @@ import ProductItem from "views/body/ProductItem";
 import IndexHeader from "components/Headers/IndexHeader"; 
 import Axios from "axios";
 import DemoFooter from "components/Footers/DemoFooter";
+import {API_BASE_URL} from 'API/URLMapping';
 
 function ProductOfCategory(props) {
 
@@ -23,7 +24,7 @@ function ProductOfCategory(props) {
 
     useEffect(()=>{
         const fetchData= async ()=>{
-            const lst= await Axios.get(`http://localhost:8080/api/getProductOfCategory?idCategory=`+props.match.params.id+`&page=`+(activePage-1)+`&size=4`);
+            const lst= await Axios.get(API_BASE_URL+`/api/getProductOfCategory?idCategory=`+props.match.params.id+`&page=`+(activePage-1)+`&size=4`);
             setListProduct(lst.data.content);
             setItemsCountPerPage(lst.data.size);
             setTotalItemsCount(lst.data.totalElements);

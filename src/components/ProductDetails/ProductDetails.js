@@ -108,8 +108,8 @@ function ProductDetails(props) {
 
   React.useEffect(() => {
     const feactData = async () => {
-      const lst = await Axios.get(`http://localhost:8080/api/productdetail?id=` + props.match.params.id);
-      const lstComm = await Axios.get(`http://localhost:8080/v1/getCommentByProduct?id=` + props.match.params.id);
+      const lst = await Axios.get(API_BASE_URL+`/api/productdetail?id=` + props.match.params.id);
+      const lstComm = await Axios.get(API_BASE_URL+`/v1/getCommentByProduct?id=` + props.match.params.id);
       setLstComment(lstComm.data);
       setProduct_detail(lst.data)
       setImg_photo(lst.data.imagephoto)

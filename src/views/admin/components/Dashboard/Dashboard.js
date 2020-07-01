@@ -44,7 +44,7 @@ export default function Dashboard() {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + localStorage.getItem(ACCESS_TOKEN)
       }
-      const result = await Axios.get(`http://localhost:8080/api/admin/findorderstatus?page=` + (activePage - 1) + `&size=4`, { headers: headers });
+      const result = await Axios.get(API_BASE_URL+`/api/admin/findorderstatus?page=` + (activePage - 1) + `&size=4`, { headers: headers });
       setLstOrder(result.data.content);
       setItemsCountPerPage(result.data.size);
       setTotalItemsCount(result.data.totalElements);

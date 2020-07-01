@@ -12,7 +12,7 @@ import ProductUserWatch from "../body/ProductUserWatch";
 
 import axios from 'axios';
 import ProductList from 'views/body/ProductList.js';
-
+import {API_BASE_URL} from 'API/URLMapping'
 function IndexPage(props){
   const [data, setData] = useState({lstCategory: [], lstProduct: [] ,lstProductNew:[]});
   const [page, setPage] = useState(1);
@@ -21,12 +21,12 @@ function IndexPage(props){
   useEffect( () => {
     const fetchData = async () => {
         const lstCategory = await axios(
-          `http://localhost:8080/api/findAllCategory`
+          API_BASE_URL+ `/api/findAllCategory`
         );
         const lstProduct = await axios(
-          `http://localhost:8080/api/getallProduct?page=`+(page-1)+`&size=8`
+          API_BASE_URL+`/api/getallProduct?page=`+(page-1)+`&size=8`
         );
-        const lstProductNew=await axios.get(`http://localhost:8080/api/getproductnew?page=0&size=`+size);
+        const lstProductNew=await axios.get(API_BASE_URL+`/api/getproductnew?page=0&size=`+size);
   
         setData({ lstCategory: lstCategory.data, lstProduct: lstProduct.data, lstProductNew:lstProductNew.data });
        

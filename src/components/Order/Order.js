@@ -22,6 +22,7 @@ import { API_BASE_URL } from "API/URLMapping";
 import QRCode from 'qrcode.react';
 import { Modal, Button } from 'antd';
 import { Steps } from 'antd';
+import { Redirect } from "react-router";
 const { Step } = Steps;
 function Order(props) {
    
@@ -32,6 +33,7 @@ function Order(props) {
     const [lstCart, setLstCart] = React.useState([]);
     const [totalPrice, setTotalPrice] = React.useState(0);
     const [checkOrder,setCheckOrder]=React.useState(false);
+    const [encrypt,setEncypt]=React.useState("abc");
     
     React.useEffect(() => {
         setUser(props.currentUser);
@@ -97,7 +99,8 @@ function Order(props) {
                                 }
                                 const response=await  Axios.post(API_BASE_URL+"/order/addOrder", data, {
                                     headers: headers
-                                });                             
+                                });      
+                                setEncypt(response.data);                       
                             }
                             else{
                                 message.error("Không có sản phẩm nào được chọn!")
@@ -139,14 +142,14 @@ function Order(props) {
         <>
      
         <Modal
-          title="Thông tin đơn hàng"
+          title="Thanh toán đơn hàng"
           visible={visible}
           onOk={handleOk}
           onCancel={handleCancel}
         >
           <QRCode
             id='qrcode'
-            value='http://localhost:3000/profile-page'
+            value={encrypt}
             size={290}
             level={'H'}
             includeMargin={true}

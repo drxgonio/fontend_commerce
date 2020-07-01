@@ -63,7 +63,7 @@ export default function Product_QL() {
   const [check, setCheck] = useState(true);//update lai component when delete
   React.useEffect(()=>{
     async function loadCategory() {
-      const result=await Axios.get(`http://localhost:8080/api/getallProduct?page=`+(activePage-1)+`&size=4`);
+      const result=await Axios.get(API_BASE_URL+`/api/getallProduct?page=`+(activePage-1)+`&size=4`);
       setLstProduct(result.data.content);
       setItemsCountPerPage(result.data.size);
       setTotalItemsCount(result.data.totalElements);

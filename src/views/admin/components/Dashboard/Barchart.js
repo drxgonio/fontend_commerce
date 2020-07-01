@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 import { Bar } from 'react-chartjs-2';
+import {API_BASE_URL} from 'API/URLMapping'
 export class Barchart extends Component {
     render() {
         return (
@@ -13,7 +14,7 @@ export class Barchart extends Component {
         this.state = { Data: {} };
     }
     componentDidMount() {
-        axios.get(`http://localhost:8080/dashboard/countorderoneweek`)
+        axios.get(API_BASE_URL+`/dashboard/countorderoneweek`)
             .then(res => {
                 console.log(res);
                 const ipl = res.data;

@@ -86,7 +86,7 @@ export default function EditProduct(props) {
         'Authorization': 'Bearer ' + localStorage.getItem(ACCESS_TOKEN)
       }
       const feactData = async () => {
-        const lst = await Axios.get(`http://localhost:8080/api/admin/product/findbyid?id=` + props.match.params.id,{headers:headers});
+        const lst = await Axios.get(API_BASE_URL+`/api/admin/product/findbyid?id=` + props.match.params.id,{headers:headers});
         console.log(lst.data)
         setId(lst.data.id);
         setName(lst.data.name);
@@ -111,7 +111,7 @@ export default function EditProduct(props) {
         'Authorization': 'Bearer ' + localStorage.getItem(ACCESS_TOKEN)
       }
   
-      const response = await Axios.post("http://localhost:8080/api/admin/user/updateProduct", data, {
+      const response = await Axios.post(API_BASE_URL+"/api/admin/user/updateProduct", data, {
         headers: headers
       });
       if (response.status === 200) {

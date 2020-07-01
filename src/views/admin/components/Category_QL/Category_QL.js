@@ -62,7 +62,7 @@ export default function Category_QL() {
   const [check, setCheck] = useState(true);
   React.useEffect(()=>{
     async function loadCategory() {
-      const result=await Axios.get(`http://localhost:8080/api/category?page=`+(activePage-1)+`&size=4`);
+      const result=await Axios.get(API_BASE_URL+`/api/category?page=`+(activePage-1)+`&size=4`);
       setLstCategory(result.data.content);
       setItemsCountPerPage(result.data.size);
       setTotalItemsCount(result.data.totalElements);

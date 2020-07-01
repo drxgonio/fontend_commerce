@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 import { Line } from 'react-chartjs-2';
+import {API_BASE_URL} from 'API/URLMapping'
 export class Linechart extends Component {
     render() {
         return (
@@ -13,7 +14,7 @@ export class Linechart extends Component {
         this.state = { Data: {} };
     }
     componentDidMount() {
-        axios.get(`http://localhost:8080/dashboard/summoneyoneweek`)
+        axios.get(API_BASE_URL+`/dashboard/summoneyoneweek`)
             .then(res => {
                 console.log(res);
                 const ipl = res.data;

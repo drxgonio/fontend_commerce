@@ -75,7 +75,7 @@ function EditUser(props) {
         'Authorization': 'Bearer ' + localStorage.getItem(ACCESS_TOKEN)
       }
       const feactData = async () => {
-        const lst = await Axios.get(`http://localhost:8080/admin/user/findbyid?id=` + props.match.params.id,{headers:headers});
+        const lst = await Axios.get(API_BASE_URL+`/admin/user/findbyid?id=` + props.match.params.id,{headers:headers});
         setName(lst.data.name);
         setEmail(lst.data.email);
         setPhone(lst.data.phone);
@@ -95,7 +95,7 @@ function EditUser(props) {
         'Authorization': 'Bearer ' + localStorage.getItem(ACCESS_TOKEN)
       }
   
-      const response = await Axios.post("http://localhost:8080/admin/user/updateUser", data, {
+      const response = await Axios.post(API_BASE_URL+"/admin/user/updateUser", data, {
         headers: headers
       });
       if (response.status === 200) {

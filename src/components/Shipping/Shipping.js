@@ -31,22 +31,7 @@ function Shipping(props) {
 
 
     }, [props.currentUser]);
-    // React.useEffect( () => {
-    //     if (localStorage.getItem(ACCESS_TOKEN)) {
-    //       const headers = {
-    //         'Content-Type': 'application/json',
-    //         'Authorization': 'Bearer ' + localStorage.getItem(ACCESS_TOKEN)
-    //       }
-    //       const feactData = async () => {
-    //         const lst = await Axios.get(`http://localhost:8080/admin/user/findbyid?id=` + props.currentUser.id,{headers:headers});
-    //         setUser(lst.data);
 
-    //       }
-    //       feactData();
-    //     }
-
-
-    //   }, [flag]);
     React.useEffect(() => {
         props.history.push("/shipping");
 
@@ -196,8 +181,5 @@ function Shipping(props) {
         </>
     );
 }
-
-
-
 
 export default Shipping;

@@ -8,7 +8,7 @@ import {
     Col
 } from "reactstrap";
 import ProductItem from './ProductItem';
-import { ACCESS_TOKEN } from 'API/URLMapping';
+import { ACCESS_TOKEN, API_BASE_URL } from 'API/URLMapping';
 import Axios from 'axios';
 function ProductUserWatch(props){
     const[lstproduct,setLstProduct] =React.useState([]);
@@ -20,7 +20,7 @@ function ProductUserWatch(props){
                       'Content-Type': 'application/json',
                          'Authorization': 'Bearer '+localStorage.getItem(ACCESS_TOKEN)
                    }
-            Axios.get('http://localhost:8080/user/getproductwatch',{
+            Axios.get(API_BASE_URL+'/user/getproductwatch',{
                 headers: headers
             })
             .then(res => {

@@ -20,14 +20,9 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { Input, Icon } from 'antd';
 import NarbarGlobal from "components/Navbars/NarbarGlobal";
-
 import { ACCESS_TOKEN } from "API/URLMapping";
-
-
 const { Search } = Input;
-const { Step } = Steps;
 const ButtonGroup = Button.Group;
-
 
 function Cart(props) {
 

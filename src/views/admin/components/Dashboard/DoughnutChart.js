@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 import { Doughnut } from 'react-chartjs-2';
+import {API_BASE_URL} from 'API/URLMapping'
 export class DoughnutChart extends Component {
     render() {
         return (
@@ -13,7 +14,7 @@ export class DoughnutChart extends Component {
         this.state = { Data: {} };
     }
     componentDidMount() {
-        axios.get(`http://localhost:8080/dashboard/countproducttop`)
+        axios.get(API_BASE_URL+`/dashboard/countproducttop`)
             .then(res => {
                 console.log(res);
                 const ipl = res.data;
