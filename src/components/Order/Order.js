@@ -33,7 +33,7 @@ function Order(props) {
     const [lstCart, setLstCart] = React.useState([]);
     const [totalPrice, setTotalPrice] = React.useState(0);
     const [checkOrder,setCheckOrder]=React.useState(false);
-    const [encrypt,setEncypt]=React.useState("abc");
+    const [encrypt,setEncypt]=React.useState("UGGGHJGCHGHJGHSGHGHJGCHJGHJGASGSHGSHGHGSHGSHGHSGHGSHGSGHG");
     
     React.useEffect(() => {
         setUser(props.currentUser);
@@ -100,7 +100,8 @@ function Order(props) {
                                 const response=await  Axios.post(API_BASE_URL+"/order/addOrder", data, {
                                     headers: headers
                                 });      
-                                setEncypt(response.data);                       
+                                setEncypt(response.data);   
+                                               
                             }
                             else{
                                 message.error("Không có sản phẩm nào được chọn!")
@@ -113,13 +114,12 @@ function Order(props) {
         }
           
     },[data])
-     function finalOrder() {
-        setData(lstCart);
+      function finalOrder() {
+         setData(lstCart);
         message.info("Bạn đã đặt hàng thành công!!!")
         localStorage.removeItem('mycart');
-        setCheckOrder(true);
-        showModal();
-        
+       setCheckOrder(true);  
+        showModal();    
     }
     useEffect(()=>{
         setTotalPrice(0);

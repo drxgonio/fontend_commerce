@@ -1,6 +1,6 @@
 
 import React, { useEffect } from "react";
-
+import { Modal, Button } from 'antd';
 // reactstrap components
 import {
   Label,
@@ -9,6 +9,7 @@ import {
   Row,
   Col,
 } from "reactstrap";
+import QRCode from 'qrcode.react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
@@ -33,9 +34,9 @@ import useForm from 'react-hook-form';
 import { message } from 'antd';
 
 function ProfilePage(props) {
- 
+
   const [user, setUser] = React.useState(null);
-  
+
 
   document.documentElement.classList.remove("nav-open");
   React.useEffect(() => {
@@ -84,7 +85,8 @@ function ProfilePage(props) {
         headers: headers
       });
       setLstOrderOfUser(result.data);
-    
+      console.log(result.data)
+
     }
     fetchData();
   }, []);
@@ -94,28 +96,61 @@ function ProfilePage(props) {
 
   };
   // const { register, handleSubmit, watch, errors } = useForm();
-  const { register, handleSubmit, watch,errors } = useForm()
-  const onSubmit =async data => { 
+  const { register, handleSubmit, watch, errors } = useForm()
+  const onSubmit = async data => {
     if (localStorage.getItem(ACCESS_TOKEN)) {
       const headers = {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + localStorage.getItem(ACCESS_TOKEN)
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem(ACCESS_TOKEN)
       }
       const response = await Axios.post(API_BASE_URL + "/user/changepassword", data, {
-          headers: headers
+        headers: headers
       });
-      if(response.status === 200){
+      if (response.status === 200) {
         message.info('Đổi mật khẩu thành công. Vui lòng đăng nhập lại!!!');
         props.onLogout();
       }
-      else{
+      else {
         message.error('Nhập sai mật khẩu. Vui lòng nhập lại.');
       }
+    }
   }
+  const [visible, setvisible] = React.useState(false);
+
+  const [daQr, setdaQr] = React.useState("");
+  function handleCancel() {
+    setvisible(false);
+  }
+  function handleOk() {
+    setvisible(false);
+  }
+  useEffect(() => {
+
+  },visible)
+  // function showModal(qrCode) {
+  //   
+  // }
+  const showModal = qrCode => {
+    setvisible(true);
+     setdaQr(qrCode);
   }
 
   return (
     <>
+    <Modal
+          title="Thanh toán đơn hàng"
+          visible={visible}
+          onOk={handleOk}
+          onCancel={handleCancel}
+        >
+          <QRCode
+            id='qrcode'
+            value={daQr}
+            size={290}
+            level={'H'}
+            includeMargin={true}
+          />
+        </Modal>
       <NarbarGlobal authenticated={props.authenticated} onLogout={props.onLogout} />
       <div className="section section-navbars pt-100">
         <Container >
@@ -153,7 +188,7 @@ function ProfilePage(props) {
                 <Tab label="Quản lý đơn hàng" {...a11yProps(0)} />
                 <Tab label="Thông tin tài khoản" {...a11yProps(1)} />
                 <Tab label="Thông báo của tôi" {...a11yProps(2)} />
-                
+
                 <Tab label="Sổ địa chỉ" {...a11yProps(3)} />
                 <Tab label="Thông tin thanh toán" {...a11yProps(4)} />
                 <Tab label="Nhận xét sản phẩm đã mua" {...a11yProps(5)} />
@@ -172,7 +207,7 @@ function ProfilePage(props) {
                     </Row>
                     <Row>
                       <Col md="4"> <Label>Số điện thoại</Label></Col>
-                      <Col md="8"> <Input placeholder="Nhập Số điện thoại" value={props.currentUser && props.currentUser.phone} className="form-group" type="number"  disabled /></Col>
+                      <Col md="8"> <Input placeholder="Nhập Số điện thoại" value={props.currentUser && props.currentUser.phone} className="form-group" type="number" disabled /></Col>
                     </Row>
                     <Row>
                       <Col md="4"> <Label>Email</Label></Col>
@@ -204,34 +239,34 @@ function ProfilePage(props) {
                         <Col md="12">
                           <Row>
                             <Col md="4"> <Label>Mật khẩu cũ(*)</Label></Col>
-                            <Col md="4"> 
-                              <input placeholder="Nhập mật khẩu" className="form-control" type="password" name="password"  ref={register({ required: true, maxlength: 20 })}/>
-                              {errors.password && <span style={{color:"red"}}>Mật khẩu không được để trống</span>}
+                            <Col md="4">
+                              <input placeholder="Nhập mật khẩu" className="form-control" type="password" name="password" ref={register({ required: true, maxlength: 20 })} />
+                              {errors.password && <span style={{ color: "red" }}>Mật khẩu không được để trống</span>}
                             </Col>
                           </Row>
                           <Row>
                             <Col md="4"> <Label>Mật khẩu mới(*)</Label></Col>
                             <Col md="4"> <input placeholder="Nhập mật khẩu mới" className="form-control" type="password" name="passwordnew" ref={register({ required: true, maxlength: 20 })}
-                          />{errors.passwordnew && <span style={{color:"red"}}>Hãy nhập mật khẩu mới</span>}
-                          </Col>
+                            />{errors.passwordnew && <span style={{ color: "red" }}>Hãy nhập mật khẩu mới</span>}
+                            </Col>
                           </Row>
                           <Row>
                             <Col md="4"> <Label>Nhập lại(*)</Label></Col>
                             <Col md="4"> <input placeholder="Nhập lại" className="form-control p-1" type="password" name="passwordConfirm"
-                               ref={register({
+                              ref={register({
                                 validate: (value) => {
                                   return value === watch('passwordnew'); // value is from password2 and watch will return value from password1
                                 }
                               })} />
-                              {errors.passwordConfirm && <span style={{color:"red"}}>Mật khẩu nhập lại chưa chính xác</span>}
-                              </Col>
-                            <Col md="4" > <input type="submit" className="btn btn-warning" value="Cập nhập"/> </Col>
+                              {errors.passwordConfirm && <span style={{ color: "red" }}>Mật khẩu nhập lại chưa chính xác</span>}
+                            </Col>
+                            <Col md="4" > <input type="submit" className="btn btn-warning" value="Cập nhập" /> </Col>
                           </Row>
                         </Col>
                       </form>
-                   
-                   
-                   ) : (<Row>
+
+
+                    ) : (<Row>
                       {/* <Col md="4"> </Col>
                       <Col md="4"> </Col>
                       <Col md="4" > <Button className="btn-warning float-right">Cập nhập</Button> </Col> */}
@@ -256,6 +291,7 @@ function ProfilePage(props) {
                             <TableCell >Sản phẩm</TableCell>
                             <TableCell align="center">Tổng tiền</TableCell>
                             <TableCell >Trạng thái đơn hàng</TableCell>
+                            <TableCell>Thanh toán online</TableCell>
                           </TableRow>
                         </TableHead>
                         <TableBody>
@@ -265,14 +301,14 @@ function ProfilePage(props) {
                                 {item.id}
                               </TableCell>
                               <TableCell >{item.dateadd}</TableCell>
-<TableCell >{item&&item.lstOrder.map(pr=>(
-  <a>{pr.product.name},</a>
-))}</TableCell>
+                              <TableCell >{item && item.lstOrder.map(pr => (
+                                <a>{pr.product.name},</a>
+                              ))}</TableCell>
                               <TableCell align="right">{item.totalprice}đ</TableCell>
 
                               {item.status ? (<TableCell align="right">Giao hàng thành công</TableCell>)
 
-                                : (<TableCell align="right">Đang giao hàng</TableCell>)}
+                                : (<><TableCell align="right">Đang giao hàng</TableCell> <TableCell> <Button type="primary" onClick= {() => showModal(item.qrCode)}>Click</Button></TableCell></>)}
                             </TableRow>
                           ))}
 
