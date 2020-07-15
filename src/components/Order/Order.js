@@ -115,9 +115,18 @@ function Order(props) {
           
     },[data])
       function finalOrder() {
-         setData(lstCart);
+          if(lstCart){
+              lstCart.map(item =>{
+                    item.soluong = parseInt(localStorage.getItem("key"+item.id))
+                    localStorage.removeItem(localStorage.getItem("key"+item.id))
+                    localStorage.removeItem(localStorage.getItem(item.name))
+              })
+          }
+          console.log(lstCart);
+          setData(lstCart);
         message.info("Bạn đã đặt hàng thành công!!!")
         localStorage.removeItem('mycart');
+        localStorage.removeItem('totalPrice');
        setCheckOrder(true);  
         showModal();    
     }
@@ -206,6 +215,9 @@ function Order(props) {
                             <Col md="4">
                                 <label className=" p-1">Giá tiền: {item && item.product_details.pricesale}</label>
                             </Col>
+                            <Col md="4">
+                                <label className=" p-1">Số lượng: {localStorage.getItem("key"+item.id)}</label>
+                            </Col>
                         </Row>
                     )
                     )}
@@ -214,7 +226,7 @@ function Order(props) {
 
                         </Col>
                         <Col md="4">
-                            <label className=" p-1"> Tổng tiền:{totalPrice}đ</label>
+                            <label className=" p-1"> Tổng tiền:{localStorage.getItem("totalPrice")}đ</label>
                         </Col>
 
 
@@ -223,7 +235,7 @@ function Order(props) {
                         <Col md="4">
 
                         </Col>
-                        {totalPrice>0&&( <Col md="4">
+                        {parseInt(localStorage.getItem("totalPrice"))>0&&( <Col md="4">
                             <Button type="primary" onClick={finalOrder} >Đặt hàng</Button>
                         </Col>)}
                        
