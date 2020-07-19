@@ -12,7 +12,11 @@ import {
 } from "reactstrap";
 import { Link } from 'react-router-dom'
 const { SubMenu } = Menu;
-
+const well = {
+    boxShadow: "1px 1px 1px 1px #9E9E9E",
+    borderRadius: "15px",
+    background: "#F8F8FF"
+  }
 const handleClick = e => {
     console.log('click ', e);
 };
@@ -27,14 +31,16 @@ function Narbar(props) {
 
             <div className="section section-navbars">
                 <Container id="menu-dropdown">
-                    <div className="title">
-                        <h3>Menu</h3>
-                    </div>
+                    {/* <div className="title">
+                        <h3></h3>
+                    </div> */}
                     <br />
                     <Row>
                         <Col md="3">
                             <CategoryList lstCategory={props.lstCategory}></CategoryList>
+                            <br></br>
                         </Col>
+                       
                         <Col md="9">
                             <Row>
                                 <Col md="9">
@@ -157,12 +163,13 @@ function CategoryList(props) {
                 >
                     <span>Danh mục</span>
                     {props.lstCategory.map(item => (
-                        <SubMenu
+                        <SubMenu style={well}
 
                             title={
                                 <Link to={{
                                     pathname: `/product-of-category/${item.name}/${item.id}`
-                                }}> <b>{item.name}</b></Link >
+                                }}>  <img src={item.linkimage} style={{ width: 50,height: 50 }} />
+                                <b>{item.name}</b></Link >
                             } className="border mt-3"
                         >
 

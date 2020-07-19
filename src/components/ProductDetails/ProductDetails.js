@@ -219,10 +219,10 @@ function ProductDetails(props) {
               </Row>
               <Row>
                 <ul>
-                  <li>Chuẩn kháng nước ISO 22810:2010</li>
-                  <li>Kết nối: Bluetooth 4.2, Wi-Fi 802.11 b/g/n</li>
-                  <li>Tương thích: iPhone</li>
-                  <li>Chức năng: Theo dõi nhịp tim, vận động</li>
+                  <li>{product_detail && product_detail.product_details.detail}</li>
+                  <li>{product_detail && product_detail.product_details.detail_1}</li>
+                  <li>{product_detail && product_detail.product_details.detail_2}</li>
+                  <li>{product_detail && product_detail.product_details.detail_3}</li>
                 </ul>
               </Row>
 

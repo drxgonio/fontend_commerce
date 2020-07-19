@@ -44,7 +44,7 @@ export default function Dashboard() {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + localStorage.getItem(ACCESS_TOKEN)
       }
-      const result = await Axios.get(API_BASE_URL+`/api/admin/findorderstatus?page=` + (activePage - 1) + `&size=4`, { headers: headers });
+      const result = await Axios.get(API_BASE_URL + `/api/admin/findorderstatus?page=` + (activePage - 1) + `&size=4`, { headers: headers });
       setLstOrder(result.data.content);
       setItemsCountPerPage(result.data.size);
       setTotalItemsCount(result.data.totalElements);
@@ -83,16 +83,16 @@ export default function Dashboard() {
     <div>
       <Tabs defaultActiveKey="1" onChange={callback}>
         <TabPane tab="Doanh thu 7 ngày" key="1">
-        <br></br>
-        <Linechart></Linechart>
+          <br></br>
+          <Linechart></Linechart>
         </TabPane>
         <TabPane tab="Top 10 Sản phẩm" key="2">
-        <br></br>
+          <br></br>
           <DoughnutChart></DoughnutChart>
         </TabPane>
         <TabPane tab="Số lượng sản phẩm bán ra" key="3">
-        <br></br>
-        <Barchart></Barchart>
+          <br></br>
+          <Barchart></Barchart>
         </TabPane>
       </Tabs>
       <br></br>
@@ -114,7 +114,8 @@ export default function Dashboard() {
                     <TableCell align="center">Người đặt hàng</TableCell>
                     <TableCell >Sản phẩm</TableCell>
                     <TableCell >Tổng tiền</TableCell>
-                    <TableCell >Đang giao hàng</TableCell>
+                    <TableCell >Tình trạng</TableCell>
+                    <TableCell >Đơn hàng</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -136,6 +137,11 @@ export default function Dashboard() {
                       <TableCell component="th" scope="row">
                         {item.totalprice}đ
                               </TableCell>
+                     {item.bank ===true ?  <TableCell component="th" scope="row">
+                        Đã thanh toán
+                              </TableCell> :  <TableCell component="th" scope="row">
+                        Chưa thanh toán
+                              </TableCell>} 
                       <TableCell component="th" scope="row">
                         <Button type="danger" onClick={() => successOrder(item)}><Icon type="swap" /></Button>
                       </TableCell>

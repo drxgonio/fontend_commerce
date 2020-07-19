@@ -126,31 +126,31 @@ function ProfilePage(props) {
   }
   useEffect(() => {
 
-  },visible)
+  }, visible)
   // function showModal(qrCode) {
   //   
   // }
   const showModal = qrCode => {
     setvisible(true);
-     setdaQr(qrCode);
+    setdaQr(qrCode);
   }
 
   return (
     <>
-    <Modal
-          title="Thanh toán đơn hàng"
-          visible={visible}
-          onOk={handleOk}
-          onCancel={handleCancel}
-        >
-          <QRCode
-            id='qrcode'
-            value={daQr}
-            size={290}
-            level={'H'}
-            includeMargin={true}
-          />
-        </Modal>
+      <Modal
+        title="Thanh toán đơn hàng"
+        visible={visible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <QRCode
+          id='qrcode'
+          value={daQr}
+          size={290}
+          level={'H'}
+          includeMargin={true}
+        />
+      </Modal>
       <NarbarGlobal authenticated={props.authenticated} onLogout={props.onLogout} />
       <div className="section section-navbars pt-100">
         <Container >
@@ -308,7 +308,9 @@ function ProfilePage(props) {
 
                               {item.status ? (<TableCell align="right">Giao hàng thành công</TableCell>)
 
-                                : (<><TableCell align="right">Đang giao hàng</TableCell> <TableCell> <Button type="primary" onClick= {() => showModal(item.qrCode)}>Click</Button></TableCell></>)}
+                                : (<><TableCell align="right">Đang giao hàng</TableCell>
+                                </>)}
+                                {item.bank ===false? <TableCell> <Button type="primary" onClick= {() => showModal(item.qrCode)}>Click</Button></TableCell>:<TableCell>Đã thanh toán</TableCell>}
                             </TableRow>
                           ))}
 

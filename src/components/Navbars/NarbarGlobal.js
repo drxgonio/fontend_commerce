@@ -35,8 +35,8 @@ function NarbarGlobal(props) {
 
   return (
 
-    // <Navbar className={classnames("fixed-top", navbarColor)} expand="lg"> đe fixed-top la fix cung header
-    <Navbar className={classnames(navbarColor)} expand="lg">
+  //  <Navbar className={classnames("fixed-top", navbarColor)} expand="lg"> 
+     <Navbar className={classnames(navbarColor)} expand="lg">
       <Container>
         <div className="navbar-translate">
           <NavbarBrand
