@@ -21,7 +21,9 @@ function ProductOfCategory(props) {
     const [itemsCountPerPage, setItemsCountPerPage] = useState(null);
     const [totalItemsCount, setTotalItemsCount] = useState(null);
     const [activePage, setActivePage] = useState(1);
-
+    React.useEffect(() => {
+        window.scrollTo(0, 0)
+      }, []);
     useEffect(()=>{
         const fetchData= async ()=>{
             const lst= await Axios.get(API_BASE_URL+`/api/getProductOfCategory?idCategory=`+props.match.params.id+`&page=`+(activePage-1)+`&size=4`);

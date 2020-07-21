@@ -45,6 +45,7 @@ function Index(props) {
       
         setAuthenticated(true)
         setCurrentUser(response);
+        localStorage.setItem("address",response.address)
         setRole(response.role)
       }).catch(error => {
 
@@ -94,7 +95,7 @@ function Index(props) {
         <Route path="/product-of-category/:name/:id" exact render={props => <ProductOfCategory authenticated={authenticated}  onLogout={handleLogout} {...props} {...props} />} />
         {/* <Route path="/profile-page" exact render={props => <ProfilePage  {...props} />} /> */}
         <Route path="/mycart" exact render={props => <Cart authenticated={authenticated} onLogout={handleLogout}  {...props} />} />
-        <Route path="/product-details/:name/:id" exact render={props => <ProductDetails authenticated={authenticated} onLogout={handleLogout} {...props} />} />
+        <Route path="/product-details/:name/:id"  render={props => <ProductDetails authenticated={authenticated} onLogout={handleLogout} {...props} />} />
         <Route path="/shipping" exact render={props => <Shipping authenticated={authenticated} currentUser={currentUser} onLogout={handleLogout}  {...props} />} />
         <Route path="/order" exact render={props => <Order authenticated={authenticated} currentUser={currentUser} onLogout={handleLogout}  {...props} />} />
         <Route path="/search/keyword/:name"  render={props => <Search authenticated={authenticated}  onLogout={handleLogout}  {...props} />} />

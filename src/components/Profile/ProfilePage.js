@@ -46,6 +46,9 @@ function ProfilePage(props) {
     };
   });
   React.useEffect(() => {
+    window.scrollTo(0, 0)
+  }, []);
+  React.useEffect(() => {
     if (props.currentUser) {
       setUser(props.currentUser);
     }
@@ -210,6 +213,12 @@ function ProfilePage(props) {
                       <Col md="8"> <Input placeholder="Nhập Số điện thoại" value={props.currentUser && props.currentUser.phone} className="form-group" type="number" disabled /></Col>
                     </Row>
                     <Row>
+                      <Col md="4"> <Label>Địa chỉ</Label></Col>
+                      <Col md="8">
+                        <Input value={props.currentUser && props.currentUser.address} className="form-group" disabled />
+                      </Col>
+                    </Row>
+                    <Row>
                       <Col md="4"> <Label>Email</Label></Col>
                       <Col md="8"> <Input placeholder="Nhập Email" value={props.currentUser && props.currentUser.email} className="form-group" disabled /></Col>
                     </Row>
@@ -230,6 +239,7 @@ function ProfilePage(props) {
                         </Radio.Group>
                       </Col>
                     </Row>
+        
                     <Row >
                       <Col md="4"> </Col>
                       <Col md="8"> <Checkbox checked={checked} onChange={onChange}>Thay đổi mật khẩu</Checkbox></Col>
@@ -262,6 +272,9 @@ function ProfilePage(props) {
                             </Col>
                             <Col md="4" > <input type="submit" className="btn btn-warning" value="Cập nhập" /> </Col>
                           </Row>
+                          <br></br>
+                          <br></br>
+                          <br></br>
                         </Col>
                       </form>
 
@@ -338,7 +351,7 @@ function ProfilePage(props) {
           </Row>
         </Container>
       </div>
-
+      <br></br>
       <DemoFooter />
     </>
   );

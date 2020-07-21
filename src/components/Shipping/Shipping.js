@@ -50,6 +50,7 @@ function Shipping(props) {
     const { values, handleChange, handleSubmit } = useForm(updateUser); // initialise the hook
     async function updateUser() {
         user.address = values.address;
+        localStorage.setItem("address",values.address)
         user.phone = values.phone;
         if (localStorage.getItem(ACCESS_TOKEN)) {
             const headers = {

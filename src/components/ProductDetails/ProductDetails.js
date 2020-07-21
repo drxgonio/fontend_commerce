@@ -124,7 +124,9 @@ function ProductDetails(props) {
     return function cleanup() {
       document.body.classList.remove("landing-page");
     };
+    
   });
+  
   React.useEffect(() => {
     if (props.currentUser) {
       //setUser(props.currentUser);
@@ -162,6 +164,9 @@ function ProductDetails(props) {
   function changeImage(value) {
     setImg_photo(value);
   }
+  React.useEffect(() => {
+    window.scrollTo(0, 0)
+  }, []);
   return (
     <>
 
@@ -199,7 +204,7 @@ function ProductDetails(props) {
               <Row className="text-center"><span className=" m-auto text-center">Rê chuột để phóng to màn hình</span></Row>
             </Col>
             <Col md="6" className="border ml-3">
-              <Row><h4 className="pl-3">{product_detail && product_detail.name}</h4></Row>
+              <Row><h4 className="pl-3 text-danger">{product_detail && product_detail.name}</h4></Row>
               <Row className="border-bottom"><h6 className="pl-3">Đánh giá: <Icon type="star" theme="twoTone" /><Icon type="star" theme="twoTone" /><Icon type="star" theme="twoTone" /><Icon type="star" /><Icon type="star" /></h6></Row>
               <Row >
                 <Col md="2"><h4>Giá:</h4></Col>
