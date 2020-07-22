@@ -11,7 +11,7 @@ import {
     Container,
     Row,
     Col,
-    
+
 } from "reactstrap";
 
 import { message } from 'antd';
@@ -26,19 +26,19 @@ import { Steps } from 'antd';
 import { Redirect } from "react-router";
 const { Step } = Steps;
 function Order(props) {
-   
+
 
     const [data, setData] = React.useState([]);
 
     const [user, setUser] = React.useState([]);
     const [lstCart, setLstCart] = React.useState([]);
     const [totalPrice, setTotalPrice] = React.useState(0);
-    const [checkOrder,setCheckOrder]=React.useState(false);
-    const [encrypt,setEncypt]=React.useState("UGGGHJGCHGHJGHSGHGHJGCHJGHJGASGSHGSHGHGSHGSHGHSGHGSHGSGHG");
-    const [fee,setFee] = React.useState(0);
+    const [checkOrder, setCheckOrder] = React.useState(false);
+    const [encrypt, setEncypt] = React.useState("UGGGHJGCHGHJGHSGHGHJGCHJGHJGASGSHGSHGHGSHGSHGHSGHGSHGSGHG");
+    const [fee, setFee] = React.useState(null);
     React.useEffect(() => {
         setUser(props.currentUser);
-       
+
     }, [props.currentUser]);
     React.useEffect(() => {
         props.history.push("/order");
@@ -46,8 +46,8 @@ function Order(props) {
     }, [user]);
 
     document.documentElement.classList.remove("nav-open");
-   
-    
+
+
     const { values } = useForm(updateUser); // initialise the hook
     async function updateUser() {
         user.address = values.address;
@@ -64,44 +64,47 @@ function Order(props) {
         }
 
     }
-    async function feeship(){
-        
+
+    async function feeship() {
+
         const headers = {
-            'Access-Control-Allow-Origin' : '*'
+            'Access-Control-Allow-Origin': '*'
         }
 
-        let destination =localStorage.getItem("address");
-        let response =  await Axios.get("https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins="+ADDRESS+"&destinations="+destination+"&key="+KEY_GOOGLE,{headers:headers});
-        let range = parseInt(parseInt(response.data.rows[0].elements[0].distance['value'])/1000)
+        let destination = localStorage.getItem("address");
+        let response = await Axios.get("https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=" + ADDRESS + "&destinations=" + destination + "&key=" + KEY_GOOGLE, { headers: headers });
+        let range = parseInt(parseInt(response.data.rows[0].elements[0].distance['value']) / 1000)
         console.log(range)
-        if(range <2){
-            localStorage.setItem("fee",5000)
+        if (range < 2) {
+            localStorage.setItem("fee", 5000)
         }
-        if(range>=2 && range<5){
-            localStorage.setItem("fee",range*10000)
+        if (range >= 2 && range < 5) {
+            localStorage.setItem("fee", range * 10000)
         }
-        if(range>=5 && range<10){
-            localStorage.setItem("fee",range*20.000)
+        if (range >= 5 && range < 10) {
+            localStorage.setItem("fee", range * 20.000)
         }
-        if(range>10 && range<=50){
-            localStorage.setItem("fee",range*200)
+        if (range > 10 && range <= 50) {
+            localStorage.setItem("fee", range * 200)
         }
-        if(range>50 && range<=100){
-            localStorage.setItem("fee",range*300)
+        if (range > 50 && range <= 100) {
+            localStorage.setItem("fee", range * 300)
         }
-        if(range>100 && range<=400){
-            localStorage.setItem("fee",range*350)
+        if (range > 100 && range <= 400) {
+            localStorage.setItem("fee", range * 350)
         }
-        if(range>400 && range<=700){
-            localStorage.setItem("fee",range*350)
+        if (range > 400 && range <= 700) {
+            localStorage.setItem("fee", range * 350)
         }
-        if(range>700 && range<=1000){
-            localStorage.setItem("fee",range*450)
+        if (range > 700 && range <= 1000) {
+            localStorage.setItem("fee", range * 450)
         }
-        if(range>1000){
-            localStorage.setItem("fee",range*460)
+        if (range > 1000) {
+            localStorage.setItem("fee", range * 460)
         }
-        
+        setFee(localStorage.getItem("fee"))
+      
+
     }
     useEffect(() => {
         feeship()
@@ -126,99 +129,109 @@ function Order(props) {
         }
 
     }, [lstCart]);
-    
-    useEffect( ()=>{
-        try{
-           if(data.length>0){
-                        async function saveOrder(){
-                            if (localStorage.getItem(ACCESS_TOKEN)) {
-                                const headers = {
-                                    'Content-Type': 'application/json',
-                                    'Authorization': 'Bearer '+localStorage.getItem(ACCESS_TOKEN)
-                                }
-                                const response=await  Axios.post(API_BASE_URL+"/order/addOrder", data, {
-                                    headers: headers
-                                });      
-                                setEncypt(response.data);   
-                                               
-                            }
-                            else{
-                                message.error("Không có sản phẩm nào được chọn!")
-                            }
+
+    useEffect(() => {
+        try {
+            if (data.length > 0) {
+                async function saveOrder() {
+                    if (localStorage.getItem(ACCESS_TOKEN)) {
+                        const headers = {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + localStorage.getItem(ACCESS_TOKEN)
+                        }
+                        const response = await Axios.post(API_BASE_URL + "/order/addOrder", data, {
+                            headers: headers
+                        });
+                        setEncypt(response.data);
+
                     }
-                    saveOrder();
-           }
-        }catch(err){
+                    else {
+                        message.error("Không có sản phẩm nào được chọn!")
+                    }
+                }
+                saveOrder();
+            }
+        } catch (err) {
             setTotalPrice(0);
         }
-          
-    },[data])
-      function finalOrder() {
-          if(lstCart){
-              lstCart.map(item =>{
-                    item.soluong = parseInt(localStorage.getItem("key"+item.id))
-                    localStorage.removeItem(localStorage.getItem("key"+item.id))
-                    localStorage.removeItem(localStorage.getItem(item.name))
-              })
-          }
-          console.log(lstCart);
-          setData(lstCart);
+
+    }, [data])
+    function finalOrder() {
+        if (lstCart) {
+            lstCart.map(item => {
+                item.soluong = parseInt(localStorage.getItem("key" + item.id))
+                item.fee = parseInt(localStorage.getItem("fee"))
+                localStorage.removeItem(localStorage.getItem("key" + item.id))
+                localStorage.removeItem(localStorage.getItem(item.name))
+            })
+        }
+        localStorage.removeItem("fee")
+        console.log(lstCart);
+        setData(lstCart);
         message.info("Bạn đã đặt hàng thành công!!!")
         localStorage.removeItem('mycart');
         localStorage.removeItem('totalPrice');
-       setCheckOrder(true);  
-        showModal();    
+        setCheckOrder(true);
+        showModal();
     }
-    useEffect(()=>{
+    useEffect(() => {
         setTotalPrice(0);
-    },[checkOrder])
+    }, [checkOrder])
 
 
     const [visible, setvisible] = React.useState(false);
-  
+
 
     function handleCancel() {
         setvisible(false);
     }
     function handleOk() {
         setvisible(false);
+        props.history.push("/");
     }
     function showModal() {
         setvisible(true);
     }
+    function redirectOrder() {
+        props.history.push("/shipping");
+    }
     return (
         <>
-     
-        <Modal
-          title="Thanh toán đơn hàng"
-          visible={visible}
-          onOk={handleOk}
-          onCancel={handleCancel}
-        >
-          <QRCode
-            id='qrcode'
-            value={encrypt}
-            size={290}
-            level={'H'}
-            includeMargin={true}
-          />
-        </Modal>
+        {  console.log(fee)}
+            <Modal
+                title="Thanh toán đơn hàng"
+                visible={visible}
+                onOk={handleOk}
+                onCancel={handleCancel}
+            >
+                <QRCode
+                    id='qrcode'
+                    value={encrypt}
+                    size={290}
+                    level={'H'}
+                    includeMargin={true}
+                />
+            </Modal>
 
 
             <NarbarGlobal authenticated={props.authenticated} onLogout={props.onLogout} />
-            <Row className="p-3 border">  
+            <Row>
+                <Col md={1}><button className="btn-danger"
+                    onClick={redirectOrder}>Quay lại</button></Col>
+            </Row>
+            <Row className="p-3 border">
                 <Col md={1}>
-                   
+
                 </Col>
                 <Col md={10}>
-                <Steps size="small" current={2}>
-                    <Step title="Đăng nhập" />
-                    <Step title="Địa chỉ giao hàng" />
-                    <Step title="Thanh toán & Đặt mua" />
-                </Steps>
+                    <Steps size="small" current={2}>
+                        <Step title="Đăng nhập" />
+                        <Step title="Địa chỉ giao hàng" />
+                        <Step title="Thanh toán & Đặt mua" />
+                    </Steps>
                 </Col>
-                
-               
+
+
             </Row>
             <div className="section section-navbars pt-100" style={{
                 backgroundColor: '#f4f4f4'
@@ -227,6 +240,7 @@ function Order(props) {
                 <Container >
 
                     <div className="title">
+
                         <h3>Order</h3>
                     </div>
                     <Row >
@@ -245,27 +259,30 @@ function Order(props) {
                         </Col>
                     </Row>
                     <Row className="font-weight-bold">Danh sách sản phẩm</Row>
-                    {lstCart&&lstCart.map(item => (
+                    {lstCart && lstCart.map(item => (
                         <Row className="border-bottom">
                             <Col md="4">
-                                <label className=" p-1">Sản phẩm: {item && item.name}</label>
+                                <label className=" p-1">-Sản phẩm: {item && item.name}</label>
+                                <br></br>
+                                <img src={item && item.imagephoto} style={{ width: '100px', height: '100px' }}>
+                                </img>
                             </Col>
 
                             <Col md="4">
                                 <label className=" p-1">Giá tiền: {item && item.product_details.pricesale}</label>
                             </Col>
                             <Col md="4">
-                                <label className=" p-1">Số lượng: {localStorage.getItem("key"+item.id)}</label>
+                                <label className=" p-1">Số lượng: {localStorage.getItem("key" + item.id)}</label>
                             </Col>
                         </Row>
                     )
                     )}
-                     <Row className="font-weight-bold">
+                    <Row className="font-weight-bold">
                         <Col md="4">
 
                         </Col>
                         <Col md="4">
-                            <label className=" p-1"> Phí vận chuyển:{localStorage.getItem("totalPrice")}đ</label>
+                            <label className=" p-1"> Phí vận chuyển:{fee&&fee}đ</label>
                         </Col>
 
 
@@ -275,7 +292,7 @@ function Order(props) {
 
                         </Col>
                         <Col md="4">
-                            <label className=" p-1"> Tổng tiền:{localStorage.getItem("totalPrice")}đ</label>
+                            <label className=" p-1"> Tổng tiền:{parseInt(localStorage.getItem("totalPrice"))+parseInt(localStorage.getItem("fee"))}đ</label>
                         </Col>
 
 
@@ -284,10 +301,10 @@ function Order(props) {
                         <Col md="4">
 
                         </Col>
-                        {parseInt(localStorage.getItem("totalPrice"))>0&&( <Col md="4">
+                        {parseInt(localStorage.getItem("totalPrice")) > 0 && (<Col md="4">
                             <Button type="primary" onClick={finalOrder} >Đặt hàng</Button>
                         </Col>)}
-                       
+
 
                     </Row>
 

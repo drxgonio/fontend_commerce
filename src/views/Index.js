@@ -60,6 +60,7 @@ function Index(props) {
     localStorage.removeItem(ACCESS_TOKEN);
     setAuthenticated(false);
     setCurrentUser(null);
+    window.location.reload()
   
   };
   const authen = {

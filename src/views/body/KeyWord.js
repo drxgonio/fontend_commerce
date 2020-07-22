@@ -49,7 +49,7 @@ function KeyWord() {
                         <Button className="btn-round mr-1" color="danger" type="button">
                             Quần lửng
                 </Button>
-                        <Button className="btn-round" color="neutral" type="button">
+                        <Button className="btn-round" color="info" type="button">
                             Đồng hồ
                 </Button>
                     </Col>

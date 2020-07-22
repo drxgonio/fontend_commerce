@@ -222,13 +222,7 @@ function ProfilePage(props) {
                       <Col md="4"> <Label>Email</Label></Col>
                       <Col md="8"> <Input placeholder="Nhập Email" value={props.currentUser && props.currentUser.email} className="form-group" disabled /></Col>
                     </Row>
-                    <Row>
-                      <Col md="4"> <Label>Ngày sinh</Label></Col>
-                      <Col md="8">
-                        <Input value={props.currentUser && props.currentUser.date} className="form-group" disabled />
-                      </Col>
-                    </Row>
-
+                    
                     <Row >
                       <Col md="4"> <Label>Giới tính</Label></Col>
                       <Col md="8">

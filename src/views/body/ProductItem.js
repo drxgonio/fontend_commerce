@@ -26,13 +26,13 @@ function ProductItem(props){
     <p className="title" style={{ height: '40px'}}>{props.product&&props.product.name}</p>
                 <p className="h5 m-auto text-center font-weight-bold ">
                 {props.product&&props.product.product_details.pricesale}
-                    <span class="h6 text-justify"><small className="align-baseline"><mark>-48%</mark></small></span>
+                                <span class="h6 text-justify"><small className="align-baseline">{props.product&&(parseInt((1-(parseInt(props.product.product_details.pricesale)/parseInt(props.product.product_details.price)))*100))===0?"":<mark className="text-danger">-{props.product&&(parseInt((1-(parseInt(props.product.product_details.pricesale)/parseInt(props.product.product_details.price)))*100))}%</mark>}</small></span>
                    
                 </p>
                 <p className="h5 m-auto text-center ">
-                    <strike>{props.product&&props.product.product_details.price} </strike>        
-                </p>
-
+                                {props.product&&(parseInt((1-(parseInt(props.product.product_details.pricesale)/parseInt(props.product.product_details.price)))*100))===0?<br></br>: <strike>{props.product&&props.product.product_details.price} </strike>     }
+                
+                                  </p>
             </div>
             
         </>

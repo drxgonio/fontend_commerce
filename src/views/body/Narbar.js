@@ -68,10 +68,10 @@ function Narbar(props) {
                                 </Col>
                                 <Col md="4" >
                                     <img src="https://salt.tikicdn.com/cache/w206/ts/banner/c9/d9/6a/2878b33ac6ee8984b43fedf7b66ab937.png"
-                                        alt="https://tiki.vn/chuong-trinh/me-san-khuyen-mai-online" className="LazyLoadImage__Wrapper-sc-8w66ab-0 eQFYij" style={{ width: '100%', height: 200 }} />);
+                                        alt="https://tiki.vn/chuong-trinh/me-san-khuyen-mai-online" className="LazyLoadImage__Wrapper-sc-8w66ab-0 eQFYij" style={{ width: '100%', height: 200 }} />
                                 </Col>
                                 <Col md="4" >
-                                    <img src="https://salt.tikicdn.com/cache/w206/ts/banner/1d/3c/2a/2fd1516c0af893fa73f1927f1ffd1116.png" alt="https://tiki.vn/chuong-trinh/me-san-khuyen-mai-online" className="LazyLoadImage__Wrapper-sc-8w66ab-0 eQFYij" style={{ width: '100%', height: 200 }} />);
+                                    <img src="https://salt.tikicdn.com/cache/w206/ts/banner/1d/3c/2a/2fd1516c0af893fa73f1927f1ffd1116.png" alt="https://tiki.vn/chuong-trinh/me-san-khuyen-mai-online" className="LazyLoadImage__Wrapper-sc-8w66ab-0 eQFYij" style={{ width: '100%', height: 200 }} />
                                 </Col>
 
                             </Row>
@@ -82,21 +82,21 @@ function Narbar(props) {
                     <Row>
                         <Col md="3">
 
-                            <img src="https://salt.tikicdn.com/ts/banner/f9/a8/be/02339c3d69f7886a4f358e4a9a90eeec.png" alt="https://tiki.vn/chuong-trinh/me-san-khuyen-mai-online" className="LazyLoadImage__Wrapper-sc-8w66ab-0 eQFYij" style={{ width: 300 }} />);
+                            <img src="https://salt.tikicdn.com/ts/banner/f9/a8/be/02339c3d69f7886a4f358e4a9a90eeec.png" alt="https://tiki.vn/chuong-trinh/me-san-khuyen-mai-online" className="LazyLoadImage__Wrapper-sc-8w66ab-0 eQFYij" style={{ width: 300 }} />
                         </Col>
                         <Col md="3">
 
-                            <img src="https://salt.tikicdn.com/ts/banner/a5/f0/87/7e59d1a03f3813296783589c82fdcc50.png" alt="https://tiki.vn/chuong-trinh/me-san-khuyen-mai-online" className="LazyLoadImage__Wrapper-sc-8w66ab-0 eQFYij" style={{ width: 300 }} />);
+                            <img src="https://salt.tikicdn.com/ts/banner/a5/f0/87/7e59d1a03f3813296783589c82fdcc50.png" alt="https://tiki.vn/chuong-trinh/me-san-khuyen-mai-online" className="LazyLoadImage__Wrapper-sc-8w66ab-0 eQFYij" style={{ width: 300 }} />
 
                             </Col>
                         <Col md="3">
 
-                            <img src="https://salt.tikicdn.com/ts/banner/6e/66/5d/fdedcc0fdf00097eb69e2258136c8328.png" alt="https://tiki.vn/chuong-trinh/me-san-khuyen-mai-online" className="LazyLoadImage__Wrapper-sc-8w66ab-0 eQFYij" style={{ width: 300 }} />);
+                            <img src="https://salt.tikicdn.com/ts/banner/6e/66/5d/fdedcc0fdf00097eb69e2258136c8328.png" alt="https://tiki.vn/chuong-trinh/me-san-khuyen-mai-online" className="LazyLoadImage__Wrapper-sc-8w66ab-0 eQFYij" style={{ width: 300 }} />
 
                         </Col>
                         <Col md="3">
 
-                            <img src="https://salt.tikicdn.com/ts/banner/e7/f6/cf/e2eac8caabd1104e24d390d2e9f2287f.png" alt="https://tiki.vn/chuong-trinh/me-san-khuyen-mai-online" className="LazyLoadImage__Wrapper-sc-8w66ab-0 eQFYij" style={{ width: 300 }} />);
+                            <img src="https://salt.tikicdn.com/ts/banner/e7/f6/cf/e2eac8caabd1104e24d390d2e9f2287f.png" alt="https://tiki.vn/chuong-trinh/me-san-khuyen-mai-online" className="LazyLoadImage__Wrapper-sc-8w66ab-0 eQFYij" style={{ width: 300 }} />
 
                         </Col>
                     </Row>

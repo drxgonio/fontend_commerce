@@ -17,6 +17,7 @@ import { ACCESS_TOKEN } from "API/URLMapping";
 import { API_BASE_URL } from "API/URLMapping";
 import { Steps } from 'antd';
 import { message } from 'antd';
+
 const { Step } = Steps;
 
 function Shipping(props) {
@@ -24,7 +25,7 @@ function Shipping(props) {
     const [user, setUser] = React.useState([]);
     const [checked, setChecked] = React.useState(false);
     const [flag, setFlag] = React.useState(false);
-
+    
 
     React.useEffect(() => {
         setUser(props.currentUser);
@@ -88,6 +89,10 @@ function Shipping(props) {
     function redirectOrder() {
         props.history.push("/order");
     }
+    function redirectCard() {
+        props.history.push("/mycart");
+    }
+
 
 
     return (
@@ -95,6 +100,10 @@ function Shipping(props) {
 
 
             <NarbarGlobal authenticated={props.authenticated} onLogout={props.onLogout} />
+            <Row>
+                <Col md={1}><button className="btn-danger"
+                    onClick={redirectCard}>Quay lại</button></Col>
+            </Row>
             <Row className="p-3 border">
                 <Col md={1}></Col>
                 <Col md={11}>
@@ -130,8 +139,8 @@ function Shipping(props) {
                                 <label className=" p-1"> Điện thoại: {user && user.phone}</label>
                             </Row>
                             <Row>
-                                {user && user.address !== "" ? (<Col md="4" className="m-1 p-1"><Button className="btn-round"
-                                    color="danger" onClick={redirectOrder}>Giao đến địa chỉ này</Button></Col>) : (<p class="text-danger">Vui lòng cập nhập thông tin giao hàng</p>)}
+                                {user&&user.phone && user.address &&user.phone.length >9? (<Col md="4" className="m-1 p-1"><Button className="btn-round"
+                                    color="danger" onClick={redirectOrder}>Giao đến địa chỉ này</Button>{console.log(user.phone.length)}</Col>) : (<p class="text-danger">Vui lòng kiểm tra địa chỉ và số điện thoại</p>)}
 
                                 <Col md="4" className="btn-round m-1 p-1"><Button onClick={editProfile}>Sửa</Button></Col>
                             </Row>
@@ -148,7 +157,7 @@ function Shipping(props) {
                                 </Row>
                                 <Row>
                                     <Col md="4" align="right"> <Label>Số điện thoại</Label></Col>
-                                    <Col md="6" > <Input placeholder="Nhập Số điện thoại" name="phone" onChange={handleChange} className="form-group" type="number" /></Col>
+                                    <Col md="6" > <Input placeholder="Nhập Số điện thoại" name="phone" onChange={handleChange} className="form-group" type="number" required/></Col>
                                 </Row>
                                 <Row>
                                     <Col md="4" align="right"> <Label>Địa chỉ</Label></Col>

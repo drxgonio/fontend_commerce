@@ -1,11 +1,9 @@
 import React,{ useEffect, useRef }  from 'react';
-import GridItem from "../../custom_design/Grid/GridItem.js";
-import GridContainer from "../../custom_design/Grid/GridContainer.js";
-import Card from "../../custom_design/Card/Card.js";
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps";
 import * as parkData from "Aform/skateboard-parks.json";
 import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
 import useOnclickOutside from 'react-cool-onclickoutside';
+import Item from 'antd/lib/list/Item';
 
 function Map() {
   const {
@@ -31,6 +29,7 @@ function Map() {
   const handleSelect = ({ description }) => () => {
     // When user selects a place, we can replace the keyword without request data from API
     // by setting the second parameter as "false"
+    localStorage.setItem("abc",description)
     console.log(description);
     setValue(description, false);
     clearSuggestions();
@@ -80,31 +79,24 @@ function Map() {
       />
       {status === 'OK' && <ul>{renderSuggestions()}</ul>}
     </div>
-      <GoogleMap
-        defaultZoom={10}
-        defaultCenter={{ lat: 10.823099, lng: 106.629662 }}>
-       
-      </GoogleMap>
+      
       </div>
     );
   }
 const MapWrapped = withScriptjs(withGoogleMap(Map));
-export default function Map_Google(){
+export default function MapGoogleAddress(){
   
     return(
-        <GridContainer>
-          
-             <GridItem xs={12} sm={12} md={12}>
-                 <Card>
+        
+         <div>
                  <MapWrapped
                     googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyARqkWrCsPkd5aKnJSvg6--NnlsH5IhNLg&libraries=places"
-                    loadingElement={<div style={{ height: `100%` }} />}
-                    containerElement={<div style={{ height: `400px` }} />}
-                    mapElement={<div style={{ height: `100%` }} />}
+                    loadingElement={<div style={{ height: `10px` }} />}
+                    containerElement={<div style={{ height: `10px` }} />}
+                    mapElement={<div style={{ height: `10px` }} />}
                     />
-                </Card>
-            </GridItem>
-        </GridContainer>
+        
+        </div>
 
     )
 }
