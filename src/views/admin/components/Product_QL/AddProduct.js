@@ -101,7 +101,7 @@ export default function AddProduct(props) {
       data.url1=url1;
       data.url2=url2;
       data.url3=url3;
-  
+ // console.log(data)
       const response = await Axios.post(API_BASE_URL + "/api/addproductbyAdmin", data, {
         headers: headers
       });
@@ -266,6 +266,41 @@ export default function AddProduct(props) {
   </Col>
  
 </Row>
+<Row className="p-3">
+  
+<Col md={4}>
+    <label>Mô tả 1</label>
+  </Col>
+  <Col md={8}>
+    <input className="form-control" placeholder="Màu tả 1" ref={register} name="detail"  required /> 
+
+  </Col>
+  <Col md={4} className="pl-2">
+    <label>Mô tả 2</label>
+  </Col>
+  <Col md={8}>
+    <input className="form-control" placeholder="Mô tả 2" ref={register} name="detail_1"  required/>
+  </Col>
+ 
+</Row>
+<Row className="p-3">
+  
+<Col md={4}>
+    <label>Mô tả 3</label>
+  </Col>
+  <Col md={8}>
+    <input className="form-control" placeholder="Mô tả 3" ref={register} name="detail_2"  required /> 
+
+  </Col>
+  <Col md={4} className="pl-2">
+    <label>Mô tả 4</label>
+  </Col>
+  <Col md={8}>
+    <input className="form-control" placeholder="Mô tả 4" ref={register} name="detail_3"  required/>
+  </Col>
+ 
+</Row>
+
 <Row className="p-3">
   <Col md={4}>
     <label>Tình trạng</label>
