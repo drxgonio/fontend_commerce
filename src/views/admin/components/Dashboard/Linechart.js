@@ -1,63 +1,56 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import { Line } from 'react-chartjs-2';
 import {API_BASE_URL} from 'API/URLMapping'
+import CanvasJSReact from '../../../../assets/canvasjs.react';
+var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 export class Linechart extends Component {
-    render() {
-        return (
-            <div>
-
-            </div>
-        )
-    } constructor(props) {
+    constructor(props) {
         super(props);
         this.state = { Data: {} };
     }
     componentDidMount() {
         axios.get(API_BASE_URL+`/dashboard/summoneyoneweek`)
             .then(res => {
-                console.log(res);
                 const ipl = res.data;
-                console.log(ipl);
-                let date = [];
-                let count = [];
                 ipl.forEach(record => {
-                    date.push(record.date);
-                    count.push(record.count);
+                   
+                    record.x = new Date(record.x);
                 });
+                console.log(ipl)
                 this.setState({
                     Data: {
-                        labels: date,
-                        datasets: [
-                            {
-                                label: 'IPL Doanh thu bán ra',
-                                data: count,
-                                backgroundColor: [
-                                    "#3cb371",
-                                    "#0000FF",
-                                    "#9966FF",
-                                    "#4C4CFF",
-                                    "#00FFFF",
-                                    "#f990a7",
-                                    "#aad2ed",
-                                    "#FF00FF",
-                                    "Blue",
-                                    "Red"
-                                ]
-                            }
-                        ]
+                        animationEnabled: true,
+                        title:{
+                            text: "Doanh thu bán ra trong tuần"
+                        },
+                        axisX: {
+                            valueFormatString: "DD MMM YYYY"
+                        },
+                        axisY: {
+                            title: "Sales (in USD)",
+                            prefix: "$",
+                            includeZero: false
+                        },
+                        data: [{
+                            yValueFormatString: "$#,###",
+                            xValueFormatString: "DD",
+                            type: "spline",
+                            dataPoints: ipl
+                        }]
                     }
                 });
             })
     }
-    render() {
-        return (
-            <div>
+    render() {	
+		return (
+		<div>
+			<CanvasJSChart options = {this.state.Data} 
+				/* onRef={ref => this.chart = ref} */
+			/>
 
-                <Line  data={this.state.Data}
-                    options={{ maintainAspectRatio: false }} ></Line >
-            </div>
-        )
-    }
+		</div>
+		);
+	}
 }
+
 export default Linechart  

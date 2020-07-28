@@ -28,7 +28,7 @@ import DoughnutChart from './DoughnutChart';
 import Linechart from './Linechart'
 import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
 import { Tabs } from 'antd';
-import { Row } from "reactstrap";
+import { Row, Col } from "reactstrap";
 
 const useStyles = makeStyles(styles);
 export default function Dashboard() {
@@ -92,7 +92,15 @@ export default function Dashboard() {
         </TabPane>
         <TabPane tab="Số lượng sản phẩm bán ra" key="3">
           <br></br>
-          <Barchart></Barchart>
+         <Row>
+           <Col md={6}>
+           <Barchart></Barchart>
+          
+           </Col>
+           <Col md ={6}>
+           <DoughnutChart></DoughnutChart>
+           </Col>
+         </Row>
         </TabPane>
       </Tabs>
       <br></br>
