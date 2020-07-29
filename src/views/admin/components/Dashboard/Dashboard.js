@@ -115,7 +115,7 @@ export default function Dashboard() {
             <Col md={6}>
               <GridContainer>
 
-                <GridItem xs={24} sm={24} md={24}>
+                <GridItem >
                   <Card>
                     <CardHeader color="warning">
                       <h4 className={classes.cardTitleWhite}>Các đơn hàng đang giao</h4>

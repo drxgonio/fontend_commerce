@@ -82,7 +82,15 @@ function Map() {
     </div>
       <GoogleMap
         defaultZoom={10}
-        defaultCenter={{ lat: 10.823099, lng: 106.629662 }}>
+        defaultCenter={{ lat: 10.8507786, lng: 106.7718784	 }}>
+          <Marker	
+          //key={park.properties.PARK_ID}	
+          position={{	
+            lat: 10.8507786,	
+            lng: 106.7718784
+          }}	
+
+        />
        
       </GoogleMap>
       </div>
