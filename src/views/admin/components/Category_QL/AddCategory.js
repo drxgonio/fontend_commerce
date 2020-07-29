@@ -55,8 +55,16 @@ const useStyles = makeStyles(styles);
 export default function AddCategory(props) {
 
   const { register, handleSubmit, watch, errors } = useForm();
-  const [url,setUrl]=React.useState('');
+  const [url, setUrl] = React.useState('');
+  const [linkimage1, setlinkimage1] = React.useState('');
+  const [linkimage2, setlinkimage2] = React.useState('');
+  const [linkimage3, setlinkimage3] = React.useState('');
   const onSubmit = async data => {
+    data.url = url;
+    data.linkimage1 = linkimage1;
+    data.linkimage2 = linkimage2;
+    data.linkimage3 = linkimage3;
+    console.log(data);
     if (localStorage.getItem(ACCESS_TOKEN)) {
       const headers = {
         'Content-Type': 'application/json',
@@ -72,24 +80,39 @@ export default function AddCategory(props) {
       else {
         message.error('Đã có lỗi xảy ra.');
       }
-   
-    }
-   
-  }
 
+    }
+
+  }
+  function ChangeURL(url) {
+    setUrl(url);
+
+  }
+  function ChangeURL1(url) {
+    setlinkimage1(url);
+
+  }
+  function ChangeURL2(url) {
+    setlinkimage2(url);
+
+  }
+  function ChangeURL3(url) {
+    setlinkimage3(url);
+
+  }
   const classes = useStyles();
   return (
-    
+
     <GridContainer>
-    
+
       <GridItem xs={12} sm={12} md={12}>
         <Card>
           <CardHeader color="primary">
             <h4 className={classes.cardTitleWhite}>Thêm danh mục</h4>
-        
+
           </CardHeader>
           <CardBody>
-          <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <Row className="p-3">
                 <Col md={4}>
                   <label>Tên danh mục</label>
@@ -99,12 +122,17 @@ export default function AddCategory(props) {
                     ref={register({ required: true, maxlength: 20 })} name="name" />
                   {errors.name && <span style={{ color: "red" }}>Tên danh mục không được để trống</span>}
                 </Col>
-             
-               
+
+                <Col md={4}>
+                  <ImageUpload ChangeURL={ChangeURL}></ImageUpload>
+                </Col>
+
+
               </Row>
+
               <Row className="p-3">
                 <Col md={4}>
-                 
+
                 </Col>
                 <Col md={2}>
                   <label>Danh mục 1</label>
@@ -114,10 +142,17 @@ export default function AddCategory(props) {
                   {errors.danhmuc1 && <span style={{ color: "red" }}>Danh mục 1 không được để trống</span>}
 
                 </Col>
+
+
+
+                <Col md={4}>
+                  <ImageUpload ChangeURL={ChangeURL1}></ImageUpload>
+                </Col>
               </Row>
+
               <Row className="p-3">
                 <Col md={4}>
-                 
+
                 </Col>
                 <Col md={2}>
                   <label>Danh mục 2</label>
@@ -127,10 +162,17 @@ export default function AddCategory(props) {
                   {errors.danhmuc2 && <span style={{ color: "red" }}>Danh mục 2 không được để trống</span>}
 
                 </Col>
+
+
+
+
+                <Col md={4}>
+                  <ImageUpload ChangeURL={ChangeURL2}></ImageUpload>
+                </Col>
               </Row>
               <Row className="p-3">
                 <Col md={4}>
-                 
+
                 </Col>
                 <Col md={2}>
                   <label>Danh mục 3</label>
@@ -140,8 +182,15 @@ export default function AddCategory(props) {
                   {errors.danhmuc3 && <span style={{ color: "red" }}>Danh mục 3 không được để trống</span>}
 
                 </Col>
+
+
+
+
+                <Col md={4}>
+                  <ImageUpload ChangeURL={ChangeURL3}></ImageUpload>
+                </Col>
               </Row>
-            
+
               <Row className="p-3">
                 <Col md={16}>
 
@@ -152,12 +201,10 @@ export default function AddCategory(props) {
                 </Col>
               </Row>
             </form>
-
-
           </CardBody>
         </Card>
       </GridItem>
-      
+
     </GridContainer>
   );
 }
