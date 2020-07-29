@@ -6,7 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import ArrowUpward from "@material-ui/icons/ArrowUpward";
 import AccessTime from "@material-ui/icons/AccessTime";
 import BugReport from "@material-ui/icons/BugReport";
-
+import { Modal } from 'antd';
 // core components
 import GridItem from "../../custom_design/Grid/GridItem.js";
 import GridContainer from "../../custom_design/Grid/GridContainer.js";
@@ -20,7 +20,6 @@ import CardHeader from "../../custom_design/Card/CardHeader.js";
 import CardBody from "../../custom_design/Card/CardBody.js";
 import Axios from "axios";
 import Pagination from "react-js-pagination";
-import { Icon } from "antd";
 import { ACCESS_TOKEN, API_BASE_URL } from "API/URLMapping.js";
 import { message } from 'antd';
 import Barchart from './Barchart';
@@ -104,10 +103,59 @@ export default function Dashboard() {
   }
   const classes = useStyles();
   function callback(key) {
-    console.log(key);
+  }
+  const [visible, setvisible] = useState(false);
+  const [card, setCard] = useState(false);
+  const [money, setMoney] = useState(0);
+  function handleOk() {
+    setvisible(false);
+  }
+  function handleCancel(){
+    setvisible(false);
+  }
+  function showModal() {
+    if (money === 0 || money <100000) {
+      message.error('Vui lòng nhập số tiền tối thiểu 100.000 vnđ.')
+    }
+    else {
+      console.log(money);
+      async function successfull() {
+        const headers = {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem(ACCESS_TOKEN)
+        }
+        const response = await Axios.get(API_BASE_URL + "/app/gerateCode/"+money, { headers: headers });
+        console.log(response);
+        setCard(response.data);
+        setvisible(true);
+      }
+      successfull()
+    }
+
+
   }
   return (
     <div>
+      <Row>
+        <Col md={3}>
+        <input type="text" placeholder="Nhập số tiền" onChange={e => setMoney(e.target.value)} className="form-control" type="number" />
+        </Col>
+        <Col md={3}>
+        <Button type="primary" onClick={showModal}>
+        Generate Code
+        </Button>
+        </Col>
+      </Row>
+      <Modal
+        title="Thông tin Code:"
+        visible={visible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <Label>Mã code: <h3  style={{ fontWeight: 'bold' }}>{card.code}</h3></Label> <br></br>
+        <Label>Số tiền: <a style={{ fontWeight: 'bold' }}>{card.money} đồng</a></Label>
+
+      </Modal>
       <Tabs defaultActiveKey="1" onChange={callback}>
         <TabPane tab="Tổng quan" key="1">
           <br></br>
@@ -191,9 +239,9 @@ export default function Dashboard() {
                 layout="horizontal"
                 initialValues={{ size: 'default' }}
                 size={'default'}
-                style={{fontWeight:'bold'}}
+                style={{ fontWeight: 'bold' }}
               ><Form.Item label="Thông tin chi tiết đơn hàng">
-            </Form.Item>
+                </Form.Item>
                 <Form.Item label="Mã đơn hàng">
                   <Input value={orderDetail && orderDetail.id} disabled />
                 </Form.Item>
@@ -235,7 +283,7 @@ export default function Dashboard() {
             <Col md={6}>
               <Barchart></Barchart>
               <DoughnutChart></DoughnutChart>
-              
+
             </Col>
           </Row>
 
