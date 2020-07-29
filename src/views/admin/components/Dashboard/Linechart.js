@@ -16,7 +16,6 @@ export class Linechart extends Component {
                    
                     record.x = new Date(record.x);
                 });
-                console.log(ipl)
                 this.setState({
                     Data: {
                         animationEnabled: true,
@@ -27,13 +26,14 @@ export class Linechart extends Component {
                             valueFormatString: "DD MMM YYYY"
                         },
                         axisY: {
-                            title: "Sales (in USD)",
+                            title: "Sales (in VND)",
                             prefix: "$",
                             includeZero: false
                         },
                         data: [{
-                            yValueFormatString: "$#,###",
+                            yValueFormatString: "vnd #,###",
                             xValueFormatString: "DD",
+					showInLegend: true,
                             type: "spline",
                             dataPoints: ipl
                         }]

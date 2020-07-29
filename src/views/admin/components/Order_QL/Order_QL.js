@@ -115,7 +115,6 @@ export default function Order_QL() {
                             <TableCell >Sản phẩm</TableCell>
                             <TableCell >Tổng tiền</TableCell>
                             <TableCell >Tình trạng</TableCell>
-                            <TableCell >Tùy chọn</TableCell>
                           </TableRow>
                         </TableHead>
                         <TableBody>

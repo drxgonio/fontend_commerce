@@ -28,7 +28,7 @@ export class DoughnutChart extends Component {
                             showInLegend: "true",
                             legendText: "{label}",
                             indexLabelFontSize: 16,
-                            indexLabel: "{label} - {y}%",
+                            indexLabel: "{label} - {y}",
                             dataPoints: ipl
                         }]
                     }
