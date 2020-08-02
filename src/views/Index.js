@@ -57,7 +57,7 @@ function Index(props) {
 
   
   const handleLogout = () => {
-    localStorage.removeItem(ACCESS_TOKEN);
+    localStorage.clear();
     setAuthenticated(false);
     setCurrentUser(null);
     window.location.reload()

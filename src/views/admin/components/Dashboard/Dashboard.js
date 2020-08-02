@@ -192,7 +192,7 @@ export default function Dashboard() {
                               </TableCell>
 
                               <TableCell component="th" scope="row">
-                                {item.user.name}
+                                {item.user&&item.user.name}
                               </TableCell>
                               <TableCell >{item && item.lstOrder.map(pr => (
                                 <a>{pr.product.name},</a>
