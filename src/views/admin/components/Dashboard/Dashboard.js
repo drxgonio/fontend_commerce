@@ -110,11 +110,11 @@ export default function Dashboard() {
   function handleOk() {
     setvisible(false);
   }
-  function handleCancel(){
+  function handleCancel() {
     setvisible(false);
   }
   function showModal() {
-    if (money === 0 || money <100000) {
+    if (money === 0 || money < 100000) {
       message.error('Vui lòng nhập số tiền tối thiểu 100.000 vnđ.')
     }
     else {
@@ -124,7 +124,7 @@ export default function Dashboard() {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ' + localStorage.getItem(ACCESS_TOKEN)
         }
-        const response = await Axios.get(API_BASE_URL + "/app/gerateCode/"+money, { headers: headers });
+        const response = await Axios.get(API_BASE_URL + "/app/gerateCode/" + money, { headers: headers });
         console.log(response);
         setCard(response.data);
         setvisible(true);
@@ -138,11 +138,11 @@ export default function Dashboard() {
     <div>
       <Row>
         <Col md={3}>
-        <input type="text" placeholder="Nhập số tiền" onChange={e => setMoney(e.target.value)} className="form-control" type="number" />
+          <input type="text" placeholder="Nhập số tiền" onChange={e => setMoney(e.target.value)} className="form-control" type="number" />
         </Col>
         <Col md={3}>
-        <Button type="primary" onClick={showModal}>
-        Generate Code
+          <Button type="primary" onClick={showModal}>
+            Generate Code
         </Button>
         </Col>
       </Row>
@@ -152,7 +152,7 @@ export default function Dashboard() {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <Label>Mã code: <h3  style={{ fontWeight: 'bold' }}>{card.code}</h3></Label> <br></br>
+        <Label>Mã code: <h3 style={{ fontWeight: 'bold' }}>{card.code}</h3></Label> <br></br>
         <Label>Số tiền: <a style={{ fontWeight: 'bold' }}>{card.money} đồng</a></Label>
 
       </Modal>
@@ -192,7 +192,7 @@ export default function Dashboard() {
                               </TableCell>
 
                               <TableCell component="th" scope="row">
-                                {item.user&&item.user.name}
+                                {item.user && item.user.name}
                               </TableCell>
                               <TableCell >{item && item.lstOrder.map(pr => (
                                 <a>{pr.product.name},</a>
@@ -240,31 +240,37 @@ export default function Dashboard() {
                 initialValues={{ size: 'default' }}
                 size={'default'}
                 style={{ fontWeight: 'bold' }}
-              ><Form.Item label="Thông tin chi tiết đơn hàng">
+              ><Form.Item label="Thông tin đơn hàng">
                 </Form.Item>
                 <Form.Item label="Mã đơn hàng">
-                  <Input value={orderDetail && orderDetail.id} disabled />
+                  <Label className="text-primary" >{orderDetail && orderDetail.id}</Label>
+                  {/* <Input value={orderDetail && orderDetail.id} disabled /> */}
                 </Form.Item>
                 <Form.Item label="Tên đơn hàng">
-                  <Input value={orderDetail && orderDetail.name} disabled />
+                  {/* <Input value={orderDetail && orderDetail.name} disabled /> */}
+                  <Label className="text-primary">{orderDetail && orderDetail.name}</Label>
                 </Form.Item>
                 <Form.Item label="Ngày đặt hàng">
-                  <Input value={orderDetail && orderDetail.dateadd} disabled />
+                  <Label className="text-primary">{orderDetail && orderDetail.dateadd}</Label>
+                  {/* <Input value={orderDetail && orderDetail.dateadd} disabled /> */}
                 </Form.Item>
                 <Form.Item label="Người đặt hàng">
-                  <Input value={orderDetail && orderDetail.user.name} disabled />
+                  <Label className="text-primary">{orderDetail && orderDetail.user.name}</Label>
+                  {/* <Input value={orderDetail && orderDetail.user.name} disabled /> */}
                 </Form.Item>
 
                 <Form.Item label="Sản phẩm">
                   {
                     orderDetail && orderDetail.lstOrder.map(item =>
-                      <Input value={item.product.name} disabled />
+                      <Label className="text-primary">{item.product.name}</Label>
+                      // <Input value={item.product.name} disabled />
                     )
                   }
 
                 </Form.Item>
                 <Form.Item label="Tổng tiền">
-                  <Input value={orderDetail && orderDetail.totalprice} disabled />
+                  <Label className="text-primary">{orderDetail && orderDetail.totalprice}</Label>
+                  {/* <Input value={orderDetail && orderDetail.totalprice} disabled /> */}
                 </Form.Item>
 
                 <Form.Item label="Chuyển giao">
