@@ -258,6 +258,14 @@ export default function Dashboard() {
                   <Label className="text-primary">{orderDetail && orderDetail.user.name}</Label>
                   {/* <Input value={orderDetail && orderDetail.user.name} disabled /> */}
                 </Form.Item>
+                <Form.Item label="Địa chỉ">
+                  <Label className="text-primary">{orderDetail && orderDetail.user.address}</Label>
+                  {/* <Input value={orderDetail && orderDetail.user.name} disabled /> */}
+                </Form.Item>
+                <Form.Item label="Số điện thoại">
+                  <Label className="text-primary">{orderDetail && orderDetail.user.phone}</Label>
+                  {/* <Input value={orderDetail && orderDetail.user.name} disabled /> */}
+                </Form.Item>
 
                 <Form.Item label="Sản phẩm">
                   {
@@ -269,7 +277,7 @@ export default function Dashboard() {
 
                 </Form.Item>
                 <Form.Item label="Tổng tiền">
-                  <Label className="text-primary">{orderDetail && orderDetail.totalprice}</Label>
+                  <Label className="text-primary">{orderDetail && orderDetail.totalprice} đồng.</Label>
                   {/* <Input value={orderDetail && orderDetail.totalprice} disabled /> */}
                 </Form.Item>
 
