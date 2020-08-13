@@ -10,7 +10,7 @@ function IndexHeader() {
   return (
     <>
    
-      {/* <div
+      <div
         className="page-header section-dark"
         style={{
           backgroundImage:
@@ -33,7 +33,7 @@ function IndexHeader() {
           }}
         />
         
-      </div> */}
+      </div>
     </>
   );
 }
