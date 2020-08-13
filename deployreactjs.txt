@@ -1,0 +1,9 @@
+
+
+heroku create ecommercexyz --buildpack https://github.com/mars/create-react-app-buildpack.git
+
+// Check for the current url 
+git remote -v 
+// remove remote url
+git remote rm heroku
+git push heroku master
