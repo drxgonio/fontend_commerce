@@ -19,7 +19,7 @@ var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 export class Linechart extends Component {
     constructor(props) {
         super(props);
-        this.state = { Data: {}, date: new Date(), isLoading: false, };
+        this.state = { Data: {}, date: new Date().toISOString().substr(0, 10), isLoading: false, };
         this.handleChange = this.handleChange.bind(this);
     }
 
@@ -28,7 +28,7 @@ export class Linechart extends Component {
         const value = target.value;
         this.setState({ date: value });
 
-        axios.get(API_BASE_URL + `/dashboard/summoneyoneweekdate?date=` + this.state.date)
+        axios.get(API_BASE_URL + `/dashboard/summoneyoneweekdate?date=` + value)
             .then(res => {
                 this.setState({ isLoading: true });
                 const ipl = res.data;
