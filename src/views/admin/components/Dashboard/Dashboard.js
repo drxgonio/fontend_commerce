@@ -113,12 +113,12 @@ export default function Dashboard() {
   function handleCancel() {
     setvisible(false);
   }
+  
   function showModal() {
     if (money === 0 || money < 100000) {
       message.error('Vui lòng nhập số tiền tối thiểu 100.000 vnđ.')
     }
     else {
-      console.log(money);
       async function successfull() {
         const headers = {
           'Content-Type': 'application/json',
@@ -289,6 +289,7 @@ export default function Dashboard() {
           </Row>
         </TabPane>
         <TabPane tab="Thống kê" key="2">
+          
           <Row>
             <Col md={6}>
               <Linechart></Linechart>
