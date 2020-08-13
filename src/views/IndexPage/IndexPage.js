@@ -50,7 +50,7 @@ function IndexPage(props){
      <IndexNavbar authenticated={props.authenticated} onLogout={props.onLogout} />
         <IndexHeader />
       <div className="main ">
-     
+      <br></br> <br></br> <br></br><br></br> <br></br> <br></br>
         <Narbar lstCategory={data.lstCategory} ></Narbar>
         {/* {props.authenticated ? (
         <ProductUserWatch  authenticated={props.authenticated}></ProductUserWatch>

@@ -31,10 +31,6 @@ function Narbar(props) {
 
             <div className="section section-navbars">
                 <Container id="menu-dropdown">
-                    {/* <div className="title">
-                        <h3></h3>
-                    </div> */}
-                    <br />
                     <Row>
                         <Col md="3">
                             <CategoryList lstCategory={props.lstCategory}></CategoryList>

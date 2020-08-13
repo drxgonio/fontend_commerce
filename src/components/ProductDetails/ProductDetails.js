@@ -167,6 +167,13 @@ function ProductDetails(props) {
   React.useEffect(() => {
     window.scrollTo(0, 0)
   }, []);
+  const cardStyle = {
+    fontFamily: '"Times New Roman", Georgia, Serif',
+    fontSize: '1rem',
+    fontWeight: 2,
+    letterSpacing: '-0.01562em',
+    lineHeight: 1
+  };
   return (
     <>
 
@@ -175,9 +182,8 @@ function ProductDetails(props) {
       <div className="section section-navbars pt-100">
         <Container >
           <div className="title">
-            <h3>Sản phẩm: {props.match.params.name} </h3>
+            <h3>Sản phẩm:</h3>
           </div>
-          <br />
           <Row>
             <Col md="1">
               <Row style={well}><img src={product_detail && product_detail.product_details.lstImage[0].name} onClick={() => {
@@ -195,14 +201,13 @@ function ProductDetails(props) {
                 style={{ width: 100, height: 100 }}></img></Row>
 
             </Col>
-            <Col md="4" className="border pr-1 ml-3" style={well}>
+            <Col md="4" className="border pr-1 ml-3" >
               <Row >
-                <img src={img_photo} style={{ width: '100%', height: '100%' }}>
+                <img src={img_photo} style={{ width: 350, height: 300 }}>
                 </img>
               </Row>
 
-              <Row className="text-center"><span className=" m-auto text-center">Rê chuột để phóng to màn hình</span></Row>
-            </Col>
+                  </Col>
             <Col md="6" className="border ml-3">
               <Row><h4 className="pl-3 text-danger">{product_detail && product_detail.name}</h4></Row>
               <Row className="border-bottom"><h6 className="pl-3">Đánh giá: <Icon type="star" theme="twoTone" /><Icon type="star" theme="twoTone" /><Icon type="star" theme="twoTone" /><Icon type="star" /><Icon type="star" /></h6></Row>

@@ -107,7 +107,7 @@ export default function Map_Google(){
                  <MapWrapped
                     googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyARqkWrCsPkd5aKnJSvg6--NnlsH5IhNLg&libraries=places"
                     loadingElement={<div style={{ height: `100%` }} />}
-                    containerElement={<div style={{ height: `400px` }} />}
+                    containerElement={<div style={{ height: `600px` }} />}
                     mapElement={<div style={{ height: `100%` }} />}
                     />
                 </Card>

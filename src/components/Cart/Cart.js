@@ -19,7 +19,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { Input, Icon } from 'antd';
-import NarbarGlobal from "components/Navbars/NarbarGlobal";
+import IndexNavbar from "components/Navbars/IndexNavbar";
 import { ACCESS_TOKEN } from "API/URLMapping";
 const { Search } = Input;
 const ButtonGroup = Button.Group;
@@ -124,7 +124,7 @@ function countTang(row){
   
   return (
     <>
- <NarbarGlobal authenticated={props.authenticated} onLogout={props.onLogout} />
+ <IndexNavbar authenticated={props.authenticated} onLogout={props.onLogout} />
    
       <div className="section section-navbars ">
         <Container >

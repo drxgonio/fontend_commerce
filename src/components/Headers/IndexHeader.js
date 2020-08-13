@@ -3,13 +3,14 @@ import React from "react";
 
 // reactstrap components
 import { Container } from "reactstrap";
-
+import NarbarGlobal from "components/Navbars/NarbarGlobal";
 // core components
 
 function IndexHeader() {
   return (
     <>
-      <div
+   
+      {/* <div
         className="page-header section-dark"
         style={{
           backgroundImage:
@@ -32,7 +33,7 @@ function IndexHeader() {
           }}
         />
         
-      </div>
+      </div> */}
     </>
   );
 }

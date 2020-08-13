@@ -26,7 +26,7 @@ const { Search } = Input;
 
 function IndexNavbar(props) {
   const authen=React.useContext(Context);
-  const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
+  const [navbarColor, setNavbarColor] = React.useState("navbar");
   const [navbarCollapse, setNavbarCollapse] = React.useState(false);
 
   const toggleNavbarCollapse = () => {
@@ -37,15 +37,15 @@ function IndexNavbar(props) {
   React.useEffect(() => {
     const updateNavbarColor = () => {
       if (
-        document.documentElement.scrollTop > 299 ||
-        document.body.scrollTop > 299
+        document.documentElement.scrollTop > 1 ||
+        document.body.scrollTop > 1
       ) {
         setNavbarColor("");
       } else if (
-        document.documentElement.scrollTop < 300 ||
-        document.body.scrollTop < 300
+        document.documentElement.scrollTop < 1 ||
+        document.body.scrollTop < 1
       ) {
-        setNavbarColor("navbar-transparent");
+        // setNavbarColor("navbar-transparent");
       }
     };
 

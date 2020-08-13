@@ -302,18 +302,6 @@ export default function Dashboard() {
           </Row>
 
         </TabPane>
-        <TabPane tab="Số lượng sản phẩm bán ra" key="3">
-          <br></br>
-          <Row>
-            <Col md={6}>
-              <Barchart></Barchart>
-
-            </Col>
-            <Col md={6}>
-              <DoughnutChart></DoughnutChart>
-            </Col>
-          </Row>
-        </TabPane>
       </Tabs>
     </div>
 

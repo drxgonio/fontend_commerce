@@ -26,7 +26,7 @@ import DemoFooter from "components/Footers/DemoFooter.js";
 
 import { Radio, Checkbox } from 'antd';
 
-import NarbarGlobal from "components/Navbars/NarbarGlobal";
+import IndexNavbar from "components/Navbars/IndexNavbar";
 import { ACCESS_TOKEN } from "API/URLMapping";
 import { API_BASE_URL } from "API/URLMapping";
 import Axios from "axios";
@@ -137,6 +137,13 @@ function ProfilePage(props) {
     setvisible(true);
     setdaQr(qrCode);
   }
+  const cardStyle = {
+    fontFamily: '"Times New Roman", Georgia, Serif',
+    fontSize: '1rem',
+    fontWeight: 2,
+    letterSpacing: '-0.01562em',
+    lineHeight: 1
+  };
 
   return (
     <>
@@ -154,15 +161,16 @@ function ProfilePage(props) {
           includeMargin={true}
         />
       </Modal>
-      <NarbarGlobal authenticated={props.authenticated} onLogout={props.onLogout} />
+      <IndexNavbar authenticated={props.authenticated} onLogout={props.onLogout} />
+      <br></br>
       <div className="section section-navbars pt-100">
         <Container >
-          <div className="title">
+          <div className="title" style={cardStyle}>
             <h3>Thông tin tài khoản</h3>
           </div>
           <br />
           <Row>
-            <Col md="3">
+            <Col md="3" style={cardStyle}>
               <Row>
                 <Container>
                   <div className="owner">
@@ -186,7 +194,7 @@ function ProfilePage(props) {
                 value={value}
                 onChange={handleChange}
                 aria-label="Vertical tabs example"
-                className={classes.tabs}
+                className={classes.tabs} 
               >
                 <Tab label="Quản lý đơn hàng" {...a11yProps(0)} />
                 <Tab label="Thông tin tài khoản" {...a11yProps(1)} />
@@ -200,7 +208,7 @@ function ProfilePage(props) {
             </Col>
             <Col md="9">
               <Row>
-                <div className={classes.root}>
+                <div className={classes.root} style={cardStyle}>
 
                   <TabPanel value={value} index={1} style={{ width: '100%', height: 50, opacity: 1 }}>
                     <Row><h3>Thông tin tài khoản </h3></Row>
