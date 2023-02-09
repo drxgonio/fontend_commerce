@@ -18,7 +18,7 @@
 @import 'paper-kit/variables';
 @import 'paper-kit/mixins';
 
-// Plugins CSS
+// // Plugins CSS
 @import "paper-kit/plugins/plugin-bootstrap-switch";
 @import "paper-kit/plugins/plugin-nouislider";
 @import "paper-kit/plugins/plugin-datepicker";
@@ -34,8 +34,8 @@
 @import "paper-kit/misc";
 @import "paper-kit/labels";
 
-// components
-@import "paper-kit/nucleo-icons";
+// // components
+// @import "paper-kit/nucleo-icons";
 @import "paper-kit/social-buttons";
 @import "paper-kit/tabs-navs";
 @import "paper-kit/navbars";
@@ -46,7 +46,7 @@
 @import "paper-kit/modal";
 @import "paper-kit/icons";
 @import "paper-kit/carousel";
-@import "paper-kit/footers";
+ @import "paper-kit/footers";
 
 // Cards
 @import "paper-kit/cards";
@@ -61,5 +61,5 @@
 
 @import "paper-kit/responsive";
 
-// React Differences
+// // React Differences
 @import "react/react-differences.scss"
